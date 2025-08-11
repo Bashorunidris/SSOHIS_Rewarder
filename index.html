@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSOHIS Dinner Night & Award - Nomination System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    
+    <!-- Flutterwave Payment SDK -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <style>
         * {
             margin: 0;
@@ -559,6 +568,31 @@
                 gap: 8px;
             }
         }
+
+        /* Payment Method Selection Styles */
+        input[name="payment-method"]:checked + span {
+            color: #00d4ff !important;
+            font-weight: bold;
+        }
+
+        input[name="payment-method"]:checked {
+            transform: scale(1.2);
+        }
+
+        label:has(input[name="payment-method"]) {
+            transition: all 0.3s ease;
+        }
+
+        label:has(input[name="payment-method"]):hover {
+            border-color: #007bff !important;
+            transform: translateY(-2px);
+        }
+
+        /* For browsers that don't support :has() */
+        .payment-method-selected {
+            border-color: #007bff !important;
+            background: rgba(0, 123, 255, 0.2) !important;
+        }
     </style>
 </head>
 <body>
@@ -696,51 +730,61 @@
                 </small>
             </div>
 
-            <!-- Bank Details Section -->
-            <div class="payment-summary" style="margin-bottom: 25px;">
-                <h3><i class="fas fa-university"></i> Bank Transfer Details (Alternative)</h3>
-                <div class="payment-item">
-                    <span>Bank Name:</span>
-                    <span>First Bank of Nigeria</span>
-                </div>
-                <div class="payment-item">
-                    <span>Account Name:</span>
-                    <span>REWARDER HUB</span>
-                </div>
-                <div class="payment-item">
-                    <span>Account Number:</span>
-                    <span>3052847362</span>
-                </div>
-                <div class="payment-item">
-                    <span>Transfer Amount:</span>
-                    <span>₦<span id="transferAmount">1,250</span>.00</span>
+            <!-- Payment Method Selection -->
+            <div class="form-group">
+                <label><i class="fas fa-credit-card"></i> Payment Method</label>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; cursor: pointer; background: rgba(0, 123, 255, 0.1); padding: 15px; border-radius: 8px; border: 2px solid transparent; transition: all 0.3s ease;">
+                        <input type="radio" name="payment-method" value="flutterwave" style="margin-right: 8px;" onchange="togglePaymentFields()">
+                        <span><i class="fas fa-mobile-alt"></i> Online Payment - ₦<span id="flutterwaveAmount">100</span></span>
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer; background: rgba(0, 123, 255, 0.1); padding: 15px; border-radius: 8px; border: 2px solid transparent; transition: all 0.3s ease;">
+                        <input type="radio" name="payment-method" value="banktransfer" style="margin-right: 8px;" onchange="togglePaymentFields()">
+                        <span><i class="fas fa-university"></i> Bank Transfer - ₦<span id="bankTransferAmount">300</span></span>
+                    </label>
                 </div>
             </div>
 
-            <!-- Screenshot Upload Section -->
-            <div class="payment-summary" style="margin-bottom: 25px;">
-                <h3><i class="fas fa-camera"></i> Payment Verification <span style="color: #ff6b6b;">*REQUIRED*</span></h3>
-                <p style="font-size: 14px; opacity: 0.8; margin-bottom: 15px;">
-                    <strong>MANDATORY:</strong> Upload screenshot of your bank transfer confirmation
-                </p>
+            <!-- Bank Transfer Details (show only when bank transfer is selected) -->
+            <div id="bankTransferSection" style="display: none;">
+                <div class="payment-summary">
+                    <h3><i class="fas fa-university"></i> Bank Transfer Details</h3>
+                    <div class="payment-item">
+                        <span>Bank Name:</span>
+                        <span>First Bank of Nigeria</span>
+                    </div>
+                    <div class="payment-item">
+                        <span>Account Name:</span>
+                        <span>REWARDER HUB</span>
+                    </div>
+                    <div class="payment-item">
+                        <span>Account Number:</span>
+                        <span>3052847362</span>
+                    </div>
+                    <div class="payment-item">
+                        <span>Amount to Transfer:</span>
+                        <span>₦<span id="bankTransferAmount2">300</span></span>
+                    </div>
+                </div>
+                
                 <div class="form-group">
-                    <label>Payment Screenshot <span style="color: #ff6b6b;">*</span></label>
+                    <label for="paymentScreenshot"><i class="fas fa-camera"></i> Payment Screenshot *</label>
                     <div class="file-upload-wrapper">
-                        <input type="file" id="paymentScreenshot" class="file-upload" accept="image/*" required>
+                        <input type="file" id="paymentScreenshot" class="file-upload" accept="image/*" onchange="handleScreenshotPreview(event)">
                         <div class="file-upload-btn">
                             <i class="fas fa-camera"></i>
-                            Upload Payment Screenshot (REQUIRED)
+                            Upload Payment Screenshot
                         </div>
                     </div>
                     <div id="screenshotPreview"></div>
                     <small style="color: #ffc107; font-size: 12px;">
-                        <i class="fas fa-exclamation-triangle"></i> You must upload payment proof to complete nomination
+                        <i class="fas fa-info-circle"></i> Required for bank transfer verification
                     </small>
                 </div>
             </div>
 
-            <button id="proceedToPayment" class="btn">
-                <i class="fas fa-check"></i> Submit Nomination
+            <button id="proceedToPayment" class="btn" onclick="handlePayment()">
+                <i class="fas fa-credit-card"></i> <span id="paymentButtonText">Select Payment Method</span>
             </button>
         </div>
 
@@ -1311,29 +1355,16 @@
                 return;
             }
 
-            try {
-                showLoading(true);
-                
-                // Try to sign in first
-                try {
-                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                    currentUser = userCredential.user;
-                } catch (signInError) {
-                    // If sign in fails, create new account
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    currentUser = userCredential.user;
-                }
-
-                authSection.style.display = 'none';
-                categoriesSection.style.display = 'block';
-                updateStepIndicator(2);
-                showAlert('Welcome! Please select categories to nominate yourself for.', 'success');
-                
-            } catch (error) {
-                showAlert('Authentication error: ' + error.message, 'error');
-            } finally {
-                showLoading(false);
-            }
+            // SKIP AUTHENTICATION - GO STRAIGHT TO CATEGORIES
+            currentUser = { 
+                uid: 'user_' + Date.now(),
+                email: email 
+            };
+            
+            authSection.style.display = 'none';
+            categoriesSection.style.display = 'block';
+            updateStepIndicator(2);
+            showAlert('Welcome! Please select categories to nominate yourself for.', 'success');
         }
 
         function showVoterDetails() {
@@ -1360,13 +1391,16 @@
 
         function updatePaymentAmount() {
             const categoryCount = Object.keys(selectedVotes).length;
-            const subtotal = categoryCount * 1000;
-            const total = subtotal + 150 + 100; // service + processing fees
+            const subtotal = categoryCount * 50;  // ₦50 per category
+            
+            // Different pricing for different payment methods
+            const bankTransferTotal = subtotal + 250; // ₦1250 total (unchanged)
+            const flutterwaveTotal = 100;  // ₦100 total (flat rate)
             
             document.getElementById('categoryCount').textContent = categoryCount;
             document.getElementById('subtotalAmount').textContent = subtotal.toLocaleString();
-            document.getElementById('totalAmount').textContent = total.toLocaleString();
-            document.getElementById('transferAmount').textContent = total.toLocaleString();
+            document.getElementById('bankTransferAmount').textContent = bankTransferTotal.toLocaleString();
+            document.getElementById('flutterwaveAmount').textContent = flutterwaveTotal.toLocaleString();
         }
 
         function handleImagePreview(e) {
@@ -1396,117 +1430,194 @@
         }
 
         async function handlePayment() {
-            // Simple validation
+            // Get form data
             const name = document.getElementById('voterName').value.trim();
             const imageFile = document.getElementById('voterImage').files[0];
-            const screenshotFile = document.getElementById('paymentScreenshot').files[0];
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked')?.value;
             
-            if (!name) {
-                showAlert('Name is required!', 'error');
-                return;
-            }
-            if (!imageFile) {
-                showAlert('Profile image is required!', 'error');
-                return;
-            }
-            if (!screenshotFile) {
-                showAlert('Payment screenshot is required!', 'error');
+            // Basic validation
+            if (!name || !imageFile || !paymentMethod) {
+                showAlert('Please fill all required fields!', 'error');
                 return;
             }
 
+            if (paymentMethod === 'flutterwave') {
+                // Process Flutterwave payment
+                processFlutterwavePayment(name, imageFile);
+            } else if (paymentMethod === 'banktransfer') {
+                // Process bank transfer
+                const screenshotFile = document.getElementById('paymentScreenshot').files[0];
+                if (!screenshotFile) {
+                    showAlert('Payment screenshot is required for bank transfer!', 'error');
+                    return;
+                }
+                processBankTransferPayment(name, imageFile, screenshotFile);
+            }
+        }
+
+        // Flutterwave Payment Process
+        async function processFlutterwavePayment(name, imageFile) {
+            const categoryCount = Object.keys(selectedVotes).length;
+            const total = 100; // ₦100 flat rate
+
+            const paymentData = {
+                public_key: "FLWPUBK-d3902fdb2f80f41ada9c077eb569466a-X",
+                tx_ref: `ssohis_nomination_${Date.now()}`,
+                amount: total,
+                currency: "NGN",
+                country: "NG",
+                payment_options: "card,ussd,banktransfer,mobilemoney",
+                customer: {
+                    email: currentUser?.email || document.getElementById('userEmail').value,
+                    phone_number: "",
+                    name: name
+                },
+                customizations: {
+                    title: "SSOHIS Nominations - Rewarder",
+                    description: `Nomination payment for ${categoryCount} categories`,
+                    logo: "https://i.ibb.co/VpC27tbt/Rewarder-logo.png"
+                },
+                callback: async (response) => {
+                    if (response.status === "successful" || response.status === "completed") {
+                        try {
+                            showLoading(true, 'Saving nomination...', 'Payment successful, saving data...');
+                            await saveNominationData(name, imageFile, null, 'flutterwave', 'success', response.transaction_id);
+                            showLoading(false);
+                            showAlert('🎉 Payment successful! Nomination saved.', 'success');
+                            setTimeout(() => location.reload(), 2000);
+                        } catch (error) {
+                            showLoading(false);
+                            showAlert('Payment successful but error saving data: ' + error.message, 'error');
+                        }
+                    } else {
+                        showAlert('Payment failed. Please try again.', 'error');
+                    }
+                },
+                onclose: () => console.log('Payment modal closed')
+            };
+
+            // Launch Flutterwave
+            if (typeof FlutterwaveCheckout !== 'undefined') {
+                FlutterwaveCheckout(paymentData);
+            } else {
+                showAlert('Payment system not available. Please try again later.', 'error');
+            }
+        }
+
+        // Bank Transfer Payment Process
+        async function processBankTransferPayment(name, imageFile, screenshotFile) {
+            showLoading(true, 'Saving nomination...', 'Processing bank transfer...');
+            
             try {
-                showLoading(true, 'Submitting nomination...', 'Uploading images and saving data...');
-                
-                // Prepare data quickly
-                await prepareVoterData();
-                
-                // Save directly to Firebase
-                await processNominationSubmission('manual_transfer_' + Date.now());
-                
+                await saveNominationData(name, imageFile, screenshotFile, 'banktransfer', 'pending', 'manual_transfer_' + Date.now());
                 showLoading(false);
-                showAlert('🎉 Nomination submitted successfully! We will verify your payment and confirm soon.', 'success');
-                
-                setTimeout(() => location.reload(), 3000);
-                
+                showAlert('✅ Nomination submitted! We will verify your payment and confirm soon.', 'success');
+                setTimeout(() => location.reload(), 2000);
             } catch (error) {
                 showLoading(false);
-                showAlert(`Error: ${error.message}`, 'error');
+                showAlert('Error: ' + error.message, 'error');
             }
         }
 
-        async function prepareVoterData() {
-            const name = document.getElementById('voterName').value;
-            const imageFile = document.getElementById('voterImage').files[0];
-            const screenshotFile = document.getElementById('paymentScreenshot').files[0];
+        // Enhanced image upload function
+        async function uploadImage(file, folder) {
+            console.log(`📁 Uploading to ${folder}:`, file.name, `(${(file.size/1024/1024).toFixed(2)}MB)`);
             
-            // Upload profile image quickly
-            const imageRef = storage.ref(`profiles/${Date.now()}_${imageFile.name}`);
-            const imageSnapshot = await imageRef.put(imageFile);
-            const imageUrl = await imageSnapshot.ref.getDownloadURL();
-
-            // Upload screenshot
-            const screenshotRef = storage.ref(`screenshots/${Date.now()}_${screenshotFile.name}`);
-            const screenshotSnapshot = await screenshotRef.put(screenshotFile);
-            const screenshotUrl = await screenshotSnapshot.ref.getDownloadURL();
-
-            const categoryCount = Object.keys(selectedVotes).length;
-            const total = (categoryCount * 1000) + 250;
-
-            voterData = {
-                userId: currentUser.uid,
-                email: currentUser.email,
-                voterName: name,
-                profileImageUrl: imageUrl,
-                paymentScreenshotUrl: screenshotUrl,
-                votes: selectedVotes,
-                categoryCount: categoryCount,
-                totalAmount: total,
-                paymentMethod: 'bank_transfer',
-                paymentStatus: 'pending_verification',
-                bankDetails: {
-                    bankName: "First Bank of Nigeria",
-                    accountName: "REWARDER HUB",
-                    accountNumber: "3052847362"
-                },
-                eventName: "SSOHIS DINNER NIGHT & AWARD",
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            };
+            const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}_${file.name}`;
+            const storageRef = storage.ref(`ssohis_nominations/${folder}/${fileName}`);
+            
+            try {
+                // Upload file
+                const uploadTask = storageRef.put(file);
+                
+                // Wait for upload to complete
+                const snapshot = await uploadTask;
+                console.log(`✅ Upload completed:`, snapshot.metadata.name);
+                
+                // Get download URL
+                const downloadURL = await snapshot.ref.getDownloadURL();
+                console.log(`🔗 Download URL:`, downloadURL);
+                
+                return downloadURL;
+            } catch (error) {
+                console.error(`❌ Upload failed for ${folder}:`, error);
+                throw new Error(`Failed to upload ${folder} image: ${error.message}`);
+            }
         }
 
-        async function processNominationSubmission(transactionId) {
+        // Universal save function for both payment methods
+        async function saveNominationData(voterName, profileImageFile, screenshotFile, paymentMethod, status, transactionId) {
             try {
-                // Save to physicalEvents collection (same as your index.html method)
+                let profileImageUrl = null;
+                let screenshotUrl = null;
+                
+                // Upload profile image (required for both methods)
+                if (profileImageFile) {
+                    profileImageUrl = await uploadImage(profileImageFile, 'profiles');
+                }
+                
+                // Upload screenshot (only for bank transfer)
+                if (screenshotFile && paymentMethod === 'banktransfer') {
+                    screenshotUrl = await uploadImage(screenshotFile, 'screenshots');
+                }
+                
+                const categoryCount = Object.keys(selectedVotes).length;
+                const total = paymentMethod === 'flutterwave' ? 
+                    100 : // ₦100 for Flutterwave (flat rate)
+                    (categoryCount * 50) + 250;  // ₦300 for bank transfer (₦50 per category + ₦250 fee)
+
                 const nominationData = {
+                    // Event Information
                     eventName: "SSOHIS DINNER NIGHT & AWARD - NOMINATIONS",
                     eventType: "nomination",
                     eventDate: new Date().toISOString(),
-                    purchaserEmail: currentUser.email,
-                    purchaserName: voterData.voterName,
-                    purchaseDate: firebase.firestore.FieldValue.serverTimestamp(),
+                    
+                    // User Information
+                    userId: currentUser?.uid || 'anonymous',
+                    email: currentUser?.email || document.getElementById('userEmail').value,
+                    voterName: voterName,
+                    
+                    // File URLs
+                    profileImageUrl: profileImageUrl,
+                    paymentScreenshotUrl: screenshotUrl, // null for Flutterwave
+                    
+                    // Transaction Details
                     transactionId: transactionId,
-                    paymentMethod: "bank_transfer",
-                    paymentStatus: "pending_verification",
-                    totalAmount: voterData.totalAmount,
+                    paymentMethod: paymentMethod, // 'flutterwave' or 'banktransfer'
+                    paymentStatus: status, // 'success' or 'pending'
+                    totalAmount: total,
+                    categoryCount: categoryCount,
                     
-                    // Nomination specific data
-                    nominations: voterData.votes,
-                    categoryCount: voterData.categoryCount,
-                    profileImageUrl: voterData.profileImageUrl,
-                    paymentScreenshotUrl: voterData.paymentScreenshotUrl,
+                    // Nomination Data
+                    nominations: selectedVotes,
+                    nominationCount: categoryCount,
                     
-                    // Bank details
-                    bankDetails: voterData.bankDetails,
+                    // Bank Details (for reference)
+                    bankDetails: {
+                        bankName: "First Bank of Nigeria",
+                        accountName: "REWARDER HUB",
+                        accountNumber: "3052847362"
+                    },
                     
-                    status: "active"
+                    // Timestamps
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    
+                    // Status
+                    status: status // 'success' for Flutterwave, 'pending' for bank transfer
                 };
 
-                // Save to physicalEvents collection
-                await db.collection('physicalEvents').add(nominationData);
+                // Save to ssohisnomination collection
+                const docRef = await db.collection('ssohisnomination').add(nominationData);
+                console.log('✅ Nomination saved with ID:', docRef.id);
                 
+                return docRef.id;
             } catch (error) {
-                throw new Error(error.message || 'Failed to save nomination');
+                console.error('❌ Save failed:', error);
+                throw new Error(`Failed to save nomination: ${error.message}`);
             }
         }
+
+        // Removed old functions - using simplified versions above
 
         function validateVoterForm() {
             const name = document.getElementById('voterName').value.trim();
@@ -1557,10 +1668,16 @@
         }
 
         function showLoading(show, message = 'Processing your nominations...', details = 'Please wait while we process your submission') {
-            loadingScreen.style.display = show ? 'block' : 'none';
+            const loadingScreen = document.getElementById('loadingScreen');
+            
             if (show) {
+                console.log('🔄 Showing loading:', message);
+                loadingScreen.style.display = 'block';
                 document.getElementById('loadingMessage').textContent = message;
                 document.getElementById('loadingDetails').textContent = details;
+            } else {
+                console.log('✅ Hiding loading screen');
+                loadingScreen.style.display = 'none';
             }
         }
 
@@ -1595,9 +1712,62 @@
             }
         }
 
+        // Quick test function
+        async function quickTest() {
+            try {
+                console.log('🧪 Testing Firebase...');
+                showAlert('Testing Firebase connection...', 'warning');
+                
+                // Test Firestore write
+                await db.collection('ssohisnomination').add({
+                    test: true,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showAlert('✅ Firebase test successful! Ready to save nominations.', 'success');
+                console.log('✅ Firebase test passed');
+            } catch (error) {
+                showAlert(`❌ Firebase test failed: ${error.message}`, 'error');
+                console.error('❌ Firebase test failed:', error);
+            }
+        }
+
+        // Payment method toggle function
+        function togglePaymentFields() {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked');
+            const bankSection = document.getElementById('bankTransferSection');
+            const buttonText = document.getElementById('paymentButtonText');
+            
+            if (selectedMethod && selectedMethod.value === 'banktransfer') {
+                bankSection.style.display = 'block';
+                buttonText.textContent = 'Submit Bank Transfer';
+            } else if (selectedMethod && selectedMethod.value === 'flutterwave') {
+                bankSection.style.display = 'none';
+                buttonText.textContent = 'Pay with Flutterwave';
+            } else {
+                bankSection.style.display = 'none';
+                buttonText.textContent = 'Select Payment Method';
+            }
+            
+            // Update payment amounts when method changes
+            updatePaymentAmount();
+        }
+
         // Add to window for debugging
         window.debugNominationSystem = debugNominationSystem;
         window.testFirebaseConnection = testFirebaseConnection;
+        window.quickTest = quickTest;
+        
+        // Auto-test Firebase on page load (disabled to prevent conflicts)
+        // Uncomment if you want to test Firebase connection automatically
+        /*
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                console.log('🔥 Auto-testing Firebase connection...');
+                quickTest();
+            }, 2000);
+        });
+        */
     </script>
 </body>
 </html>
