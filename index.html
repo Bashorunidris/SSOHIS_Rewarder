@@ -66,6 +66,95 @@
             }
         }
 
+        /* Scroll Down Button */
+        .scroll-down {
+            position: fixed;
+            bottom: 140px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: block;
+            z-index: 1000;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .scroll-down:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Success Pop-up Modal */
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .success-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 20px 60px rgba(0, 123, 255, 0.4);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .success-title {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .success-message {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .success-comeback {
+            font-size: 1.3rem;
+            color: #ffc107;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -129,7 +218,7 @@
             display: flex;
             gap: 20px;
             animation: autoScroll 15s linear infinite;
-            width: calc(380px * 6); /* Width for all banners + duplicates */
+            width: calc(380px * 6);
         }
 
         @keyframes autoScroll {
@@ -311,6 +400,104 @@
 
         .auth-toggle .btn {
             min-width: 140px;
+        }
+
+        /* Social Auth Buttons */
+        .social-auth-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .social-auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            opacity: 0.6;
+        }
+
+        .social-auth-divider::before,
+        .social-auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .social-auth-divider span {
+            margin: 0 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .social-auth-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .social-btn.google {
+            border-color: rgba(234, 67, 53, 0.5);
+            background: rgba(234, 67, 53, 0.1);
+        }
+
+        .social-btn.google:hover {
+            border-color: #ea4335;
+            background: rgba(234, 67, 53, 0.2);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.3);
+        }
+
+        .social-btn.apple {
+            border-color: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn.apple:hover {
+            border-color: #000;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn i {
+            font-size: 20px;
+        }
+
+        .social-btn.google i {
+            color: #ea4335;
+        }
+
+        .social-btn.apple i {
+            color: #000;
+        }
+
+        .social-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* Category Selection */
@@ -773,6 +960,15 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .social-auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-btn {
+                min-width: 250px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -799,6 +995,11 @@
             <i class="fas fa-chevron-up"></i>
         </button>
 
+        <!-- Scroll Down Button -->
+        <button class="scroll-down" id="scrollDown" onclick="scrollDown()">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+
         <!-- Auth Status Indicator -->
         <div id="authStatus" class="auth-status">
             <i class="fas fa-user"></i> <span id="authStatusText">Checking authentication...</span>
@@ -819,7 +1020,6 @@
         <!-- Auto-scrolling Banner Section -->
         <div class="banner-section">
             <div class="banner-carousel">
-                <!-- Original banners -->
                 <div class="banner-item">
                     <img src="https://i.ibb.co/5hrNmSgM/Fast-Withdrawal-s-20250806-044026-0000.png" alt="Event Banner 1" />
                 </div>
@@ -829,7 +1029,6 @@
                 <div class="banner-item">
                     <img src="https://i.ibb.co/tpNVMDrZ/Fast-Withdrawal-s-20250806-044937-0000.png" alt="Event Banner 3" />
                 </div>
-                <!-- Duplicate banners for seamless loop -->
                 <div class="banner-item">
                     <img src="https://i.ibb.co/5hrNmSgM/Fast-Withdrawal-s-20250806-044026-0000.png" alt="Event Banner 1" />
                 </div>
@@ -865,6 +1064,25 @@
         <!-- Registration/Login Section -->
         <div id="registrationSection" class="section">
             <h2 id="authTitle"><i class="fas fa-user-plus"></i> Create Account</h2>
+            
+            <!-- Social Authentication Section -->
+            <div class="social-auth-section">
+                <h3 style="color: #00d4ff; margin-bottom: 20px; font-size: 1.3rem;">Quick Sign Up</h3>
+                <div class="social-auth-buttons">
+                    <button class="social-btn google" onclick="signInWithGoogle()">
+                        <i class="fab fa-google"></i>
+                        Continue with Google
+                    </button>
+                    <button class="social-btn apple" onclick="signInWithApple()">
+                        <i class="fab fa-apple"></i>
+                        Continue with Apple
+                    </button>
+                </div>
+                
+                <div class="social-auth-divider">
+                    <span>or use email</span>
+                </div>
+            </div>
             
             <!-- Auth Mode Toggle -->
             <div class="auth-toggle">
@@ -982,7 +1200,7 @@
                     <span>6110747164</span>
                 </div>
                 <div class="payment-item">
-                   <button class="eventphy-modal-btn eventphy-primary-btn" onclick="redirectToEventphySignUp()">
+                   <button class="btn" onclick="redirectToRewarder()">
                             <i class="fas fa-external-link-alt"></i> Sign Up for Rewarder
                         </button> <span>To Create and sell your event tickets  </span>
                 </div>
@@ -1035,7 +1253,7 @@
                     <span>₦<span id="totalAmount">1,250</span></span>
                 </div>
                  <div class="payment-item">
-                   <button class="eventphy-modal-btn eventphy-primary-btn" onclick="redirectToEventphySignUp()">
+                   <button class="btn" onclick="redirectToRewarder()">
                             <i class="fas fa-external-link-alt"></i> Sign Up for Rewarder
                         </button> 
                         <span>To Get your Party Insurance ticket</span>
@@ -1056,6 +1274,25 @@
         <!-- Fixed Selection Counter -->
         <div id="fixedCounter" class="fixed-counter">
             Categories: <span id="fixedSelectedCount">0</span>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="success-modal">
+            <div class="success-modal-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="success-title">Nomination Submitted!</h3>
+                <p class="success-message" id="successMessage">
+                    Your nomination has been successfully submitted and saved to our database.
+                </p>
+                <div class="success-comeback">
+                    🎉 Come back again when you win the voting rounds! 🏆
+                </div>
+                <button class="btn btn-success" onclick="closeSuccessModal()">
+                    <i class="fas fa-home"></i> Continue
+                </button>
+            </div>
         </div>
 
         <!-- Powered By -->
@@ -1089,10 +1326,20 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
 
+        // Set up Google provider
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        googleProvider.addScope('email');
+        googleProvider.addScope('profile');
+
+        // Set up Apple provider
+        const appleProvider = new firebase.auth.OAuthProvider('apple.com');
+        appleProvider.addScope('email');
+        appleProvider.addScope('name');
+
         // Set Firebase Auth Persistence
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(() => {
-                console.log('🔐 Firebase auth persistence set to LOCAL - users will stay logged in');
+                console.log('🔐 Firebase auth persistence set to LOCAL');
             })
             .catch((error) => {
                 console.error('❌ Error setting auth persistence:', error);
@@ -1114,7 +1361,7 @@
                     registrationSection.style.display = 'none';
                     categorySection.style.display = 'block';
                     updateProgressSteps(2);
-                    showAlert('✅ Welcome back! You\'re already logged in.', 'success');
+                    showAlert('✅ Welcome! You\'re already logged in.', 'success');
                 }
             } else {
                 console.log('❌ User is not authenticated');
@@ -1479,22 +1726,32 @@
 
         // Initialize Application
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 App initialized, waiting for Firebase auth state...');
+            console.log('🚀 App initialized');
             setupEventListeners();
             renderCategories();
             setAuthMode('signup');
             initScrollToTop();
         });
 
-        // Scroll to Top Functionality
+        // Scroll Functions
         function initScrollToTop() {
-            const scrollBtn = document.getElementById('scrollToTop');
+            const scrollUpBtn = document.getElementById('scrollToTop');
+            const scrollDownBtn = document.getElementById('scrollDown');
             
             window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    scrollBtn.classList.add('show');
+                const scrollPosition = window.pageYOffset;
+                const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+                
+                if (scrollPosition > 300) {
+                    scrollUpBtn.classList.add('show');
                 } else {
-                    scrollBtn.classList.remove('show');
+                    scrollUpBtn.classList.remove('show');
+                }
+                
+                if (scrollPosition >= documentHeight - 100) {
+                    scrollDownBtn.style.display = 'none';
+                } else {
+                    scrollDownBtn.style.display = 'block';
                 }
             });
         }
@@ -1506,12 +1763,106 @@
             });
         }
 
+        function scrollDown() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // Success Modal Functions
+        function showSuccessModal(message, documentId, totalAmount) {
+            const modal = document.getElementById('successModal');
+            const messageElement = document.getElementById('successMessage');
+            
+            messageElement.innerHTML = `
+                Document ID: ${documentId}<br>
+                Total Amount: ₦${totalAmount.toLocaleString()}<br><br>
+                ${message}
+            `;
+            
+            modal.style.display = 'block';
+            
+            setTimeout(() => {
+                closeSuccessModal();
+            }, 10000);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            location.reload();
+        }
+
         function setupEventListeners() {
             document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
             document.getElementById('proceedToDetails').addEventListener('click', showDetailsSection);
             document.getElementById('proceedToPayment').addEventListener('click', handleSubmission);
             document.getElementById('nomineeImage').addEventListener('change', handleImagePreview);
             document.getElementById('paymentScreenshot').addEventListener('change', handleScreenshotPreview);
+        }
+
+        // Google Sign-In
+        async function signInWithGoogle() {
+            try {
+                showLoading(true);
+                console.log('🔄 Attempting Google sign-in...');
+                
+                const result = await auth.signInWithPopup(googleProvider);
+                currentUser = result.user;
+                
+                console.log('✅ Google sign-in successful:', currentUser.email);
+                showAlert('🎉 Google sign-in successful! Welcome to SSOHIS nomination.', 'success');
+                
+                // User will be moved to categories by auth state listener
+                
+            } catch (error) {
+                console.error('❌ Google sign-in failed:', error);
+                
+                let errorMessage = 'Google sign-in failed: ';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    errorMessage = 'Google sign-in was cancelled.';
+                } else if (error.code === 'auth/popup-blocked') {
+                    errorMessage = 'Please allow popups for Google sign-in.';
+                } else {
+                    errorMessage += error.message;
+                }
+                
+                showAlert(errorMessage, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Apple Sign-In
+        async function signInWithApple() {
+            try {
+                showLoading(true);
+                console.log('🔄 Attempting Apple sign-in...');
+                
+                const result = await auth.signInWithPopup(appleProvider);
+                currentUser = result.user;
+                
+                console.log('✅ Apple sign-in successful:', currentUser.email);
+                showAlert('🍎 Apple sign-in successful! Welcome to SSOHIS nomination.', 'success');
+                
+                // User will be moved to categories by auth state listener
+                
+            } catch (error) {
+                console.error('❌ Apple sign-in failed:', error);
+                
+                let errorMessage = 'Apple sign-in failed: ';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    errorMessage = 'Apple sign-in was cancelled.';
+                } else if (error.code === 'auth/popup-blocked') {
+                    errorMessage = 'Please allow popups for Apple sign-in.';
+                } else {
+                    errorMessage += error.message;
+                }
+                
+                showAlert(errorMessage, 'error');
+            } finally {
+                showLoading(false);
+            }
         }
 
         // Set Authentication Mode
@@ -1565,7 +1916,7 @@
             });
         }
 
-        // Registration Handler
+        // Email/Password Registration Handler
         async function handleRegistration(e) {
             e.preventDefault();
             console.log(`🚀 Starting ${isSignUpMode ? 'sign up' : 'login'} process...`);
@@ -1658,15 +2009,17 @@
                 const nomineeItems = categoryCard.querySelectorAll('.nominee-item');
                 nomineeItems.forEach(item => {
                     item.addEventListener('click', function(e) {
-                        const radio = item.querySelector('input[type="radio"]');
-                        const categoryId = radio.name;
-                        const nomineeIndex = parseInt(radio.value);
-                        
-                        // Check if already selected - if so, unselect
-                        if (radio.checked) {
-                            unselectNominee(categoryId, item);
-                        } else {
-                            selectNominee(categoryId, nomineeIndex, item);
+                        if (e.target.type !== 'radio') {
+                            const radio = item.querySelector('input[type="radio"]');
+                            const categoryId = radio.name;
+                            const nomineeIndex = parseInt(radio.value);
+                            
+                            // Check if already selected - unselect
+                            if (radio.checked) {
+                                unselectNominee(categoryId, item);
+                            } else {
+                                selectNominee(categoryId, nomineeIndex, item);
+                            }
                         }
                     });
                 });
@@ -1680,19 +2033,17 @@
             const nominee = nominationCategories[categoryId].nominees[nomineeIndex];
             const radio = nomineeItem.querySelector('input[type="radio"]');
             
-            // If multiple selection is disabled, clear all other selections
+            // If multiple selection disabled, clear others
             if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
-                clearAllSelections(false); // Don't show alert
+                clearAllSelections(false);
             }
             
-            // Add current selection
             selectedNominations[categoryId] = {
                 nominee: nominee.name,
                 category: nominationCategories[categoryId].name,
                 nomineeIndex: nomineeIndex
             };
 
-            // Update UI
             radio.checked = true;
             nomineeItem.classList.add('selected');
             
@@ -1709,11 +2060,10 @@
             console.log(`Selected: ${categoryId} - ${nominee.name}`);
         }
 
-        // Unselect Nominee Function
+        // Unselect Nominee Function (no notification)
         function unselectNominee(categoryId, nomineeItem) {
             const radio = nomineeItem.querySelector('input[type="radio"]');
             
-            // Remove selection
             delete selectedNominations[categoryId];
             radio.checked = false;
             nomineeItem.classList.remove('selected');
@@ -1722,7 +2072,6 @@
             updatePaymentCalculation();
             updateSelectedCategoriesSummary();
             
-            showAlert(`Unselected from ${nominationCategories[categoryId].name}`, 'info');
             console.log(`Unselected: ${categoryId}`);
         }
 
@@ -1730,7 +2079,6 @@
         function clearAllSelections(showAlert = true) {
             selectedNominations = {};
             
-            // Clear all radio buttons and visual selections
             document.querySelectorAll('.nominee-item').forEach(item => {
                 item.classList.remove('selected');
                 item.querySelector('input[type="radio"]').checked = false;
@@ -1762,16 +2110,13 @@
                 btn.classList.add('btn-secondary');
                 text.textContent = 'Single category mode';
                 
-                // Keep only the first selection
                 const keys = Object.keys(selectedNominations);
                 if (keys.length > 1) {
                     const firstKey = keys[0];
                     const firstSelection = selectedNominations[firstKey];
                     
-                    // Clear all
                     clearAllSelections(false);
                     
-                    // Restore first
                     selectedNominations = { [firstKey]: firstSelection };
                     const firstItem = document.querySelector(`[data-category="${firstKey}"][data-nominee="${firstSelection.nomineeIndex}"]`);
                     if (firstItem) {
@@ -1800,12 +2145,12 @@
                 counter.style.display = 'block';
                 fixedCounter.style.display = 'block';
                 proceedBtn.style.display = 'block';
-                clearBtn.style.display = 'inline-flex';
+                if (clearBtn) clearBtn.style.display = 'inline-flex';
             } else {
                 counter.style.display = 'none';
                 fixedCounter.style.display = 'none';
                 proceedBtn.style.display = 'none';
-                clearBtn.style.display = 'none';
+                if (clearBtn) clearBtn.style.display = 'none';
             }
         }
 
@@ -1928,6 +2273,7 @@
                     nomineeName: name,
                     email: currentUser.email,
                     userId: currentUser.uid,
+                    authMethod: currentUser.providerData[0]?.providerId || 'email',
                     selectedNominations: selectedNominations,
                     profileImageBase64: profileImageBase64,
                     paymentScreenshotBase64: paymentScreenshotBase64,
@@ -1946,21 +2292,21 @@
                     status: 'submitted'
                 };
 
-                console.log('💾 Saving to ssohisnomination collection...');
+                console.log('💾 Saving to app_reviews collection...');
                 
-                const docRef = await db.collection('ssohisnomination').add(docData);
+                const docRef = await db.collection('app_reviews').add(docData);
                 console.log('✅ Saved with document ID:', docRef.id);
                 
                 showLoading(false);
                 
-                // Show success message with custom text
-                showAlert(`🎉 Nomination submitted successfully! Document ID: ${docRef.id}. Total: ₦${totalAmount.toLocaleString()}. Come back again when you win the voting rounds!`, 'success');
+                // Show success modal
+                showSuccessModal(
+                    'Your nomination has been successfully submitted and saved to our database.',
+                    docRef.id,
+                    totalAmount
+                );
                 
                 updateProgressSteps(4);
-                
-                setTimeout(() => {
-                    location.reload();
-                }, 8000);
                 
             } catch (error) {
                 console.error('❌ Submission failed:', error);
@@ -1969,12 +2315,11 @@
             }
         }
 
-        // Redirect function
-        function redirectToEventphySignUp() {
-            window.open('https://eventphy.com/signup', '_blank');
+        // Utility Functions
+        function redirectToRewarder() {
+            window.open('https://rewarder.com.ng', '_blank');
         }
 
-        // Show Alert
         function showAlert(message, type) {
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert alert-${type}`;
@@ -1982,15 +2327,13 @@
             
             document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
             
-            // Auto-scroll to top to show alert
             scrollToTop();
             
             setTimeout(() => {
                 alertDiv.remove();
-            }, 10000);
+            }, 8000);
         }
 
-        // Show Loading
         function showLoading(show) {
             loadingScreen.style.display = show ? 'block' : 'none';
         }
