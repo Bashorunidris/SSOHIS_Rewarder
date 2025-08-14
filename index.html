@@ -1076,338 +1076,524 @@
             }
         });
 
-        // Categories with nominees and vote counts
-        const nominationCategories = {
-            'fresher_male': {
-                name: 'Fresher of the Year (Male)',
-                nominees: [
-                    { name: 'Nifemi', votes: 12 },
-                    { name: 'Stixx', votes: 9 },
-                    { name: 'Tr6kt', votes: 4 }
-                ]
-            },
-            'fresher_female': {
-                name: 'Fresher of the Year (Female)',
-                nominees: [
-                    { name: 'Nimi', votes: 16 },
-                    { name: 'Kayo', votes: 13 },
-                    { name: 'Ademola Halimah', votes: 6 }
-                ]
-            },
-            'staylite_male': {
-                name: 'Staylite of the Year (Male)',
-                nominees: [
-                    { name: 'Hamzat', votes: 74 },
-                    { name: 'Bami', votes: 52 },
-                    { name: 'Laz3r', votes: 10 }
-                ]
-            },
-            'staylite_female': {
-                name: 'Staylite of the Year (Female)',
-                nominees: [
-                    { name: 'Aliyat Monisola', votes: 300 },
-                    { name: 'Awotunya Afolakemi Aduke', votes: 170 },
-                    { name: 'Mariano fashion hub', votes: 13 }
-                ]
-            },
-            'clique': {
-                name: 'Clique of the year',
-                nominees: [
-                    { name: '5G', votes: 17 },
-                    { name: 'THE BIG 4', votes: 12 },
-                    { name: 'HAFZ BABES', votes: 8 }
-                ]
-            },
-            'ceo_entrepreneur': {
-                name: 'CEO/Entrepreneur of the year',
-                nominees: [
-                    { name: 'Mariano Fashion Hub', votes: 23 },
-                    { name: 'AY CHOPS', votes: 21 },
-                    { name: 'Rewarder (Ismart)', votes: 19 }
-                ]
-            },
-            'political_icon': {
-                name: 'Political icon of the year',
-                nominees: [
-                    { name: 'King myde', votes: 60 },
-                    { name: 'Bami', votes: 15 },
-                    { name: 'Jasper', votes: 15 }
-                ]
-            },
-            'executive': {
-                name: 'Executive of the year',
-                nominees: [
-                    { name: 'Marvelous', votes: 27 },
-                    { name: 'Bami', votes: 12 },
-                    { name: 'Lee', votes: 7 }
-                ]
-            },
-            'socialite_male': {
-                name: 'Socialite of the year (Male)',
-                nominees: [
-                    { name: 'Bami', votes: 98 },
-                    { name: 'Believer of lasu', votes: 31 },
-                    { name: 'Hamzat', votes: 10 }
-                ]
-            },
-            'socialite_female': {
-                name: 'Socialite of the year (Female)',
-                nominees: [
-                    { name: 'Ninilola Bello', votes: 19 },
-                    { name: 'Kayo', votes: 13 },
-                    { name: 'Mariam', votes: 8 }
-                ]
-            },
-            'parliamentarian': {
-                name: 'Parliamentarian of the year',
-                nominees: [
-                    { name: 'Awotunya Afolakemi Aduke', votes: 82 },
-                    { name: 'Tabitha', votes: 11 },
-                    { name: 'jasper', votes: 9 }
-                ]
-            },
-            'sportswoman': {
-                name: 'Sportswoman of year',
-                nominees: [
-                    { name: 'Kayo', votes: 7 },
-                    { name: 'Anjola', votes: 2 },
-                    { name: 'Lydia', votes: 2 }
-                ]
-            },
-            'sportsman': {
-                name: 'Sportsman of year',
-                nominees: [
-                    { name: 'Olalekan', votes: 8 },
-                    { name: 'Junior', votes: 3 },
-                    { name: 'Mujeeb', votes: 3 }
-                ]
-            },
-            'department_award': {
-                name: 'Department Award',
-                nominees: [
-                    { name: '100 level', votes: 19 },
-                    { name: '300', votes: 13 },
-                    { name: 'Other Levels', votes: 0 }
-                ]
-            },
-            'brand': {
-                name: 'Brand of the year',
-                nominees: [
-                    { name: 'Rewarder (IsmartDc)', votes: 18 },
-                    { name: 'Mariano Fashion Hub', votes: 13 },
-                    { name: 'Scentsbysheffy', votes: 10 }
-                ]
-            },
-            'supportive_male': {
-                name: 'Most Supportive of the year (Male)',
-                nominees: [
-                    { name: 'Hazmat', votes: 310 },
-                    { name: 'Believer of Lasu', votes: 96 },
-                    { name: 'Josh', votes: 15 }
-                ]
-            },
-            'supportive_female': {
-                name: 'Most Supportive of the year (Female)',
-                nominees: [
-                    { name: 'Nafisat', votes: 11 },
-                    { name: 'Oluwatoyosi', votes: 5 },
-                    { name: 'Kayo', votes: 4 }
-                ]
-            },
-            'rookie': {
-                name: 'Rookie of the year (100 level)',
-                nominees: [
-                    { name: 'Ninilola Bello', votes: 9 },
-                    { name: 'Riyah', votes: 8 },
-                    { name: 'Victorious', votes: 6 }
-                ]
-            },
-            'most_beautiful': {
-                name: 'Most beautiful',
-                nominees: [
-                    { name: 'ADEMOLA HALIMAH', votes: 13 },
-                    { name: 'Kiara queen', votes: 8 },
-                    { name: 'Tomi', votes: 6 }
-                ]
-            },
-            'most_handsome': {
-                name: 'Most handsome',
-                nominees: [
-                    { name: 'Hamzat', votes: 72 },
-                    { name: 'Blarkio', votes: 35 },
-                    { name: 'R money', votes: 15 }
-                ]
-            },
-            'alumni': {
-                name: 'Alumni of the year',
-                nominees: [
-                    { name: 'ODOFIN OREOLU', votes: 10 },
-                    { name: 'Coker', votes: 8 },
-                    { name: 'Scholar Hex', votes: 5 }
-                ]
-            },
-            'hoc': {
-                name: 'HOC of the year',
-                nominees: [
-                    { name: 'Nimi', votes: 57 },
-                    { name: 'Bami', votes: 52 },
-                    { name: 'Mauyon', votes: 14 }
-                ]
-            },
-            'deputy_hoc': {
-                name: 'Deputy HOC of the year',
-                nominees: [
-                    { name: 'Macaulay', votes: 64 },
-                    { name: 'ANIFAT', votes: 38 },
-                    { name: 'Mauyon', votes: 10 }
-                ]
-            },
-            'face_ssohis': {
-                name: 'Face of SSOHIS',
-                nominees: [
-                    { name: 'Sylvia', votes: 35 },
-                    { name: 'Hamzat', votes: 17 },
-                    { name: 'Laz3r', votes: 11 }
-                ]
-            },
-            'finalist_male': {
-                name: 'Finalist of the year (Male)',
-                nominees: [
-                    { name: 'Lee', votes: 17 },
-                    { name: 'Justice', votes: 12 },
-                    { name: 'Ola Ezekiel', votes: 3 }
-                ]
-            },
-            'finalist_female': {
-                name: 'Finalist of the year (Female)',
-                nominees: [
-                    { name: 'Faith', votes: 12 },
-                    { name: 'BUBU GIFT.', votes: 8 },
-                    { name: 'Big Oyin', votes: 7 }
-                ]
-            },
-            'friend_department': {
-                name: 'Friend of the department',
-                nominees: [
-                    { name: 'Hikmah', votes: 24 },
-                    { name: 'Hayomiday', votes: 20 },
-                    { name: 'Lee', votes: 12 }
-                ]
-            },
-            'talent': {
-                name: 'Talent of the year',
-                nominees: [
-                    { name: 'Laz3r', votes: 10 },
-                    { name: 'YOCEE', votes: 7 },
-                    { name: 'DANNY', votes: 6 }
-                ]
-            },
-            'calm_reserved_male': {
-                name: 'Calm and reserved of the department (Male)',
-                nominees: [
-                    { name: 'Hamzat', votes: 71 },
-                    { name: 'TIMI', votes: 20 },
-                    { name: 'Fauzir', votes: 17 }
-                ]
-            },
-            'calm_reserved_female': {
-                name: 'Calm and reserved of the department (Female)',
-                nominees: [
-                    { name: 'Praise', votes: 32 },
-                    { name: 'Marvelous', votes: 21 },
-                    { name: 'Chidera Ikechukwu', votes: 12 }
-                ]
-            },
-            'academia_male': {
-                name: 'Academia of the year (Male)',
-                nominees: [
-                    { name: 'Stixx', votes: 18 },
-                    { name: 'Emmanuel', votes: 14 },
-                    { name: 'JOSH', votes: 10 }
-                ]
-            },
-            'academia_female': {
-                name: 'Academia of the year (Female)',
-                nominees: [
-                    { name: 'Nwosu Esther', votes: 64 },
-                    { name: 'Tabitha', votes: 24 },
-                    { name: 'Deborah titilayo', votes: 20 }
-                ]
-            },
-            'expensive_male': {
-                name: 'Most Expensive (Male)',
-                nominees: [
-                    { name: 'Dudu paid', votes: 55 },
-                    { name: 'Tr6kt', votes: 13 },
-                    { name: 'Haywhy zee', votes: 7 }
-                ]
-            },
-            'expensive_female': {
-                name: 'Most Expensive (Female)',
-                nominees: [
-                    { name: 'Nimi', votes: 25 },
-                    { name: 'Adesewa', votes: 19 },
-                    { name: 'Korede', votes: 15 }
-                ]
-            },
-            'diplomat_male': {
-                name: 'Diplomat of the year (Male)',
-                nominees: [
-                    { name: 'Timi', votes: 17 },
-                    { name: 'D.C Li Wu (ORE)', votes: 14 },
-                    { name: 'Stixx', votes: 13 }
-                ]
-            },
-            'diplomat_female': {
-                name: 'Diplomat of the year (Female)',
-                nominees: [
-                    { name: 'Nwosu Esther', votes: 60 },
-                    { name: 'Tabitha', votes: 26 },
-                    { name: 'Miss Resolute', votes: 12 }
-                ]
-            },
-            'influential_male': {
-                name: 'Most influential person (Male)',
-                nominees: [
-                    { name: 'BAMI', votes: 24 },
-                    { name: 'Josh', votes: 23 },
-                    { name: 'Riyah', votes: 12 }
-                ]
-            },
-            'content_creator': {
-                name: 'Content Creator of the year',
-                nominees: [
-                    { name: 'Yocee', votes: 22 },
-                    { name: 'Danny boy', votes: 15 },
-                    { name: 'Drizzy comics', votes: 14 }
-                ]
-            },
-            'artiste': {
-                name: 'Artiste of the year',
-                nominees: [
-                    { name: 'Blarkio', votes: 35 },
-                    { name: 'DARANJR', votes: 32 },
-                    { name: 'Laz3r', votes: 30 }
-                ]
-            },
-            'outstanding_female': {
-                name: 'Most outstanding (Female)',
-                nominees: [
-                    { name: 'Sylvia', votes: 31 },
-                    { name: 'Kayo', votes: 7 },
-                    { name: 'Praise', votes: 5 }
-                ]
-            },
-            'humanitarian': {
-                name: 'Humanitarian of the year',
-                nominees: [
-                    { name: 'Josh', votes: 26 },
-                    { name: 'King myde', votes: 2 },
-                    { name: 'Lee', votes: 2 }
-                ]
-            }
-        };
 
+
+        // Categories with nominees (votes removed)
+const nominationCategories = {
+    'fresher_male': {
+        name: 'Fresher of the Year (Male)',
+        nominees: [
+            { name: 'Nifemi' },
+            { name: 'Stixx' },
+            { name: 'Tr6kt' }
+        ]
+    },
+    'fresher_female': {
+        name: 'Fresher of the Year (Female)',
+        nominees: [
+            { name: 'Nimi' },
+            { name: 'Kayo' },
+            { name: 'Ademola Halimah' }
+        ]
+    },
+    'staylite_male': {
+        name: 'Staylite of the Year (Male)',
+        nominees: [
+            { name: 'Hamzat' },
+            { name: 'Bami' },
+            { name: 'Laz3r' }
+        ]
+    },
+    'staylite_female': {
+        name: 'Staylite of the Year (Female)',
+        nominees: [
+            { name: 'Aliyat Monisola' },
+            { name: 'Awotunya Afolakemi Aduke' },
+            { name: 'Mariano fashion hub' }
+        ]
+    },
+    'clique': {
+        name: 'Clique of the year',
+        nominees: [
+            { name: '5G' },
+            { name: 'THE BIG 4' },
+            { name: 'HAFZ BABES' }
+        ]
+    },
+    'ceo_entrepreneur': {
+        name: 'CEO/Entrepreneur of the year',
+        nominees: [
+            { name: 'Mariano Fashion Hub' },
+            { name: 'AY CHOPS' },
+            { name: 'Rewarder (Ismart)' }
+        ]
+    },
+    'political_icon': {
+        name: 'Political icon of the year',
+        nominees: [
+            { name: 'King myde' },
+            { name: 'Bami' },
+            { name: 'Jasper' }
+        ]
+    },
+    'executive': {
+        name: 'Executive of the year',
+        nominees: [
+            { name: 'Marvelous' },
+            { name: 'Bami' },
+            { name: 'Lee' }
+        ]
+    },
+    'socialite_male': {
+        name: 'Socialite of the year (Male)',
+        nominees: [
+            { name: 'Bami' },
+            { name: 'Believer of lasu' },
+            { name: 'Hamzat' }
+        ]
+    },
+    'socialite_female': {
+        name: 'Socialite of the year (Female)',
+        nominees: [
+            { name: 'Ninilola Bello' },
+            { name: 'Kayo' },
+            { name: 'Mariam' }
+        ]
+    },
+    'parliamentarian': {
+        name: 'Parliamentarian of the year',
+        nominees: [
+            { name: 'Awotunya Afolakemi Aduke' },
+            { name: 'Tabitha' },
+            { name: 'jasper' }
+        ]
+    },
+    'sportswoman': {
+        name: 'Sportswoman of year',
+        nominees: [
+            { name: 'Kayo' },
+            { name: 'Anjola' },
+            { name: 'Lydia' }
+        ]
+    },
+    'sportsman': {
+        name: 'Sportsman of year',
+        nominees: [
+            { name: 'Olalekan' },
+            { name: 'Junior' },
+            { name: 'Mujeeb' }
+        ]
+    },
+    'department_award': {
+        name: 'Department Award',
+        nominees: [
+            { name: '100 level' },
+            { name: '300' },
+            { name: 'Other Levels' }
+        ]
+    },
+    'brand': {
+        name: 'Brand of the year',
+        nominees: [
+            { name: 'Rewarder (IsmartDc)' },
+            { name: 'Mariano Fashion Hub' },
+            { name: 'Scentsbysheffy' }
+        ]
+    },
+    'supportive_male': {
+        name: 'Most Supportive of the year (Male)',
+        nominees: [
+            { name: 'Hazmat' },
+            { name: 'Believer of Lasu' },
+            { name: 'Josh' }
+        ]
+    },
+    'supportive_female': {
+        name: 'Most Supportive of the year (Female)',
+        nominees: [
+            { name: 'Nafisat' },
+            { name: 'Oluwatoyosi' },
+            { name: 'Kayo' }
+        ]
+    },
+    'rookie': {
+        name: 'Rookie of the year (100 level)',
+        nominees: [
+            { name: 'Ninilola Bello' },
+            { name: 'Riyah' },
+            { name: 'Victorious' }
+        ]
+    },
+    'most_beautiful': {
+        name: 'Most beautiful',
+        nominees: [
+            { name: 'ADEMOLA HALIMAH' },
+            { name: 'Kiara queen' },
+            { name: 'Tomi' }
+        ]
+    },
+    'most_handsome': {
+        name: 'Most handsome',
+        nominees: [
+            { name: 'Hamzat' },
+            { name: 'Blarkio' },
+            { name: 'R money' }
+        ]
+    },
+    'alumni': {
+        name: 'Alumni of the year',
+        nominees: [
+            { name: 'ODOFIN OREOLU' },
+            { name: 'Coker' },
+            { name: 'Scholar Hex' }
+        ]
+    },
+    'hoc': {
+        name: 'HOC of the year',
+        nominees: [
+            { name: 'Nimi' },
+            { name: 'Bami' },
+            { name: 'Mauyon' }
+        ]
+    },
+    'deputy_hoc': {
+        name: 'Deputy HOC of the year',
+        nominees: [
+            { name: 'Macaulay' },
+            { name: 'ANIFAT' },
+            { name: 'Mauyon' }
+        ]
+    },
+    'face_ssohis': {
+        name: 'Face of SSOHIS',
+        nominees: [
+            { name: 'Sylvia' },
+            { name: 'Hamzat' },
+            { name: 'Laz3r' }
+        ]
+    },
+    'finalist_male': {
+        name: 'Finalist of the year (Male)',
+        nominees: [
+            { name: 'Lee' },
+            { name: 'Justice' },
+            { name: 'Ola Ezekiel' }
+        ]
+    },
+    'finalist_female': {
+        name: 'Finalist of the year (Female)',
+        nominees: [
+            { name: 'Faith' },
+            { name: 'BUBU GIFT.' },
+            { name: 'Big Oyin' }
+        ]
+    },
+    'friend_department': {
+        name: 'Friend of the department',
+        nominees: [
+            { name: 'Hikmah' },
+            { name: 'Hayomiday' },
+            { name: 'Lee' }
+        ]
+    },
+    'talent': {
+        name: 'Talent of the year',
+        nominees: [
+            { name: 'Laz3r' },
+            { name: 'YOCEE' },
+            { name: 'DANNY' }
+        ]
+    },
+    'calm_reserved_male': {
+        name: 'Calm and reserved of the department (Male)',
+        nominees: [
+            { name: 'Hamzat' },
+            { name: 'TIMI' },
+            { name: 'Fauzir' }
+        ]
+    },
+    'calm_reserved_female': {
+        name: 'Calm and reserved of the department (Female)',
+        nominees: [
+            { name: 'Praise' },
+            { name: 'Marvelous' },
+            { name: 'Chidera Ikechukwu' }
+        ]
+    },
+    'academia_male': {
+        name: 'Academia of the year (Male)',
+        nominees: [
+            { name: 'Stixx' },
+            { name: 'Emmanuel' },
+            { name: 'JOSH' }
+        ]
+    },
+    'academia_female': {
+        name: 'Academia of the year (Female)',
+        nominees: [
+            { name: 'Nwosu Esther' },
+            { name: 'Tabitha' },
+            { name: 'Deborah titilayo' }
+        ]
+    },
+    'expensive_male': {
+        name: 'Most Expensive (Male)',
+        nominees: [
+            { name: 'Dudu paid' },
+            { name: 'Tr6kt' },
+            { name: 'Haywhy zee' }
+        ]
+    },
+    'expensive_female': {
+        name: 'Most Expensive (Female)',
+        nominees: [
+            { name: 'Nimi' },
+            { name: 'Adesewa' },
+            { name: 'Korede' }
+        ]
+    },
+    'diplomat_male': {
+        name: 'Diplomat of the year (Male)',
+        nominees: [
+            { name: 'Timi' },
+            { name: 'D.C Li Wu (ORE)' },
+            { name: 'Stixx' }
+        ]
+    },
+    'diplomat_female': {
+        name: 'Diplomat of the year (Female)',
+        nominees: [
+            { name: 'Nwosu Esther' },
+            { name: 'Tabitha' },
+            { name: 'Miss Resolute' }
+        ]
+    },
+    'influential_male': {
+        name: 'Most influential person (Male)',
+        nominees: [
+            { name: 'BAMI' },
+            { name: 'Josh' },
+            { name: 'Riyah' }
+        ]
+    },
+    'content_creator': {
+        name: 'Content Creator of the year',
+        nominees: [
+            { name: 'Yocee' },
+            { name: 'Danny boy' },
+            { name: 'Drizzy comics' }
+        ]
+    },
+    'artiste': {
+        name: 'Artiste of the year',
+        nominees: [
+            { name: 'Blarkio' },
+            { name: 'DARANJR' },
+            { name: 'Laz3r' }
+        ]
+    },
+    'outstanding_female': {
+        name: 'Most outstanding (Female)',
+        nominees: [
+            { name: 'Sylvia' },
+            { name: 'Kayo' },
+            { name: 'Praise' }
+        ]
+    },
+    'humanitarian': {
+        name: 'Humanitarian of the year',
+        nominees: [
+            { name: 'Josh' },
+            { name: 'King myde' },
+            { name: 'Lee' }
+        ]
+    }
+};
+
+// Updated render function without votes
+function renderCategories() {
+    const grid = document.getElementById('categoriesGrid');
+    grid.innerHTML = '';
+
+    Object.entries(nominationCategories).forEach(([categoryId, categoryData]) => {
+        const categoryCard = document.createElement('div');
+        categoryCard.className = 'category-card';
+        
+        const nomineesHtml = categoryData.nominees.map((nominee, index) => `
+            <div class="nominee-item" data-category="${categoryId}" data-nominee="${index}">
+                <div class="custom-radio">
+                    <input type="radio" name="${categoryId}" value="${index}" id="${categoryId}_${index}">
+                    <span class="radio-checkmark"></span>
+                </div>
+                <div class="nominee-info">
+                    <div class="nominee-name">${nominee.name}</div>
+                </div>
+            </div>
+        `).join('');
+
+        categoryCard.innerHTML = `
+            <div class="category-title">${categoryData.name}</div>
+            <div class="nominees-list">
+                ${nomineesHtml}
+            </div>
+        `;
+
+        // Add event listeners
+        const radioButtons = categoryCard.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', handleNomineeSelection);
+        });
+
+        const nomineeItems = categoryCard.querySelectorAll('.nominee-item');
+        nomineeItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.type !== 'radio') {
+                    const radio = item.querySelector('input[type="radio"]');
+                    
+                    // Check if this radio is already selected
+                    if (radio.checked) {
+                        // Unselect it
+                        unselectNominee(radio);
+                    } else {
+                        // Select it
+                        radio.click();
+                    }
+                }
+            });
+        });
+
+        grid.appendChild(categoryCard);
+    });
+}
+
+// Handle nominee unselection
+function unselectNominee(radioElement) {
+    const categoryId = radioElement.name;
+    const nomineeItem = radioElement.closest('.nominee-item');
+    
+    // Uncheck the radio button
+    radioElement.checked = false;
+    
+    // Remove visual selection
+    nomineeItem.classList.remove('selected');
+    
+    // Remove from selected nominations
+    if (selectedNominations[categoryId]) {
+        delete selectedNominations[categoryId];
+    }
+    
+    // Update displays
+    updateSelectionDisplay();
+    updatePaymentCalculation();
+    updateSelectedCategoriesSummary();
+    
+    // Show unselection feedback
+    showAlert(`Unselected from ${nominationCategories[categoryId].name}`, 'info');
+}
+
+// Updated nominee selection handler with unselection support
+function handleNomineeSelection(e) {
+    const categoryId = e.target.name;
+    const nomineeIndex = parseInt(e.target.value);
+    const nominee = nominationCategories[categoryId].nominees[nomineeIndex];
+    const nomineeItem = e.target.closest('.nominee-item');
+    
+    // Check if this nominee is already selected
+    if (selectedNominations[categoryId] && 
+        selectedNominations[categoryId].nomineeIndex === nomineeIndex) {
+        // Unselect it
+        unselectNominee(e.target);
+        return;
+    }
+    
+    // If multiple selection is disabled and we already have a different category selected
+    if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
+        // Clear all previous selections
+        Object.keys(selectedNominations).forEach(prevCategoryId => {
+            delete selectedNominations[prevCategoryId];
+            document.querySelectorAll(`[data-category="${prevCategoryId}"]`).forEach(item => {
+                item.classList.remove('selected');
+                item.querySelector('input[type="radio"]').checked = false;
+            });
+        });
+    }
+    
+    // Add current selection
+    selectedNominations[categoryId] = {
+        nominee: nominee.name,
+        category: nominationCategories[categoryId].name,
+        nomineeIndex: nomineeIndex
+    };
+
+    // Update UI
+    updateSelectionDisplay();
+    updatePaymentCalculation();
+    
+    // Clear other selections in the same category
+    document.querySelectorAll(`[data-category="${categoryId}"]`).forEach(item => {
+        item.classList.remove('selected');
+    });
+    
+    // Add selection to current item
+    nomineeItem.classList.add('selected');
+}
+
+// Add unselect all function
+function unselectAllCategories() {
+    // Clear all selections
+    selectedNominations = {};
+    
+    // Uncheck all radio buttons and remove visual selection
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+        radio.closest('.nominee-item').classList.remove('selected');
+    });
+    
+    // Update displays
+    updateSelectionDisplay();
+    updatePaymentCalculation();
+    updateSelectedCategoriesSummary();
+    
+    showAlert('All selections cleared', 'info');
+}
+
+// Add clear selection button to the UI
+function addClearSelectionButton() {
+    const selectionControls = document.querySelector('.selection-controls');
+    
+    const clearButton = document.createElement('button');
+    clearButton.className = 'btn btn-warning';
+    clearButton.innerHTML = '<i class="fas fa-times-circle"></i> Clear All Selections';
+    clearButton.onclick = unselectAllCategories;
+    clearButton.id = 'clearSelectionsBtn';
+    clearButton.style.display = 'none';
+    
+    selectionControls.appendChild(clearButton);
+}
+
+// Updated selection display function
+function updateSelectionDisplay() {
+    const count = Object.keys(selectedNominations).length;
+    const counter = document.getElementById('selectionCounter');
+    const fixedCounter = document.getElementById('fixedCounter');
+    const proceedBtn = document.getElementById('proceedToDetails');
+    const clearBtn = document.getElementById('clearSelectionsBtn');
+    
+    document.getElementById('selectedCount').textContent = count;
+    document.getElementById('fixedSelectedCount').textContent = count;
+    
+    if (count > 0) {
+        counter.style.display = 'block';
+        fixedCounter.style.display = 'block';
+        proceedBtn.style.display = 'block';
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+    } else {
+        counter.style.display = 'none';
+        fixedCounter.style.display = 'none';
+        proceedBtn.style.display = 'none';
+        if (clearBtn) clearBtn.style.display = 'none';
+    }
+}
         // Global Variables
         let currentUser = null;
         let selectedNominations = {};
@@ -1935,5 +2121,6 @@
     </script>
 </body>
 </html>
+
 
 
