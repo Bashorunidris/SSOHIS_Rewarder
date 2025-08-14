@@ -26,6 +26,46 @@
             padding: 20px;
         }
 
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #007bff, #00d4ff);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+        }
+
+        .scroll-to-top.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Header Styles */
         .header {
             text-align: center;
@@ -77,33 +117,32 @@
             border: 1px solid #007bff;
         }
 
-        /* Banner Styles */
+        /* Auto-scrolling Banner Styles */
         .banner-section {
             margin-bottom: 40px;
             overflow: hidden;
             border-radius: 15px;
+            position: relative;
         }
 
         .banner-carousel {
             display: flex;
             gap: 20px;
-            overflow-x: auto;
-            padding: 20px 0;
-            scroll-behavior: smooth;
+            animation: autoScroll 15s linear infinite;
+            width: calc(380px * 6); /* Width for all banners + duplicates */
         }
 
-        .banner-carousel::-webkit-scrollbar {
-            height: 8px;
+        @keyframes autoScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
-        .banner-carousel::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
-        .banner-carousel::-webkit-scrollbar-thumb {
-            background: #007bff;
-            border-radius: 4px;
+        .banner-carousel:hover {
+            animation-play-state: paused;
         }
 
         .banner-item {
@@ -365,15 +404,6 @@
             font-weight: 600;
             font-size: 1.1rem;
             color: #fff;
-        }
-
-        .nominee-votes {
-            background: linear-gradient(45deg, #007bff, #00d4ff);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
         }
 
         .custom-radio {
@@ -685,6 +715,16 @@
             display: block;
         }
 
+        /* Clear Selection Button */
+        .clear-selection-btn {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            margin-left: 10px;
+        }
+
+        .clear-selection-btn:hover {
+            background: linear-gradient(45deg, #c82333, #a02622);
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .container {
@@ -754,6 +794,11 @@
 </head>
 <body>
     <div class="container">
+        <!-- Scroll to Top Button -->
+        <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
         <!-- Auth Status Indicator -->
         <div id="authStatus" class="auth-status">
             <i class="fas fa-user"></i> <span id="authStatusText">Checking authentication...</span>
@@ -771,9 +816,20 @@
             </div>
         </div>
 
-        <!-- Banner Section -->
+        <!-- Auto-scrolling Banner Section -->
         <div class="banner-section">
             <div class="banner-carousel">
+                <!-- Original banners -->
+                <div class="banner-item">
+                    <img src="https://i.ibb.co/5hrNmSgM/Fast-Withdrawal-s-20250806-044026-0000.png" alt="Event Banner 1" />
+                </div>
+                <div class="banner-item">
+                    <img src="https://i.ibb.co/9kQb2chQ/Fast-Withdrawal-s-20250806-042109-0000.png" alt="Event Banner 2" />
+                </div>
+                <div class="banner-item">
+                    <img src="https://i.ibb.co/tpNVMDrZ/Fast-Withdrawal-s-20250806-044937-0000.png" alt="Event Banner 3" />
+                </div>
+                <!-- Duplicate banners for seamless loop -->
                 <div class="banner-item">
                     <img src="https://i.ibb.co/5hrNmSgM/Fast-Withdrawal-s-20250806-044026-0000.png" alt="Event Banner 1" />
                 </div>
@@ -849,7 +905,7 @@
             
             <div class="alert alert-info">
                 <i class="fas fa-info-circle"></i> 
-                 Select Your Nominations from  the existing Categories .
+                 Select Your Nominations from the existing Categories. Click again to unselect.
             </div>
 
             <!-- Selection Controls -->
@@ -857,6 +913,9 @@
                 <div class="selection-mode-toggle">
                     <button class="btn btn-success" onclick="toggleMultipleSelection()" id="multiSelectBtn">
                         <i class="fas fa-check"></i> Multiple Selection Enabled
+                    </button>
+                    <button class="btn btn-warning clear-selection-btn" onclick="clearAllSelections()" id="clearAllBtn" style="display: none;">
+                        <i class="fas fa-times-circle"></i> Clear All
                     </button>
                     <span id="selectionModeText">Multiple categories enabled</span>
                 </div>
@@ -1030,7 +1089,7 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
 
-        // 🔧 CRITICAL FIX FOR AUTO-LOGOUT: Set Firebase Auth Persistence
+        // Set Firebase Auth Persistence
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(() => {
                 console.log('🔐 Firebase auth persistence set to LOCAL - users will stay logged in');
@@ -1039,7 +1098,7 @@
                 console.error('❌ Error setting auth persistence:', error);
             });
 
-        // 🔧 CRITICAL FIX: Auth State Listener (prevents auto-logout)
+        // Auth State Listener
         auth.onAuthStateChanged((user) => {
             const authStatus = document.getElementById('authStatus');
             const authStatusText = document.getElementById('authStatusText');
@@ -1050,7 +1109,6 @@
                 authStatus.className = 'auth-status authenticated';
                 authStatusText.innerHTML = `<i class="fas fa-check-circle"></i> Logged in: ${user.email}`;
                 
-                // If user is logged in and still on auth section, move them forward
                 if (registrationSection.style.display !== 'none') {
                     console.log('🔄 User already authenticated, moving to categories...');
                     registrationSection.style.display = 'none';
@@ -1064,7 +1122,6 @@
                 authStatus.className = 'auth-status unauthenticated';
                 authStatusText.innerHTML = `<i class="fas fa-times-circle"></i> Not logged in`;
                 
-                // If user is logged out and not on auth section, redirect them back
                 if (registrationSection.style.display === 'none') {
                     console.log('🔄 User logged out, returning to auth...');
                     categorySection.style.display = 'none';
@@ -1076,529 +1133,343 @@
             }
         });
 
+        // Categories with nominees (no votes)
+        const nominationCategories = {
+            'fresher_male': {
+                name: 'Fresher of the Year (Male)',
+                nominees: [
+                    { name: 'Nifemi' },
+                    { name: 'Stixx' },
+                    { name: 'Tr6kt' }
+                ]
+            },
+            'fresher_female': {
+                name: 'Fresher of the Year (Female)',
+                nominees: [
+                    { name: 'Nimi' },
+                    { name: 'Kayo' },
+                    { name: 'Ademola Halimah' }
+                ]
+            },
+            'staylite_male': {
+                name: 'Staylite of the Year (Male)',
+                nominees: [
+                    { name: 'Hamzat' },
+                    { name: 'Bami' },
+                    { name: 'Laz3r' }
+                ]
+            },
+            'staylite_female': {
+                name: 'Staylite of the Year (Female)',
+                nominees: [
+                    { name: 'Aliyat Monisola' },
+                    { name: 'Awotunya Afolakemi Aduke' },
+                    { name: 'Mariano fashion hub' }
+                ]
+            },
+            'clique': {
+                name: 'Clique of the year',
+                nominees: [
+                    { name: '5G' },
+                    { name: 'THE BIG 4' },
+                    { name: 'HAFZ BABES' }
+                ]
+            },
+            'ceo_entrepreneur': {
+                name: 'CEO/Entrepreneur of the year',
+                nominees: [
+                    { name: 'Mariano Fashion Hub' },
+                    { name: 'AY CHOPS' },
+                    { name: 'Rewarder (Ismart)' }
+                ]
+            },
+            'political_icon': {
+                name: 'Political icon of the year',
+                nominees: [
+                    { name: 'King myde' },
+                    { name: 'Bami' },
+                    { name: 'Jasper' }
+                ]
+            },
+            'executive': {
+                name: 'Executive of the year',
+                nominees: [
+                    { name: 'Marvelous' },
+                    { name: 'Bami' },
+                    { name: 'Lee' }
+                ]
+            },
+            'socialite_male': {
+                name: 'Socialite of the year (Male)',
+                nominees: [
+                    { name: 'Bami' },
+                    { name: 'Believer of lasu' },
+                    { name: 'Hamzat' }
+                ]
+            },
+            'socialite_female': {
+                name: 'Socialite of the year (Female)',
+                nominees: [
+                    { name: 'Ninilola Bello' },
+                    { name: 'Kayo' },
+                    { name: 'Mariam' }
+                ]
+            },
+            'parliamentarian': {
+                name: 'Parliamentarian of the year',
+                nominees: [
+                    { name: 'Awotunya Afolakemi Aduke' },
+                    { name: 'Tabitha' },
+                    { name: 'jasper' }
+                ]
+            },
+            'sportswoman': {
+                name: 'Sportswoman of year',
+                nominees: [
+                    { name: 'Kayo' },
+                    { name: 'Anjola' },
+                    { name: 'Lydia' }
+                ]
+            },
+            'sportsman': {
+                name: 'Sportsman of year',
+                nominees: [
+                    { name: 'Olalekan' },
+                    { name: 'Junior' },
+                    { name: 'Mujeeb' }
+                ]
+            },
+            'department_award': {
+                name: 'Department Award',
+                nominees: [
+                    { name: '100 level' },
+                    { name: '300' },
+                    { name: 'Other Levels' }
+                ]
+            },
+            'brand': {
+                name: 'Brand of the year',
+                nominees: [
+                    { name: 'Rewarder (IsmartDc)' },
+                    { name: 'Mariano Fashion Hub' },
+                    { name: 'Scentsbysheffy' }
+                ]
+            },
+            'supportive_male': {
+                name: 'Most Supportive of the year (Male)',
+                nominees: [
+                    { name: 'Hazmat' },
+                    { name: 'Believer of Lasu' },
+                    { name: 'Josh' }
+                ]
+            },
+            'supportive_female': {
+                name: 'Most Supportive of the year (Female)',
+                nominees: [
+                    { name: 'Nafisat' },
+                    { name: 'Oluwatoyosi' },
+                    { name: 'Kayo' }
+                ]
+            },
+            'rookie': {
+                name: 'Rookie of the year (100 level)',
+                nominees: [
+                    { name: 'Ninilola Bello' },
+                    { name: 'Riyah' },
+                    { name: 'Victorious' }
+                ]
+            },
+            'most_beautiful': {
+                name: 'Most beautiful',
+                nominees: [
+                    { name: 'ADEMOLA HALIMAH' },
+                    { name: 'Kiara queen' },
+                    { name: 'Tomi' }
+                ]
+            },
+            'most_handsome': {
+                name: 'Most handsome',
+                nominees: [
+                    { name: 'Hamzat' },
+                    { name: 'Blarkio' },
+                    { name: 'R money' }
+                ]
+            },
+            'alumni': {
+                name: 'Alumni of the year',
+                nominees: [
+                    { name: 'ODOFIN OREOLU' },
+                    { name: 'Coker' },
+                    { name: 'Scholar Hex' }
+                ]
+            },
+            'hoc': {
+                name: 'HOC of the year',
+                nominees: [
+                    { name: 'Nimi' },
+                    { name: 'Bami' },
+                    { name: 'Mauyon' }
+                ]
+            },
+            'deputy_hoc': {
+                name: 'Deputy HOC of the year',
+                nominees: [
+                    { name: 'Macaulay' },
+                    { name: 'ANIFAT' },
+                    { name: 'Mauyon' }
+                ]
+            },
+            'face_ssohis': {
+                name: 'Face of SSOHIS',
+                nominees: [
+                    { name: 'Sylvia' },
+                    { name: 'Hamzat' },
+                    { name: 'Laz3r' }
+                ]
+            },
+            'finalist_male': {
+                name: 'Finalist of the year (Male)',
+                nominees: [
+                    { name: 'Lee' },
+                    { name: 'Justice' },
+                    { name: 'Ola Ezekiel' }
+                ]
+            },
+            'finalist_female': {
+                name: 'Finalist of the year (Female)',
+                nominees: [
+                    { name: 'Faith' },
+                    { name: 'BUBU GIFT.' },
+                    { name: 'Big Oyin' }
+                ]
+            },
+            'friend_department': {
+                name: 'Friend of the department',
+                nominees: [
+                    { name: 'Hikmah' },
+                    { name: 'Hayomiday' },
+                    { name: 'Lee' }
+                ]
+            },
+            'talent': {
+                name: 'Talent of the year',
+                nominees: [
+                    { name: 'Laz3r' },
+                    { name: 'YOCEE' },
+                    { name: 'DANNY' }
+                ]
+            },
+            'calm_reserved_male': {
+                name: 'Calm and reserved of the department (Male)',
+                nominees: [
+                    { name: 'Hamzat' },
+                    { name: 'TIMI' },
+                    { name: 'Fauzir' }
+                ]
+            },
+            'calm_reserved_female': {
+                name: 'Calm and reserved of the department (Female)',
+                nominees: [
+                    { name: 'Praise' },
+                    { name: 'Marvelous' },
+                    { name: 'Chidera Ikechukwu' }
+                ]
+            },
+            'academia_male': {
+                name: 'Academia of the year (Male)',
+                nominees: [
+                    { name: 'Stixx' },
+                    { name: 'Emmanuel' },
+                    { name: 'JOSH' }
+                ]
+            },
+            'academia_female': {
+                name: 'Academia of the year (Female)',
+                nominees: [
+                    { name: 'Nwosu Esther' },
+                    { name: 'Tabitha' },
+                    { name: 'Deborah titilayo' }
+                ]
+            },
+            'expensive_male': {
+                name: 'Most Expensive (Male)',
+                nominees: [
+                    { name: 'Dudu paid' },
+                    { name: 'Tr6kt' },
+                    { name: 'Haywhy zee' }
+                ]
+            },
+            'expensive_female': {
+                name: 'Most Expensive (Female)',
+                nominees: [
+                    { name: 'Nimi' },
+                    { name: 'Adesewa' },
+                    { name: 'Korede' }
+                ]
+            },
+            'diplomat_male': {
+                name: 'Diplomat of the year (Male)',
+                nominees: [
+                    { name: 'Timi' },
+                    { name: 'D.C Li Wu (ORE)' },
+                    { name: 'Stixx' }
+                ]
+            },
+            'diplomat_female': {
+                name: 'Diplomat of the year (Female)',
+                nominees: [
+                    { name: 'Nwosu Esther' },
+                    { name: 'Tabitha' },
+                    { name: 'Miss Resolute' }
+                ]
+            },
+            'influential_male': {
+                name: 'Most influential person (Male)',
+                nominees: [
+                    { name: 'BAMI' },
+                    { name: 'Josh' },
+                    { name: 'Riyah' }
+                ]
+            },
+            'content_creator': {
+                name: 'Content Creator of the year',
+                nominees: [
+                    { name: 'Yocee' },
+                    { name: 'Danny boy' },
+                    { name: 'Drizzy comics' }
+                ]
+            },
+            'artiste': {
+                name: 'Artiste of the year',
+                nominees: [
+                    { name: 'Blarkio' },
+                    { name: 'DARANJR' },
+                    { name: 'Laz3r' }
+                ]
+            },
+            'outstanding_female': {
+                name: 'Most outstanding (Female)',
+                nominees: [
+                    { name: 'Sylvia' },
+                    { name: 'Kayo' },
+                    { name: 'Praise' }
+                ]
+            },
+            'humanitarian': {
+                name: 'Humanitarian of the year',
+                nominees: [
+                    { name: 'Josh' },
+                    { name: 'King myde' },
+                    { name: 'Lee' }
+                ]
+            }
+        };
 
-
-        // Categories with nominees (votes removed)
-const nominationCategories = {
-    'fresher_male': {
-        name: 'Fresher of the Year (Male)',
-        nominees: [
-            { name: 'Nifemi' },
-            { name: 'Stixx' },
-            { name: 'Tr6kt' }
-        ]
-    },
-    'fresher_female': {
-        name: 'Fresher of the Year (Female)',
-        nominees: [
-            { name: 'Nimi' },
-            { name: 'Kayo' },
-            { name: 'Ademola Halimah' }
-        ]
-    },
-    'staylite_male': {
-        name: 'Staylite of the Year (Male)',
-        nominees: [
-            { name: 'Hamzat' },
-            { name: 'Bami' },
-            { name: 'Laz3r' }
-        ]
-    },
-    'staylite_female': {
-        name: 'Staylite of the Year (Female)',
-        nominees: [
-            { name: 'Aliyat Monisola' },
-            { name: 'Awotunya Afolakemi Aduke' },
-            { name: 'Mariano fashion hub' }
-        ]
-    },
-    'clique': {
-        name: 'Clique of the year',
-        nominees: [
-            { name: '5G' },
-            { name: 'THE BIG 4' },
-            { name: 'HAFZ BABES' }
-        ]
-    },
-    'ceo_entrepreneur': {
-        name: 'CEO/Entrepreneur of the year',
-        nominees: [
-            { name: 'Mariano Fashion Hub' },
-            { name: 'AY CHOPS' },
-            { name: 'Rewarder (Ismart)' }
-        ]
-    },
-    'political_icon': {
-        name: 'Political icon of the year',
-        nominees: [
-            { name: 'King myde' },
-            { name: 'Bami' },
-            { name: 'Jasper' }
-        ]
-    },
-    'executive': {
-        name: 'Executive of the year',
-        nominees: [
-            { name: 'Marvelous' },
-            { name: 'Bami' },
-            { name: 'Lee' }
-        ]
-    },
-    'socialite_male': {
-        name: 'Socialite of the year (Male)',
-        nominees: [
-            { name: 'Bami' },
-            { name: 'Believer of lasu' },
-            { name: 'Hamzat' }
-        ]
-    },
-    'socialite_female': {
-        name: 'Socialite of the year (Female)',
-        nominees: [
-            { name: 'Ninilola Bello' },
-            { name: 'Kayo' },
-            { name: 'Mariam' }
-        ]
-    },
-    'parliamentarian': {
-        name: 'Parliamentarian of the year',
-        nominees: [
-            { name: 'Awotunya Afolakemi Aduke' },
-            { name: 'Tabitha' },
-            { name: 'jasper' }
-        ]
-    },
-    'sportswoman': {
-        name: 'Sportswoman of year',
-        nominees: [
-            { name: 'Kayo' },
-            { name: 'Anjola' },
-            { name: 'Lydia' }
-        ]
-    },
-    'sportsman': {
-        name: 'Sportsman of year',
-        nominees: [
-            { name: 'Olalekan' },
-            { name: 'Junior' },
-            { name: 'Mujeeb' }
-        ]
-    },
-    'department_award': {
-        name: 'Department Award',
-        nominees: [
-            { name: '100 level' },
-            { name: '300' },
-            { name: 'Other Levels' }
-        ]
-    },
-    'brand': {
-        name: 'Brand of the year',
-        nominees: [
-            { name: 'Rewarder (IsmartDc)' },
-            { name: 'Mariano Fashion Hub' },
-            { name: 'Scentsbysheffy' }
-        ]
-    },
-    'supportive_male': {
-        name: 'Most Supportive of the year (Male)',
-        nominees: [
-            { name: 'Hazmat' },
-            { name: 'Believer of Lasu' },
-            { name: 'Josh' }
-        ]
-    },
-    'supportive_female': {
-        name: 'Most Supportive of the year (Female)',
-        nominees: [
-            { name: 'Nafisat' },
-            { name: 'Oluwatoyosi' },
-            { name: 'Kayo' }
-        ]
-    },
-    'rookie': {
-        name: 'Rookie of the year (100 level)',
-        nominees: [
-            { name: 'Ninilola Bello' },
-            { name: 'Riyah' },
-            { name: 'Victorious' }
-        ]
-    },
-    'most_beautiful': {
-        name: 'Most beautiful',
-        nominees: [
-            { name: 'ADEMOLA HALIMAH' },
-            { name: 'Kiara queen' },
-            { name: 'Tomi' }
-        ]
-    },
-    'most_handsome': {
-        name: 'Most handsome',
-        nominees: [
-            { name: 'Hamzat' },
-            { name: 'Blarkio' },
-            { name: 'R money' }
-        ]
-    },
-    'alumni': {
-        name: 'Alumni of the year',
-        nominees: [
-            { name: 'ODOFIN OREOLU' },
-            { name: 'Coker' },
-            { name: 'Scholar Hex' }
-        ]
-    },
-    'hoc': {
-        name: 'HOC of the year',
-        nominees: [
-            { name: 'Nimi' },
-            { name: 'Bami' },
-            { name: 'Mauyon' }
-        ]
-    },
-    'deputy_hoc': {
-        name: 'Deputy HOC of the year',
-        nominees: [
-            { name: 'Macaulay' },
-            { name: 'ANIFAT' },
-            { name: 'Mauyon' }
-        ]
-    },
-    'face_ssohis': {
-        name: 'Face of SSOHIS',
-        nominees: [
-            { name: 'Sylvia' },
-            { name: 'Hamzat' },
-            { name: 'Laz3r' }
-        ]
-    },
-    'finalist_male': {
-        name: 'Finalist of the year (Male)',
-        nominees: [
-            { name: 'Lee' },
-            { name: 'Justice' },
-            { name: 'Ola Ezekiel' }
-        ]
-    },
-    'finalist_female': {
-        name: 'Finalist of the year (Female)',
-        nominees: [
-            { name: 'Faith' },
-            { name: 'BUBU GIFT.' },
-            { name: 'Big Oyin' }
-        ]
-    },
-    'friend_department': {
-        name: 'Friend of the department',
-        nominees: [
-            { name: 'Hikmah' },
-            { name: 'Hayomiday' },
-            { name: 'Lee' }
-        ]
-    },
-    'talent': {
-        name: 'Talent of the year',
-        nominees: [
-            { name: 'Laz3r' },
-            { name: 'YOCEE' },
-            { name: 'DANNY' }
-        ]
-    },
-    'calm_reserved_male': {
-        name: 'Calm and reserved of the department (Male)',
-        nominees: [
-            { name: 'Hamzat' },
-            { name: 'TIMI' },
-            { name: 'Fauzir' }
-        ]
-    },
-    'calm_reserved_female': {
-        name: 'Calm and reserved of the department (Female)',
-        nominees: [
-            { name: 'Praise' },
-            { name: 'Marvelous' },
-            { name: 'Chidera Ikechukwu' }
-        ]
-    },
-    'academia_male': {
-        name: 'Academia of the year (Male)',
-        nominees: [
-            { name: 'Stixx' },
-            { name: 'Emmanuel' },
-            { name: 'JOSH' }
-        ]
-    },
-    'academia_female': {
-        name: 'Academia of the year (Female)',
-        nominees: [
-            { name: 'Nwosu Esther' },
-            { name: 'Tabitha' },
-            { name: 'Deborah titilayo' }
-        ]
-    },
-    'expensive_male': {
-        name: 'Most Expensive (Male)',
-        nominees: [
-            { name: 'Dudu paid' },
-            { name: 'Tr6kt' },
-            { name: 'Haywhy zee' }
-        ]
-    },
-    'expensive_female': {
-        name: 'Most Expensive (Female)',
-        nominees: [
-            { name: 'Nimi' },
-            { name: 'Adesewa' },
-            { name: 'Korede' }
-        ]
-    },
-    'diplomat_male': {
-        name: 'Diplomat of the year (Male)',
-        nominees: [
-            { name: 'Timi' },
-            { name: 'D.C Li Wu (ORE)' },
-            { name: 'Stixx' }
-        ]
-    },
-    'diplomat_female': {
-        name: 'Diplomat of the year (Female)',
-        nominees: [
-            { name: 'Nwosu Esther' },
-            { name: 'Tabitha' },
-            { name: 'Miss Resolute' }
-        ]
-    },
-    'influential_male': {
-        name: 'Most influential person (Male)',
-        nominees: [
-            { name: 'BAMI' },
-            { name: 'Josh' },
-            { name: 'Riyah' }
-        ]
-    },
-    'content_creator': {
-        name: 'Content Creator of the year',
-        nominees: [
-            { name: 'Yocee' },
-            { name: 'Danny boy' },
-            { name: 'Drizzy comics' }
-        ]
-    },
-    'artiste': {
-        name: 'Artiste of the year',
-        nominees: [
-            { name: 'Blarkio' },
-            { name: 'DARANJR' },
-            { name: 'Laz3r' }
-        ]
-    },
-    'outstanding_female': {
-        name: 'Most outstanding (Female)',
-        nominees: [
-            { name: 'Sylvia' },
-            { name: 'Kayo' },
-            { name: 'Praise' }
-        ]
-    },
-    'humanitarian': {
-        name: 'Humanitarian of the year',
-        nominees: [
-            { name: 'Josh' },
-            { name: 'King myde' },
-            { name: 'Lee' }
-        ]
-    }
-};
-
-// Updated render function without votes
-function renderCategories() {
-    const grid = document.getElementById('categoriesGrid');
-    grid.innerHTML = '';
-
-    Object.entries(nominationCategories).forEach(([categoryId, categoryData]) => {
-        const categoryCard = document.createElement('div');
-        categoryCard.className = 'category-card';
-        
-        const nomineesHtml = categoryData.nominees.map((nominee, index) => `
-            <div class="nominee-item" data-category="${categoryId}" data-nominee="${index}">
-                <div class="custom-radio">
-                    <input type="radio" name="${categoryId}" value="${index}" id="${categoryId}_${index}">
-                    <span class="radio-checkmark"></span>
-                </div>
-                <div class="nominee-info">
-                    <div class="nominee-name">${nominee.name}</div>
-                </div>
-            </div>
-        `).join('');
-
-        categoryCard.innerHTML = `
-            <div class="category-title">${categoryData.name}</div>
-            <div class="nominees-list">
-                ${nomineesHtml}
-            </div>
-        `;
-
-        // Add event listeners
-        const radioButtons = categoryCard.querySelectorAll('input[type="radio"]');
-        radioButtons.forEach(radio => {
-            radio.addEventListener('change', handleNomineeSelection);
-        });
-
-        const nomineeItems = categoryCard.querySelectorAll('.nominee-item');
-        nomineeItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                if (e.target.type !== 'radio') {
-                    const radio = item.querySelector('input[type="radio"]');
-                    
-                    // Check if this radio is already selected
-                    if (radio.checked) {
-                        // Unselect it
-                        unselectNominee(radio);
-                    } else {
-                        // Select it
-                        radio.click();
-                    }
-                }
-            });
-        });
-
-        grid.appendChild(categoryCard);
-    });
-}
-
-// Handle nominee unselection
-function unselectNominee(radioElement) {
-    const categoryId = radioElement.name;
-    const nomineeItem = radioElement.closest('.nominee-item');
-    
-    // Uncheck the radio button
-    radioElement.checked = false;
-    
-    // Remove visual selection
-    nomineeItem.classList.remove('selected');
-    
-    // Remove from selected nominations
-    if (selectedNominations[categoryId]) {
-        delete selectedNominations[categoryId];
-    }
-    
-    // Update displays
-    updateSelectionDisplay();
-    updatePaymentCalculation();
-    updateSelectedCategoriesSummary();
-    
-    // Show unselection feedback
-    showAlert(`Unselected from ${nominationCategories[categoryId].name}`, 'info');
-}
-
-// Updated nominee selection handler with unselection support
-function handleNomineeSelection(e) {
-    const categoryId = e.target.name;
-    const nomineeIndex = parseInt(e.target.value);
-    const nominee = nominationCategories[categoryId].nominees[nomineeIndex];
-    const nomineeItem = e.target.closest('.nominee-item');
-    
-    // Check if this nominee is already selected
-    if (selectedNominations[categoryId] && 
-        selectedNominations[categoryId].nomineeIndex === nomineeIndex) {
-        // Unselect it
-        unselectNominee(e.target);
-        return;
-    }
-    
-    // If multiple selection is disabled and we already have a different category selected
-    if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
-        // Clear all previous selections
-        Object.keys(selectedNominations).forEach(prevCategoryId => {
-            delete selectedNominations[prevCategoryId];
-            document.querySelectorAll(`[data-category="${prevCategoryId}"]`).forEach(item => {
-                item.classList.remove('selected');
-                item.querySelector('input[type="radio"]').checked = false;
-            });
-        });
-    }
-    
-    // Add current selection
-    selectedNominations[categoryId] = {
-        nominee: nominee.name,
-        category: nominationCategories[categoryId].name,
-        nomineeIndex: nomineeIndex
-    };
-
-    // Update UI
-    updateSelectionDisplay();
-    updatePaymentCalculation();
-    
-    // Clear other selections in the same category
-    document.querySelectorAll(`[data-category="${categoryId}"]`).forEach(item => {
-        item.classList.remove('selected');
-    });
-    
-    // Add selection to current item
-    nomineeItem.classList.add('selected');
-}
-
-// Add unselect all function
-function unselectAllCategories() {
-    // Clear all selections
-    selectedNominations = {};
-    
-    // Uncheck all radio buttons and remove visual selection
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radio.checked = false;
-        radio.closest('.nominee-item').classList.remove('selected');
-    });
-    
-    // Update displays
-    updateSelectionDisplay();
-    updatePaymentCalculation();
-    updateSelectedCategoriesSummary();
-    
-    showAlert('All selections cleared', 'info');
-}
-
-// Add clear selection button to the UI
-function addClearSelectionButton() {
-    const selectionControls = document.querySelector('.selection-controls');
-    
-    const clearButton = document.createElement('button');
-    clearButton.className = 'btn btn-warning';
-    clearButton.innerHTML = '<i class="fas fa-times-circle"></i> Clear All Selections';
-    clearButton.onclick = unselectAllCategories;
-    clearButton.id = 'clearSelectionsBtn';
-    clearButton.style.display = 'none';
-    
-    selectionControls.appendChild(clearButton);
-}
-
-// Updated selection display function
-function updateSelectionDisplay() {
-    const count = Object.keys(selectedNominations).length;
-    const counter = document.getElementById('selectionCounter');
-    const fixedCounter = document.getElementById('fixedCounter');
-    const proceedBtn = document.getElementById('proceedToDetails');
-    const clearBtn = document.getElementById('clearSelectionsBtn');
-    
-    document.getElementById('selectedCount').textContent = count;
-    document.getElementById('fixedSelectedCount').textContent = count;
-    
-    if (count > 0) {
-        counter.style.display = 'block';
-        fixedCounter.style.display = 'block';
-        proceedBtn.style.display = 'block';
-        if (clearBtn) clearBtn.style.display = 'inline-flex';
-    } else {
-        counter.style.display = 'none';
-        fixedCounter.style.display = 'none';
-        proceedBtn.style.display = 'none';
-        if (clearBtn) clearBtn.style.display = 'none';
-    }
-}
         // Global Variables
         let currentUser = null;
         let selectedNominations = {};
-        let multipleSelectionEnabled = true; // Auto-enabled
-        let isSignUpMode = true; // Default to sign up
+        let multipleSelectionEnabled = true;
+        let isSignUpMode = true;
 
         // DOM Elements
         const registrationSection = document.getElementById('registrationSection');
@@ -1611,8 +1482,29 @@ function updateSelectionDisplay() {
             console.log('🚀 App initialized, waiting for Firebase auth state...');
             setupEventListeners();
             renderCategories();
-            setAuthMode('signup'); // Set initial mode
+            setAuthMode('signup');
+            initScrollToTop();
         });
+
+        // Scroll to Top Functionality
+        function initScrollToTop() {
+            const scrollBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
 
         function setupEventListeners() {
             document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
@@ -1634,7 +1526,6 @@ function updateSelectionDisplay() {
             const authSwitchText = document.getElementById('authSwitchText');
 
             if (isSignUpMode) {
-                // Sign Up Mode
                 signupBtn.classList.remove('btn-secondary');
                 signupBtn.classList.add('active');
                 loginBtn.classList.remove('active');
@@ -1645,10 +1536,7 @@ function updateSelectionDisplay() {
                 document.getElementById('confirmPassword').required = true;
                 authSubmitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account & Continue';
                 authSwitchText.innerHTML = 'Already have an account? <a href="#" onclick="setAuthMode(\'login\')">Login here</a>';
-                
-                console.log('🔄 Switched to Sign Up mode');
             } else {
-                // Login Mode
                 loginBtn.classList.remove('btn-secondary');
                 loginBtn.classList.add('active');
                 signupBtn.classList.remove('active');
@@ -1659,8 +1547,6 @@ function updateSelectionDisplay() {
                 document.getElementById('confirmPassword').required = false;
                 authSubmitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login & Continue';
                 authSwitchText.innerHTML = 'Don\'t have an account? <a href="#" onclick="setAuthMode(\'signup\')">Sign up here</a>';
-                
-                console.log('🔄 Switched to Login mode');
             }
         }
 
@@ -1688,7 +1574,6 @@ function updateSelectionDisplay() {
             const password = document.getElementById('userPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Validation for sign up mode
             if (isSignUpMode) {
                 if (password !== confirmPassword) {
                     showAlert('Passwords do not match. Please try again.', 'error');
@@ -1703,40 +1588,27 @@ function updateSelectionDisplay() {
 
             try {
                 showLoading(true);
-                console.log('🔐 Starting authentication...');
 
                 if (isSignUpMode) {
-                    // Sign Up Mode
-                    console.log('📝 Creating new account...');
                     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                     currentUser = userCredential.user;
                     showAlert('🎉 Account created successfully! Please select your nomination categories.', 'success');
-                    console.log('✅ Account created for:', email);
                 } else {
-                    // Login Mode
-                    console.log('🔐 Signing in existing user...');
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     currentUser = userCredential.user;
                     showAlert('👋 Welcome back! Please select your nomination categories.', 'success');
-                    console.log('✅ Login successful for:', email);
                 }
-
-                // 🔧 CRITICAL: Don't immediately move sections, let onAuthStateChanged handle it
-                console.log('✅ Authentication successful, auth state listener will handle navigation');
 
             } catch (error) {
                 console.error(`❌ ${isSignUpMode ? 'Sign up' : 'Login'} failed:`, error);
                 
-                // Provide specific error messages
                 let errorMessage = 'Authentication failed: ';
                 
                 if (error.code === 'auth/email-already-in-use') {
                     errorMessage = 'An account with this email already exists. Try logging in instead.';
-                    // Auto-switch to login mode
                     setTimeout(() => setAuthMode('login'), 2000);
                 } else if (error.code === 'auth/user-not-found') {
                     errorMessage = 'No account found with this email. Please sign up first.';
-                    // Auto-switch to sign up mode
                     setTimeout(() => setAuthMode('signup'), 2000);
                 } else if (error.code === 'auth/wrong-password') {
                     errorMessage = 'Incorrect password. Please try again.';
@@ -1771,7 +1643,6 @@ function updateSelectionDisplay() {
                         </div>
                         <div class="nominee-info">
                             <div class="nominee-name">${nominee.name}</div>
-                            <div class="nominee-votes">${nominee.votes} votes</div>
                         </div>
                     </div>
                 `).join('');
@@ -1784,17 +1655,18 @@ function updateSelectionDisplay() {
                 `;
 
                 // Add event listeners
-                const radioButtons = categoryCard.querySelectorAll('input[type="radio"]');
-                radioButtons.forEach(radio => {
-                    radio.addEventListener('change', handleNomineeSelection);
-                });
-
                 const nomineeItems = categoryCard.querySelectorAll('.nominee-item');
                 nomineeItems.forEach(item => {
                     item.addEventListener('click', function(e) {
-                        if (e.target.type !== 'radio') {
-                            const radio = item.querySelector('input[type="radio"]');
-                            radio.click();
+                        const radio = item.querySelector('input[type="radio"]');
+                        const categoryId = radio.name;
+                        const nomineeIndex = parseInt(radio.value);
+                        
+                        // Check if already selected - if so, unselect
+                        if (radio.checked) {
+                            unselectNominee(categoryId, item);
+                        } else {
+                            selectNominee(categoryId, nomineeIndex, item);
                         }
                     });
                 });
@@ -1803,50 +1675,74 @@ function updateSelectionDisplay() {
             });
         }
 
-        // Handle Nominee Selection
-        function handleNomineeSelection(e) {
-            const categoryId = e.target.name;
-            const nomineeIndex = parseInt(e.target.value);
+        // Select Nominee Function
+        function selectNominee(categoryId, nomineeIndex, nomineeItem) {
             const nominee = nominationCategories[categoryId].nominees[nomineeIndex];
+            const radio = nomineeItem.querySelector('input[type="radio"]');
             
-            // Check if this category is already selected with same nominee (deselection)
-            if (selectedNominations[categoryId] && selectedNominations[categoryId].nomineeIndex === nomineeIndex) {
-                // Deselect this category
-                delete selectedNominations[categoryId];
-                e.target.checked = false;
-                e.target.closest('.nominee-item').classList.remove('selected');
-                console.log(`Deselected category: ${categoryId}`);
-            } else {
-                // If multiple selection is disabled and we already have a selection
-                if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
-                    // Clear all previous selections
-                    Object.keys(selectedNominations).forEach(prevCategoryId => {
-                        delete selectedNominations[prevCategoryId];
-                        document.querySelectorAll(`[data-category="${prevCategoryId}"]`).forEach(item => {
-                            item.classList.remove('selected');
-                            item.querySelector('input[type="radio"]').checked = false;
-                        });
-                    });
-                }
-                
-                // Add current selection
-                selectedNominations[categoryId] = {
-                    nominee: nominee.name,
-                    category: nominationCategories[categoryId].name,
-                    nomineeIndex: nomineeIndex
-                };
-                
-                // Update visual selection for this category
-                document.querySelectorAll(`[data-category="${categoryId}"]`).forEach(item => {
-                    item.classList.remove('selected');
-                });
-                e.target.closest('.nominee-item').classList.add('selected');
-                console.log(`Selected category: ${categoryId} - ${nominee.name}`);
+            // If multiple selection is disabled, clear all other selections
+            if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
+                clearAllSelections(false); // Don't show alert
             }
+            
+            // Add current selection
+            selectedNominations[categoryId] = {
+                nominee: nominee.name,
+                category: nominationCategories[categoryId].name,
+                nomineeIndex: nomineeIndex
+            };
 
             // Update UI
+            radio.checked = true;
+            nomineeItem.classList.add('selected');
+            
+            // Clear other selections in same category
+            document.querySelectorAll(`[data-category="${categoryId}"]`).forEach(item => {
+                if (item !== nomineeItem) {
+                    item.classList.remove('selected');
+                    item.querySelector('input[type="radio"]').checked = false;
+                }
+            });
+
             updateSelectionDisplay();
             updatePaymentCalculation();
+            console.log(`Selected: ${categoryId} - ${nominee.name}`);
+        }
+
+        // Unselect Nominee Function
+        function unselectNominee(categoryId, nomineeItem) {
+            const radio = nomineeItem.querySelector('input[type="radio"]');
+            
+            // Remove selection
+            delete selectedNominations[categoryId];
+            radio.checked = false;
+            nomineeItem.classList.remove('selected');
+
+            updateSelectionDisplay();
+            updatePaymentCalculation();
+            updateSelectedCategoriesSummary();
+            
+            showAlert(`Unselected from ${nominationCategories[categoryId].name}`, 'info');
+            console.log(`Unselected: ${categoryId}`);
+        }
+
+        // Clear All Selections
+        function clearAllSelections(showAlert = true) {
+            selectedNominations = {};
+            
+            // Clear all radio buttons and visual selections
+            document.querySelectorAll('.nominee-item').forEach(item => {
+                item.classList.remove('selected');
+                item.querySelector('input[type="radio"]').checked = false;
+            });
+
+            updateSelectionDisplay();
+            updatePaymentCalculation();
+            updateSelectedCategoriesSummary();
+            
+            if (showAlert) {
+                showAlert('All selections cleared', 'info');
+            }
         }
 
         // Toggle Multiple Selection
@@ -1871,15 +1767,17 @@ function updateSelectionDisplay() {
                 if (keys.length > 1) {
                     const firstKey = keys[0];
                     const firstSelection = selectedNominations[firstKey];
-                    selectedNominations = { [firstKey]: firstSelection };
                     
-                    // Update UI
-                    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                        if (radio.name !== firstKey) {
-                            radio.checked = false;
-                            radio.closest('.nominee-item').classList.remove('selected');
-                        }
-                    });
+                    // Clear all
+                    clearAllSelections(false);
+                    
+                    // Restore first
+                    selectedNominations = { [firstKey]: firstSelection };
+                    const firstItem = document.querySelector(`[data-category="${firstKey}"][data-nominee="${firstSelection.nomineeIndex}"]`);
+                    if (firstItem) {
+                        firstItem.classList.add('selected');
+                        firstItem.querySelector('input[type="radio"]').checked = true;
+                    }
                 }
             }
             
@@ -1893,6 +1791,7 @@ function updateSelectionDisplay() {
             const counter = document.getElementById('selectionCounter');
             const fixedCounter = document.getElementById('fixedCounter');
             const proceedBtn = document.getElementById('proceedToDetails');
+            const clearBtn = document.getElementById('clearAllBtn');
             
             document.getElementById('selectedCount').textContent = count;
             document.getElementById('fixedSelectedCount').textContent = count;
@@ -1901,33 +1800,28 @@ function updateSelectionDisplay() {
                 counter.style.display = 'block';
                 fixedCounter.style.display = 'block';
                 proceedBtn.style.display = 'block';
+                clearBtn.style.display = 'inline-flex';
             } else {
                 counter.style.display = 'none';
                 fixedCounter.style.display = 'none';
                 proceedBtn.style.display = 'none';
+                clearBtn.style.display = 'none';
             }
         }
 
-        // Update Payment Calculation (₦150 service fee + ₦100 processing fee per selection)
+        // Update Payment Calculation
         function updatePaymentCalculation() {
             const categoryCount = Object.keys(selectedNominations).length;
             const baseAmount = categoryCount * 1000;
-            
-            // Fixed fees per category selected
-            const serviceFee = categoryCount * 150;  // ₦150 per selection
-            const processingFee = categoryCount * 100;  // ₦100 per selection
-            
+            const serviceFee = categoryCount * 150;
+            const processingFee = categoryCount * 100;
             const total = baseAmount + serviceFee + processingFee;
             
-            // Update display
             document.getElementById('categoryCount').textContent = categoryCount;
             document.getElementById('subtotalAmount').textContent = baseAmount.toLocaleString();
             document.getElementById('serviceFeeAmount').textContent = serviceFee.toLocaleString();
             document.getElementById('processingFeeAmount').textContent = processingFee.toLocaleString();
             document.getElementById('totalAmount').textContent = total.toLocaleString();
-            document.getElementById('bankTransferAmount').textContent = total.toLocaleString();
-            
-            console.log(`Payment calculation: Base=₦${baseAmount}, Service=₦${serviceFee} (₦150×${categoryCount}), Processing=₦${processingFee} (₦100×${categoryCount}), Total=₦${total}`);
         }
 
         // Show Details Section
@@ -1954,13 +1848,13 @@ function updateSelectionDisplay() {
             });
         }
 
-        // Handle Image Preview and Convert to Base64
+        // Handle Image Preview
         function handleImagePreview(e) {
             const file = e.target.files[0];
             const preview = document.getElementById('imagePreview');
             
             if (file) {
-                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                if (file.size > 5 * 1024 * 1024) {
                     showAlert('Image size should be less than 5MB', 'error');
                     e.target.value = '';
                     return;
@@ -1970,22 +1864,19 @@ function updateSelectionDisplay() {
                 reader.onload = function(e) {
                     const base64Data = e.target.result;
                     preview.innerHTML = `<img src="${base64Data}" alt="Profile Preview" class="image-preview">`;
-                    
-                    // Store base64 data for later use
                     e.target.base64Data = base64Data;
-                    console.log('Profile image converted to base64, size:', Math.round(base64Data.length / 1024), 'KB');
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // Handle Screenshot Preview and Convert to Base64
+        // Handle Screenshot Preview
         function handleScreenshotPreview(e) {
             const file = e.target.files[0];
             const preview = document.getElementById('screenshotPreview');
             
             if (file) {
-                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                if (file.size > 5 * 1024 * 1024) {
                     showAlert('Screenshot size should be less than 5MB', 'error');
                     e.target.value = '';
                     return;
@@ -1995,10 +1886,7 @@ function updateSelectionDisplay() {
                 reader.onload = function(e) {
                     const base64Data = e.target.result;
                     preview.innerHTML = `<img src="${base64Data}" alt="Payment Screenshot" class="image-preview">`;
-                    
-                    // Store base64 data for later use
                     e.target.base64Data = base64Data;
-                    console.log('Payment screenshot converted to base64, size:', Math.round(base64Data.length / 1024), 'KB');
                 };
                 reader.readAsDataURL(file);
             }
@@ -2008,48 +1896,34 @@ function updateSelectionDisplay() {
         async function handleSubmission() {
             console.log('🚀 Starting nomination submission...');
             
-            // Double-check auth status
             if (!currentUser) {
                 showAlert('❌ Please log in first!', 'error');
                 return;
             }
             
-            // Get form data
             const name = document.getElementById('nomineeName').value.trim();
             const imageFileInput = document.getElementById('nomineeImage');
             const screenshotFileInput = document.getElementById('paymentScreenshot');
             const imageFile = imageFileInput.files[0];
             const screenshotFile = screenshotFileInput.files[0];
             
-            console.log('📋 Form data:', { name, imageFile: imageFile?.name, screenshotFile: screenshotFile?.name });
-            
-            // Simple validation
             if (!name || !imageFile || !screenshotFile) {
                 showAlert('Please fill all fields!', 'error');
                 return;
             }
 
-            // Show loading immediately
             showLoading(true);
             
             try {
-                // Get base64 data from stored properties
                 const profileImageBase64 = imageFileInput.base64Data || '';
                 const paymentScreenshotBase64 = screenshotFileInput.base64Data || '';
                 
-                console.log('📸 Using base64 images:', {
-                    profileSize: Math.round(profileImageBase64.length / 1024) + 'KB',
-                    screenshotSize: Math.round(paymentScreenshotBase64.length / 1024) + 'KB'
-                });
-                
-                // Calculate fixed fees per selection
                 const categoryCount = Object.keys(selectedNominations).length;
                 const baseAmount = categoryCount * 1000;
-                const serviceFee = categoryCount * 150;  // ₦150 per selection
-                const processingFee = categoryCount * 100;  // ₦100 per selection
+                const serviceFee = categoryCount * 150;
+                const processingFee = categoryCount * 100;
                 const totalAmount = baseAmount + serviceFee + processingFee;
                 
-                // Simple direct save with base64 images
                 const docData = {
                     nomineeName: name,
                     email: currentUser.email,
@@ -2072,33 +1946,32 @@ function updateSelectionDisplay() {
                     status: 'submitted'
                 };
 
-                console.log('💾 Saving to ssohisnomination collection with base64 images...');
+                console.log('💾 Saving to ssohisnomination collection...');
                 
-                // Save directly to Firebase
                 const docRef = await db.collection('ssohisnomination').add(docData);
-                
                 console.log('✅ Saved with document ID:', docRef.id);
                 
-                // Stop loading
                 showLoading(false);
                 
-                // Show success
-                showAlert(`🎉 Nomination submitted successfully! Document ID: ${docRef.id}. Total: ₦${totalAmount.toLocaleString()}`, 'success');
+                // Show success message with custom text
+                showAlert(`🎉 Nomination submitted successfully! Document ID: ${docRef.id}. Total: ₦${totalAmount.toLocaleString()}. Come back again when you win the voting rounds!`, 'success');
                 
-                // Move to final step
                 updateProgressSteps(4);
                 
-                // Reload after delay
                 setTimeout(() => {
-                    console.log('🔄 Reloading page...');
                     location.reload();
-                }, 5000);
+                }, 8000);
                 
             } catch (error) {
                 console.error('❌ Submission failed:', error);
                 showLoading(false);
                 showAlert('Error: ' + error.message, 'error');
             }
+        }
+
+        // Redirect function
+        function redirectToEventphySignUp() {
+            window.open('https://eventphy.com/signup', '_blank');
         }
 
         // Show Alert
@@ -2109,9 +1982,12 @@ function updateSelectionDisplay() {
             
             document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
             
+            // Auto-scroll to top to show alert
+            scrollToTop();
+            
             setTimeout(() => {
                 alertDiv.remove();
-            }, 8000);
+            }, 10000);
         }
 
         // Show Loading
@@ -2121,6 +1997,3 @@ function updateSelectionDisplay() {
     </script>
 </body>
 </html>
-
-
-
