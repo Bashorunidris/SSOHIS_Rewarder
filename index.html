@@ -912,78 +912,275 @@
             background: linear-gradient(45deg, #c82333, #a02622);
         }
 
-        /* Responsive Styles */
+        /* Enhanced Responsive Styles */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 10px;
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 25px 20px;
+                margin-bottom: 20px;
             }
 
             .event-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
+                line-height: 1.2;
             }
 
             .event-slogan {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+                line-height: 1.3;
+            }
+
+            .event-description {
+                font-size: 1rem;
+            }
+
+            .host-info {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
 
             .categories-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .category-card {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+
+            .banner-carousel {
+                width: calc(300px * 6);
             }
 
             .banner-item {
                 width: 300px;
             }
 
+            .banner-item img {
+                height: 180px;
+            }
+
             .selection-controls {
                 flex-direction: column;
                 align-items: stretch;
-            }
-
-            .progress-steps {
                 gap: 15px;
             }
 
+            .selection-mode-toggle {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .progress-steps {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .step {
+                font-size: 0.9rem;
+            }
+
             .step-number {
-                width: 35px;
-                height: 35px;
-                font-size: 14px;
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+                margin-right: 8px;
             }
 
             .fixed-counter {
-                bottom: 15px;
+                bottom: 10px;
+                right: 10px;
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .scroll-to-top {
+                bottom: 70px;
                 right: 15px;
-                padding: 15px 20px;
-                font-size: 14px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .scroll-down {
+                bottom: 120px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
             }
 
             .auth-toggle {
                 flex-direction: column;
                 align-items: center;
+                gap: 8px;
+            }
+
+            .auth-toggle .btn {
+                min-width: 200px;
             }
 
             .social-auth-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 12px;
             }
 
             .social-btn {
-                min-width: 250px;
+                min-width: 280px;
+                padding: 12px 20px;
+            }
+
+            .section {
+                padding: 25px 20px;
+                margin-bottom: 20px;
+            }
+
+            .payment-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .payment-item {
+                flex-direction: column;
+                gap: 5px;
+                text-align: left;
+                padding: 8px 0;
+            }
+
+            .payment-item span:last-child {
+                font-size: 1.1rem;
+            }
+
+            .form-control {
+                padding: 12px 16px;
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                width: 100%;
+                justify-content: center;
+                margin: 8px 0;
+            }
+
+            .success-modal-content {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .success-title {
+                font-size: 1.5rem;
+            }
+
+            .success-comeback {
+                font-size: 1.1rem;
+                padding: 12px;
             }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .event-title {
+                font-size: 1.8rem;
+            }
+
+            .event-slogan {
+                font-size: 1.1rem;
+            }
+
+            .banner-carousel {
+                width: calc(260px * 6);
+            }
+
             .banner-item {
                 width: 260px;
             }
 
             .banner-item img {
-                height: 180px;
+                height: 160px;
             }
 
-            .nominee-info {
+            .social-btn {
+                min-width: 100%;
+                padding: 15px;
+                font-size: 14px;
+            }
+
+            .category-title {
+                font-size: 1.2rem;
+            }
+
+            .nominee-item {
+                padding: 15px;
+            }
+
+            .nominee-name {
+                font-size: 1rem;
+            }
+
+            .custom-radio {
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+            }
+
+            .radio-checkmark {
+                width: 20px;
+                height: 20px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
                 flex-direction: column;
-                align-items: flex-start;
                 gap: 10px;
+                text-align: center;
+            }
+
+            .form-group label {
+                font-size: 1rem;
+            }
+
+            .payment-section h3 {
+                font-size: 1.2rem;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .image-preview {
+                max-width: 120px;
+                max-height: 120px;
+            }
+
+            .file-upload-btn {
+                padding: 12px 15px;
+                font-size: 14px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .auth-status {
+                top: 10px;
+                right: 10px;
+                font-size: 12px;
+                padding: 8px 12px;
             }
         }
     </style>
@@ -2237,67 +2434,175 @@
             }
         }
 
-        // Handle Submission
+        // Handle Submission - FIXED VERSION
         async function handleSubmission() {
             console.log('🚀 Starting nomination submission...');
             
+            // Check authentication
             if (!currentUser) {
                 showAlert('❌ Please log in first!', 'error');
+                console.error('❌ No current user found');
                 return;
             }
             
-            const name = document.getElementById('nomineeName').value.trim();
-            const imageFileInput = document.getElementById('nomineeImage');
-            const screenshotFileInput = document.getElementById('paymentScreenshot');
-            const imageFile = imageFileInput.files[0];
-            const screenshotFile = screenshotFileInput.files[0];
+            console.log('✅ User authenticated:', currentUser.email);
             
-            if (!name || !imageFile || !screenshotFile) {
-                showAlert('Please fill all fields!', 'error');
+            // Get form data
+            const name = document.getElementById('nomineeName').value.trim();
+            const imageFile = document.getElementById('nomineeImage').files[0];
+            const screenshotFile = document.getElementById('paymentScreenshot').files[0];
+            
+            console.log('📋 Form validation:', { 
+                name: name, 
+                imageFile: imageFile ? imageFile.name : 'none', 
+                screenshotFile: screenshotFile ? screenshotFile.name : 'none',
+                selectedCount: Object.keys(selectedNominations).length
+            });
+            
+            // Validation
+            if (!name) {
+                showAlert('Please enter your full name!', 'error');
+                return;
+            }
+            
+            if (!imageFile) {
+                showAlert('Please upload your profile image!', 'error');
+                return;
+            }
+            
+            if (!screenshotFile) {
+                showAlert('Please upload payment screenshot!', 'error');
+                return;
+            }
+            
+            if (Object.keys(selectedNominations).length === 0) {
+                showAlert('Please select at least one category!', 'error');
                 return;
             }
 
+            // Show loading
             showLoading(true);
+            console.log('⏳ Starting submission process...');
             
             try {
-                const profileImageBase64 = imageFileInput.base64Data || '';
-                const paymentScreenshotBase64 = screenshotFileInput.base64Data || '';
-                
+                // Calculate payment
                 const categoryCount = Object.keys(selectedNominations).length;
                 const baseAmount = categoryCount * 1000;
                 const serviceFee = categoryCount * 150;
                 const processingFee = categoryCount * 100;
                 const totalAmount = baseAmount + serviceFee + processingFee;
                 
-                const docData = {
+                console.log('💰 Payment calculation:', { categoryCount, baseAmount, serviceFee, processingFee, totalAmount });
+                
+                // Convert images to base64
+                let profileImageBase64 = '';
+                let paymentScreenshotBase64 = '';
+                
+                // Convert profile image
+                if (imageFile) {
+                    profileImageBase64 = await convertFileToBase64(imageFile);
+                    console.log('📸 Profile image converted to base64, size:', Math.round(profileImageBase64.length / 1024), 'KB');
+                }
+                
+                // Convert screenshot
+                if (screenshotFile) {
+                    paymentScreenshotBase64 = await convertFileToBase64(screenshotFile);
+                    console.log('📱 Screenshot converted to base64, size:', Math.round(paymentScreenshotBase64.length / 1024), 'KB');
+                }
+                
+                // Prepare data for Firebase
+                const nominationData = {
+                    // User Info
                     nomineeName: name,
                     email: currentUser.email,
                     userId: currentUser.uid,
-                    authMethod: currentUser.providerData[0]?.providerId || 'email',
+                    userDisplayName: currentUser.displayName || name,
+                    authProvider: currentUser.providerData[0]?.providerId || 'password',
+                    
+                    // Nomination Details
                     selectedNominations: selectedNominations,
-                    profileImageBase64: profileImageBase64,
-                    paymentScreenshotBase64: paymentScreenshotBase64,
-                    profileImageName: imageFile.name,
-                    paymentScreenshotName: screenshotFile.name,
                     categoryCount: categoryCount,
+                    
+                    // Images (Base64)
+                    profileImage: {
+                        data: profileImageBase64,
+                        name: imageFile.name,
+                        size: imageFile.size,
+                        type: imageFile.type
+                    },
+                    paymentScreenshot: {
+                        data: paymentScreenshotBase64,
+                        name: screenshotFile.name,
+                        size: screenshotFile.size,
+                        type: screenshotFile.type
+                    },
+                    
+                    // Payment Info
                     paymentDetails: {
                         baseAmount: baseAmount,
                         serviceFee: serviceFee,
                         processingFee: processingFee,
-                        totalAmount: totalAmount
+                        totalAmount: totalAmount,
+                        currency: 'NGN'
                     },
-                    submissionStatus: 'pending_verification',
+                    
+                    // Bank Details
+                    bankTransferDetails: {
+                        bankName: 'Opay',
+                        accountName: 'IDRIS OLUWALOGBON BASORUN',
+                        accountNumber: '6110747164',
+                        transferAmount: totalAmount
+                    },
+                    
+                    // Status
+                    submissionStatus: 'submitted',
+                    paymentStatus: 'pending_verification',
                     paymentMethod: 'bank_transfer',
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    status: 'submitted'
+                    
+                    // Timestamp
+                    submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    submittedDate: new Date().toISOString(),
+                    
+                    // Event Info
+                    eventName: 'SSOHIS DINNER NIGHT & AWARD',
+                    eventSlogan: 'DIPLOMAT AND DINE',
+                    eventHost: 'BELIEVER OF LASU'
                 };
 
-                console.log('💾 Saving to app_reviews collection...');
+                console.log('📝 Data prepared for Firebase:', {
+                    nomineeName: nominationData.nomineeName,
+                    email: nominationData.email,
+                    categoryCount: nominationData.categoryCount,
+                    totalAmount: nominationData.paymentDetails.totalAmount,
+                    hasProfileImage: !!nominationData.profileImage.data,
+                    hasPaymentScreenshot: !!nominationData.paymentScreenshot.data
+                });
+
+                // Save to Firebase - Try multiple collections for safety
+                console.log('💾 Attempting to save to Firebase...');
                 
-                const docRef = await db.collection('app_reviews').add(docData);
-                console.log('✅ Saved with document ID:', docRef.id);
+                // Primary save to ssohisnomination
+                let docRef;
+                try {
+                    docRef = await db.collection('ssohisnomination').add(nominationData);
+                    console.log('✅ PRIMARY: Saved to ssohisnomination with ID:', docRef.id);
+                } catch (primaryError) {
+                    console.error('❌ Primary save failed:', primaryError);
+                    
+                    // Fallback to app_reviews
+                    try {
+                        docRef = await db.collection('app_reviews').add(nominationData);
+                        console.log('✅ FALLBACK: Saved to app_reviews with ID:', docRef.id);
+                    } catch (fallbackError) {
+                        console.error('❌ Fallback save failed:', fallbackError);
+                        throw new Error(`Both saves failed. Primary: ${primaryError.message}, Fallback: ${fallbackError.message}`);
+                    }
+                }
                 
+                // Stop loading
                 showLoading(false);
+                
+                console.log('🎉 Submission successful! Document ID:', docRef.id);
                 
                 // Show success modal
                 showSuccessModal(
@@ -2306,13 +2611,24 @@
                     totalAmount
                 );
                 
+                // Move to final step
                 updateProgressSteps(4);
                 
             } catch (error) {
-                console.error('❌ Submission failed:', error);
+                console.error('❌ Complete submission failed:', error);
                 showLoading(false);
-                showAlert('Error: ' + error.message, 'error');
+                showAlert(`Submission failed: ${error.message}. Please try again or contact support.`, 'error');
             }
+        }
+
+        // Helper function to convert file to base64
+        function convertFileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
         }
 
         // Utility Functions
