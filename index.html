@@ -886,13 +886,17 @@
             border: 1px solid #007bff;
             z-index: 1000;
             display: none;
+            max-width: 300px;
         }
 
         .auth-status.authenticated {
             background: rgba(40, 167, 69, 0.2);
             border-color: #28a745;
             color: #28a745;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
         .auth-status.unauthenticated {
@@ -900,6 +904,32 @@
             border-color: #dc3545;
             color: #dc3545;
             display: block;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background: rgba(220, 53, 69, 0.3);
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(220, 53, 69, 0.5);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .auth-user-info {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Clear Selection Button */
@@ -1181,6 +1211,17 @@
                 right: 10px;
                 font-size: 12px;
                 padding: 8px 12px;
+                max-width: 250px;
+            }
+
+            .logout-btn {
+                font-size: 10px;
+                padding: 4px 8px;
+                margin-left: 5px;
+            }
+
+            .auth-user-info {
+                font-size: 11px;
             }
         }
     </style>
@@ -1199,7 +1240,12 @@
 
         <!-- Auth Status Indicator -->
         <div id="authStatus" class="auth-status">
-            <i class="fas fa-user"></i> <span id="authStatusText">Checking authentication...</span>
+            <div class="auth-user-info">
+                <i class="fas fa-user"></i> <span id="authStatusText">Checking authentication...</span>
+            </div>
+            <button class="logout-btn" id="logoutBtn" onclick="handleLogout()" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
 
         <!-- Header -->
@@ -1546,12 +1592,18 @@
         auth.onAuthStateChanged((user) => {
             const authStatus = document.getElementById('authStatus');
             const authStatusText = document.getElementById('authStatusText');
+            const logoutBtn = document.getElementById('logoutBtn');
             
             if (user) {
                 console.log('✅ User is authenticated:', user.email);
                 currentUser = user;
                 authStatus.className = 'auth-status authenticated';
-                authStatusText.innerHTML = `<i class="fas fa-check-circle"></i> Logged in: ${user.email}`;
+                
+                // Show user info and logout button
+                const userEmail = user.email || 'No email';
+                const displayName = user.displayName || userEmail.split('@')[0];
+                authStatusText.innerHTML = `<i class="fas fa-check-circle"></i> ${displayName}`;
+                logoutBtn.style.display = 'block';
                 
                 if (registrationSection.style.display !== 'none') {
                     console.log('🔄 User already authenticated, moving to categories...');
@@ -1565,6 +1617,7 @@
                 currentUser = null;
                 authStatus.className = 'auth-status unauthenticated';
                 authStatusText.innerHTML = `<i class="fas fa-times-circle"></i> Not logged in`;
+                logoutBtn.style.display = 'none';
                 
                 if (registrationSection.style.display === 'none') {
                     console.log('🔄 User logged out, returning to auth...');
@@ -1998,7 +2051,7 @@
             document.getElementById('paymentScreenshot').addEventListener('change', handleScreenshotPreview);
         }
 
-        // Google Sign-In
+        // Google Sign-In - FIXED
         async function signInWithGoogle() {
             try {
                 showLoading(true);
@@ -2008,9 +2061,13 @@
                 currentUser = result.user;
                 
                 console.log('✅ Google sign-in successful:', currentUser.email);
-                showAlert('🎉 Google sign-in successful! Welcome to SSOHIS nomination.', 'success');
                 
-                // User will be moved to categories by auth state listener
+                // Manually move to categories section
+                registrationSection.style.display = 'none';
+                categorySection.style.display = 'block';
+                updateProgressSteps(2);
+                
+                showAlert('🎉 Google sign-in successful! Welcome to SSOHIS nomination.', 'success');
                 
             } catch (error) {
                 console.error('❌ Google sign-in failed:', error);
@@ -2020,6 +2077,8 @@
                     errorMessage = 'Google sign-in was cancelled.';
                 } else if (error.code === 'auth/popup-blocked') {
                     errorMessage = 'Please allow popups for Google sign-in.';
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    errorMessage = 'An account already exists with this email using a different sign-in method.';
                 } else {
                     errorMessage += error.message;
                 }
@@ -2030,7 +2089,7 @@
             }
         }
 
-        // Apple Sign-In
+        // Apple Sign-In - FIXED
         async function signInWithApple() {
             try {
                 showLoading(true);
@@ -2039,10 +2098,14 @@
                 const result = await auth.signInWithPopup(appleProvider);
                 currentUser = result.user;
                 
-                console.log('✅ Apple sign-in successful:', currentUser.email);
-                showAlert('🍎 Apple sign-in successful! Welcome to SSOHIS nomination.', 'success');
+                console.log('✅ Apple sign-in successful:', currentUser.email || 'No email provided');
                 
-                // User will be moved to categories by auth state listener
+                // Manually move to categories section
+                registrationSection.style.display = 'none';
+                categorySection.style.display = 'block';
+                updateProgressSteps(2);
+                
+                showAlert('🍎 Apple sign-in successful! Welcome to SSOHIS nomination.', 'success');
                 
             } catch (error) {
                 console.error('❌ Apple sign-in failed:', error);
@@ -2052,6 +2115,8 @@
                     errorMessage = 'Apple sign-in was cancelled.';
                 } else if (error.code === 'auth/popup-blocked') {
                     errorMessage = 'Please allow popups for Apple sign-in.';
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    errorMessage = 'An account already exists with this email using a different sign-in method.';
                 } else {
                     errorMessage += error.message;
                 }
@@ -2581,7 +2646,7 @@
                 // Save to Firebase - Try multiple collections for safety
                 console.log('💾 Attempting to save to Firebase...');
                 
-                // Primary save to ssohisnomination
+                // Primary save to ssohisnomination (correct collection name)
                 let docRef;
                 try {
                     docRef = await db.collection('ssohisnomination').add(nominationData);
@@ -2629,6 +2694,54 @@
                 reader.onerror = reject;
                 reader.readAsDataURL(file);
             });
+        }
+
+        // Logout Function
+        async function handleLogout() {
+            try {
+                console.log('🔄 Logging out user...');
+                showLoading(true);
+                
+                // Sign out from Firebase
+                await auth.signOut();
+                
+                // Clear local data
+                currentUser = null;
+                selectedNominations = {};
+                
+                // Clear form data
+                document.getElementById('userEmail').value = '';
+                document.getElementById('userPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                document.getElementById('nomineeName').value = '';
+                document.getElementById('nomineeImage').value = '';
+                document.getElementById('paymentScreenshot').value = '';
+                
+                // Clear previews
+                document.getElementById('imagePreview').innerHTML = '';
+                document.getElementById('screenshotPreview').innerHTML = '';
+                
+                // Clear selections
+                document.querySelectorAll('.nominee-item').forEach(item => {
+                    item.classList.remove('selected');
+                    item.querySelector('input[type="radio"]').checked = false;
+                });
+                
+                // Reset UI
+                updateSelectionDisplay();
+                updatePaymentCalculation();
+                
+                console.log('✅ Logout successful');
+                showAlert('👋 You have been logged out successfully.', 'info');
+                
+                // Auth state listener will handle UI navigation
+                
+            } catch (error) {
+                console.error('❌ Logout failed:', error);
+                showAlert('Logout failed: ' + error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
         }
 
         // Utility Functions
