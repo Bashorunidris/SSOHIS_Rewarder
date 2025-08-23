@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,225 +13,164 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(183, 65, 14, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(186, 97, 35, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             min-height: 100vh;
-            color: #fff;
-            line-height: 1.6;
+            color: #333;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Scroll to Top Button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 80px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #007bff, #00d4ff);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            z-index: 1000;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
-        }
-
-        .scroll-to-top:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
-        }
-
-        .scroll-to-top.show {
-            display: block;
-            animation: fadeInUp 0.3s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Scroll Down Button */
-        .scroll-down {
-            position: fixed;
-            bottom: 140px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #28a745, #20c997);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: block;
-            z-index: 1000;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
-        }
-
-        .scroll-down:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-        }
-
-        /* Success Pop-up Modal */
-        .success-modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .success-modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            border: 3px solid #00d4ff;
-            box-shadow: 0 20px 60px rgba(0, 123, 255, 0.4);
-        }
-
-        .success-icon {
-            font-size: 4rem;
-            color: #28a745;
-            margin-bottom: 20px;
-            animation: bounce 1s ease infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .success-title {
-            font-size: 2rem;
-            color: #00d4ff;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .success-message {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            opacity: 0.9;
-        }
-
-        .success-comeback {
-            font-size: 1.3rem;
-            color: #ffc107;
-            font-weight: bold;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: rgba(255, 193, 7, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 193, 7, 0.3);
+            padding: 30px 20px;
+            position: relative;
         }
 
         /* Header Styles */
         .header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+            background: 
+                linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,250,0.9) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23B7410E" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23ba6123" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            border-radius: 30px 100px 30px 30px;
+            padding: 50px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(183, 65, 14, 0.15);
+            box-shadow: 
+                0 20px 60px rgba(183, 65, 14, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(183, 65, 14, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
         }
 
         .logo {
-            width: 140px;
-            height: auto;
-            margin-bottom: 25px;
-            border-radius: 50%;
-            border: 3px solid #00d4ff;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 25px;
+            border: 4px solid #B7410E;
+            box-shadow: 
+                0 15px 35px rgba(183, 65, 14, 0.3),
+                0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: rotate(-3deg);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(183, 65, 14, 0.4),
+                0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-content {
+            text-align: left;
+            z-index: 2;
+            position: relative;
         }
 
         .event-title {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, #007bff, #00d4ff);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+            background: linear-gradient(120deg, #B7410E 0%, #ba6123 50%, #B94700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: 800;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(183, 65, 14, 0.1);
         }
 
         .event-slogan {
-            font-size: 1.8rem;
-            color: #00d4ff;
-            margin-bottom: 20px;
-            font-weight: 600;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #B7410E;
+            margin-bottom: 25px;
+            font-weight: 500;
+            font-style: italic;
+            opacity: 0.9;
         }
 
         .event-description {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+            max-width: 600px;
         }
 
         .host-info {
-            display: inline-block;
-            background: rgba(0, 123, 255, 0.3);
-            padding: 12px 25px;
-            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(183, 65, 14, 0.15) 0%, rgba(186, 97, 35, 0.1) 100%);
+            padding: 15px 30px;
+            border-radius: 50px;
             font-weight: 600;
-            border: 1px solid #007bff;
+            border: 2px solid rgba(183, 65, 14, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 8px 25px rgba(183, 65, 14, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        /* Auto-scrolling Banner Styles */
+        .host-info::before {
+            content: '🏆';
+            font-size: 1.2rem;
+        }
+
+        /* Banner Styles */
         .banner-section {
             margin-bottom: 40px;
             overflow: hidden;
             border-radius: 15px;
-            position: relative;
         }
 
         .banner-carousel {
             display: flex;
             gap: 20px;
-            animation: autoScroll 15s linear infinite;
-            width: calc(380px * 6);
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-behavior: smooth;
         }
 
-        @keyframes autoScroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+        .banner-carousel::-webkit-scrollbar {
+            height: 8px;
         }
 
-        .banner-carousel:hover {
-            animation-play-state: paused;
+        .banner-carousel::-webkit-scrollbar-track {
+            background: rgba(183, 65, 14, 0.1);
+            border-radius: 4px;
+        }
+
+        .banner-carousel::-webkit-scrollbar-thumb {
+            background: #B7410E;
+            border-radius: 4px;
         }
 
         .banner-item {
@@ -245,69 +183,144 @@
             height: 220px;
             object-fit: cover;
             border-radius: 15px;
-            border: 3px solid rgba(0, 123, 255, 0.3);
+            border: 3px solid rgba(183, 65, 14, 0.3);
             transition: all 0.3s ease;
         }
 
         .banner-item img:hover {
             transform: scale(1.05);
-            border-color: #00d4ff;
+            border-color: #ba6123;
         }
 
         /* Progress Steps */
         .progress-steps {
             display: flex;
             justify-content: center;
-            margin-bottom: 40px;
-            gap: 30px;
-            flex-wrap: wrap;
+            margin-bottom: 60px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                rgba(183, 65, 14, 0.2) 0%, 
+                rgba(186, 97, 35, 0.2) 50%, 
+                rgba(185, 71, 0, 0.2) 100%);
+            border-radius: 2px;
+            z-index: 1;
         }
 
         .step {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(51, 51, 51, 0.6);
             font-weight: 600;
+            flex: 1;
+            position: relative;
+            z-index: 2;
         }
 
         .step.active {
-            color: #00d4ff;
+            color: #B7410E;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, #B7410E, #ba6123);
+            color: white;
+            transform: scale(1.2);
+            box-shadow: 
+                0 10px 25px rgba(183, 65, 14, 0.4),
+                0 0 0 8px rgba(183, 65, 14, 0.1);
         }
 
         .step.completed {
             color: #28a745;
         }
 
+        .step.completed .step-number {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            transform: scale(1.1);
+        }
+
         .step-number {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 2px solid;
+            border: 3px solid currentColor;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 12px;
+            margin-bottom: 12px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            background: white;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 8px;
+            max-width: 120px;
         }
 
         /* Form Styles */
         .section {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: 
+                linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.9) 100%);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(183, 65, 14, 0.1);
+            box-shadow: 
+                0 15px 40px rgba(183, 65, 14, 0.08),
+                0 5px 15px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #B7410E, #ba6123, #B94700);
+            border-radius: 25px 25px 0 0;
         }
 
         .section h2 {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            color: #00d4ff;
+            gap: 20px;
+            margin-bottom: 35px;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: #B7410E;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(183, 65, 14, 0.3), transparent);
+            margin-left: 20px;
         }
 
         .form-group {
@@ -318,54 +331,88 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: #00d4ff;
+            color: #B7410E;
             font-size: 1.1rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 15px 20px;
-            border: 2px solid rgba(0, 123, 255, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
+            padding: 18px 25px;
+            border: 2px solid rgba(183, 65, 14, 0.2);
+            border-radius: 16px 16px 16px 4px;
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.9) 100%);
+            color: #333;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 15px rgba(183, 65, 14, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .form-control:focus {
             outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
-            background: rgba(255, 255, 255, 0.15);
+            border-color: #B7410E;
+            box-shadow: 
+                0 0 0 4px rgba(183, 65, 14, 0.15),
+                0 8px 25px rgba(183, 65, 14, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.98);
+            transform: translateY(-2px);
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(51, 51, 51, 0.5);
+            font-style: italic;
         }
 
         /* Button Styles */
         .btn {
-            background: linear-gradient(45deg, #007bff, #00d4ff);
+            background: linear-gradient(135deg, #B7410E 0%, #ba6123 50%, #B94700 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
+            padding: 16px 32px;
+            border-radius: 20px 20px 20px 6px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin: 5px;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 8px 25px rgba(183, 65, 14, 0.3),
+                0 3px 10px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(183, 65, 14, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:disabled {
@@ -386,121 +433,6 @@
             background: linear-gradient(45deg, #ffc107, #fd7e14);
         }
 
-        .btn.active {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            transform: translateY(-2px);
-        }
-
-        /* Auth Toggle Buttons */
-        .auth-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .auth-toggle .btn {
-            min-width: 140px;
-        }
-
-        /* Social Auth Buttons */
-        .social-auth-section {
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .social-auth-divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            opacity: 0.6;
-        }
-
-        .social-auth-divider::before,
-        .social-auth-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .social-auth-divider span {
-            margin: 0 20px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .social-auth-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 15px 25px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .social-btn.google {
-            border-color: rgba(234, 67, 53, 0.5);
-            background: rgba(234, 67, 53, 0.1);
-        }
-
-        .social-btn.google:hover {
-            border-color: #ea4335;
-            background: rgba(234, 67, 53, 0.2);
-            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.3);
-        }
-
-        .social-btn.apple {
-            border-color: rgba(0, 0, 0, 0.5);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .social-btn.apple:hover {
-            border-color: #000;
-            background: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .social-btn i {
-            font-size: 20px;
-        }
-
-        .social-btn.google i {
-            color: #ea4335;
-        }
-
-        .social-btn.apple i {
-            color: #000;
-        }
-
-        .social-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         /* Category Selection */
         .selection-controls {
             display: flex;
@@ -518,68 +450,158 @@
         }
 
         .selection-counter {
-           padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #007bff;
-            font-weight: 600;
+            background: linear-gradient(135deg, rgba(183, 65, 14, 0.2) 0%, rgba(186, 97, 35, 0.15) 100%);
+            padding: 15px 25px;
+            border-radius: 30px 30px 30px 8px;
+            border: 2px solid rgba(183, 65, 14, 0.3);
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 6px 20px rgba(183, 65, 14, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 35px;
+            margin-bottom: 40px;
+            perspective: 1000px;
         }
 
         .category-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 25px;
+            background: 
+                linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.85) 100%);
+            border-radius: 25px 25px 25px 5px;
+            padding: 35px;
             border: 2px solid transparent;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #B7410E, #ba6123, #B94700);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .category-card::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(183, 65, 14, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .category-card:hover {
-            border-color: #007bff;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.3);
+            border-color: rgba(183, 65, 14, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 25px 60px rgba(183, 65, 14, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .category-card:hover::after {
+            opacity: 1;
         }
 
         .category-title {
-            font-size: 1.4rem;
-            color: #00d4ff;
-            margin-bottom: 20px;
+            font-size: 1.6rem;
+            color: #B7410E;
+            margin-bottom: 30px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #B7410E, #ba6123);
+            border-radius: 2px;
         }
 
         .nominees-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
         .nominee-item {
-            background: rgba(0, 123, 255, 0.1);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 18px;
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 249, 250, 0.6) 100%);
+            border: 2px solid rgba(183, 65, 14, 0.1);
+            border-radius: 18px 18px 18px 4px;
+            padding: 22px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(183, 65, 14, 0.05);
+        }
+
+        .nominee-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #B7410E, #ba6123);
+            border-radius: 18px 0 0 18px;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
         }
 
         .nominee-item:hover {
-            border-color: rgba(0, 123, 255, 0.5);
-            background: rgba(0, 123, 255, 0.2);
-            transform: translateX(5px);
+            border-color: rgba(183, 65, 14, 0.3);
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.8) 100%);
+            transform: translateX(8px);
+            box-shadow: 
+                0 8px 25px rgba(183, 65, 14, 0.15),
+                0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .nominee-item:hover::before {
+            transform: scaleY(1);
         }
 
         .nominee-item.selected {
-            border-color: #00d4ff;
-            background: rgba(0, 212, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: #ba6123;
+            background: 
+                linear-gradient(135deg, rgba(186, 97, 35, 0.15) 0%, rgba(183, 65, 14, 0.1) 100%);
+            box-shadow: 
+                0 12px 35px rgba(186, 97, 35, 0.25),
+                0 0 0 1px rgba(186, 97, 35, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transform: translateX(8px);
+        }
+
+        .nominee-item.selected::before {
+            transform: scaleY(1);
+            background: linear-gradient(180deg, #ba6123, #B7410E);
         }
 
         .nominee-info {
@@ -591,7 +613,16 @@
         .nominee-name {
             font-weight: 600;
             font-size: 1.1rem;
-            color: #fff;
+            color: #333;
+        }
+
+        .nominee-votes {
+            background: linear-gradient(45deg, #B7410E, #ba6123);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
         }
 
         .custom-radio {
@@ -616,14 +647,14 @@
             left: 0;
             height: 24px;
             width: 24px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #007bff;
+            background: rgba(183, 65, 14, 0.1);
+            border: 2px solid #B7410E;
             border-radius: 50%;
             transition: all 0.3s ease;
         }
 
         .custom-radio input:checked ~ .radio-checkmark {
-            background: #007bff;
+            background: #B7410E;
         }
 
         .radio-checkmark:after {
@@ -649,15 +680,15 @@
         }
 
         .selected-categories-summary {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(186, 97, 35, 0.1);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(186, 97, 35, 0.3);
         }
 
         .selected-categories-summary h3 {
-            color: #00d4ff;
+            color: #ba6123;
             margin-bottom: 20px;
             text-align: center;
             font-size: 1.5rem;
@@ -668,7 +699,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(51, 51, 51, 0.1);
         }
 
         .selected-category-item:last-child {
@@ -694,18 +725,18 @@
             display: inline-flex;
             align-items: center;
             padding: 15px 25px;
-            background: rgba(0, 123, 255, 0.2);
-            border: 2px dashed #007bff;
+            background: rgba(183, 65, 14, 0.2);
+            border: 2px dashed #B7410E;
             border-radius: 12px;
-            color: #00d4ff;
+            color: #B7410E;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
         }
 
         .file-upload-btn:hover {
-            background: rgba(0, 123, 255, 0.3);
-            border-color: #00d4ff;
+            background: rgba(183, 65, 14, 0.3);
+            border-color: #ba6123;
         }
 
         .file-upload-btn i {
@@ -718,21 +749,21 @@
             max-height: 150px;
             border-radius: 12px;
             margin-top: 15px;
-            border: 3px solid #007bff;
+            border: 3px solid #B7410E;
             object-fit: cover;
         }
 
         /* Payment Sections */
         .payment-section {
-            background: rgba(0, 123, 255, 0.1);
+            background: rgba(183, 65, 14, 0.1);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
-            border: 1px solid rgba(0, 123, 255, 0.3);
+            border: 1px solid rgba(183, 65, 14, 0.3);
         }
 
         .payment-section h3 {
-            color: #00d4ff;
+            color: #B7410E;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -857,411 +888,233 @@
             border-radius: 50%;
         }
 
-        /* Auth Switch Link */
-        .auth-switch {
-            text-align: center;
-            margin-top: 20px;
-            opacity: 0.8;
-        }
-
-        .auth-switch a {
-            color: #00d4ff;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .auth-switch a:hover {
-            color: #007bff;
-            text-decoration: underline;
-        }
-
-        /* Auth Status Display */
-        .auth-status {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 123, 255, 0.2);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 14px;
-            border: 1px solid #007bff;
-            z-index: 1000;
+        /* Success Pop-up Modal */
+        .success-modal {
             display: none;
-            max-width: 300px;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
         }
 
-        .auth-status.authenticated {
-            background: rgba(40, 167, 69, 0.2);
-            border-color: #28a745;
+        .success-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 20px 60px rgba(0, 123, 255, 0.4);
+        }
+
+        .success-icon {
+            font-size: 4rem;
             color: #28a745;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
         }
 
-        .auth-status.unauthenticated {
-            background: rgba(220, 53, 69, 0.2);
-            border-color: #dc3545;
-            color: #dc3545;
-            display: block;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
-        /* Logout Button */
-        .logout-btn {
-            background: rgba(220, 53, 69, 0.3);
-            color: #dc3545;
-            border: 1px solid #dc3545;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
+        .success-title {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .success-message {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .success-comeback {
+            font-size: 1.3rem;
+            color: #ffc107;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        /* Scroll Down Button */
+        .scroll-down {
+            position: fixed;
+            bottom: 140px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 50%;
             cursor: pointer;
+            display: block;
+            z-index: 1000;
+            font-size: 20px;
             transition: all 0.3s ease;
-            margin-left: 10px;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
         }
 
-        .logout-btn:hover {
-            background: rgba(220, 53, 69, 0.5);
-            color: #fff;
-            transform: scale(1.05);
+        .scroll-down:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
         }
 
-        .auth-user-info {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* Clear Selection Button */
-        .clear-selection-btn {
-            background: linear-gradient(45deg, #dc3545, #c82333);
-            margin-left: 10px;
-        }
-
-        .clear-selection-btn:hover {
-            background: linear-gradient(45deg, #c82333, #a02622);
-        }
-
-        /* Enhanced Responsive Styles */
+        /* Responsive Styles */
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
-                max-width: 100%;
-            }
-
-            .header {
-                padding: 25px 20px;
-                margin-bottom: 20px;
+                padding: 15px;
             }
 
             .event-title {
-                font-size: 2rem;
-                line-height: 1.2;
+                font-size: 2.2rem;
             }
 
             .event-slogan {
-                font-size: 1.3rem;
-                line-height: 1.3;
-            }
-
-            .event-description {
-                font-size: 1rem;
-            }
-
-            .host-info {
-                padding: 10px 20px;
-                font-size: 0.9rem;
+                font-size: 1.4rem;
             }
 
             .categories-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .category-card {
-                padding: 20px;
-                margin-bottom: 15px;
-            }
-
-            .banner-carousel {
-                width: calc(300px * 6);
             }
 
             .banner-item {
                 width: 300px;
             }
 
-            .banner-item img {
-                height: 180px;
-            }
-
             .selection-controls {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 15px;
-            }
-
-            .selection-mode-toggle {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
             }
 
             .progress-steps {
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .step {
-                font-size: 0.9rem;
+                gap: 15px;
             }
 
             .step-number {
-                width: 30px;
-                height: 30px;
-                font-size: 12px;
-                margin-right: 8px;
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
             }
 
             .fixed-counter {
-                bottom: 10px;
-                right: 10px;
-                padding: 12px 16px;
-                font-size: 12px;
-            }
-
-            .scroll-to-top {
-                bottom: 70px;
+                bottom: 15px;
                 right: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-
-            .scroll-down {
-                bottom: 120px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-
-            .auth-toggle {
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .auth-toggle .btn {
-                min-width: 200px;
-            }
-
-            .social-auth-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 12px;
-            }
-
-            .social-btn {
-                min-width: 280px;
-                padding: 12px 20px;
-            }
-
-            .section {
-                padding: 25px 20px;
-                margin-bottom: 20px;
-            }
-
-            .payment-section {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-
-            .payment-item {
-                flex-direction: column;
-                gap: 5px;
-                text-align: left;
-                padding: 8px 0;
-            }
-
-            .payment-item span:last-child {
-                font-size: 1.1rem;
-            }
-
-            .form-control {
-                padding: 12px 16px;
-                font-size: 16px; /* Prevent zoom on iOS */
-            }
-
-            .btn {
-                padding: 12px 20px;
+                padding: 15px 20px;
                 font-size: 14px;
-                width: 100%;
-                justify-content: center;
-                margin: 8px 0;
-            }
-
-            .success-modal-content {
-                padding: 30px 20px;
-                margin: 20px;
-            }
-
-            .success-title {
-                font-size: 1.5rem;
-            }
-
-            .success-comeback {
-                font-size: 1.1rem;
-                padding: 12px;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 8px;
-            }
-
-            .header {
-                padding: 20px 15px;
-            }
-
-            .event-title {
-                font-size: 1.8rem;
-            }
-
-            .event-slogan {
-                font-size: 1.1rem;
-            }
-
-            .banner-carousel {
-                width: calc(260px * 6);
-            }
-
             .banner-item {
                 width: 260px;
             }
 
             .banner-item img {
-                height: 160px;
+                height: 180px;
             }
 
-            .social-btn {
-                min-width: 100%;
-                padding: 15px;
-                font-size: 14px;
+            .nominee-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
 
-            .category-title {
-                font-size: 1.2rem;
+            .header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+                padding: 30px 20px;
+                border-radius: 20px;
             }
 
-            .nominee-item {
-                padding: 15px;
+            .header-content {
+                text-align: center;
             }
 
-            .nominee-name {
-                font-size: 1rem;
+            .logo {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto 20px auto;
+                transform: rotate(0deg);
             }
 
-            .custom-radio {
-                top: 10px;
-                right: 10px;
-                width: 20px;
-                height: 20px;
-            }
-
-            .radio-checkmark {
-                width: 20px;
-                height: 20px;
+            .section {
+                padding: 30px 20px;
+                border-radius: 20px;
             }
 
             .section h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
                 flex-direction: column;
                 gap: 10px;
-                text-align: center;
             }
 
-            .form-group label {
-                font-size: 1rem;
+            .section h2::after {
+                display: none;
             }
 
-            .payment-section h3 {
-                font-size: 1.2rem;
-                flex-direction: column;
-                gap: 8px;
-                text-align: center;
+            .category-card {
+                padding: 25px 20px;
+                border-radius: 20px;
             }
 
-            .image-preview {
-                max-width: 120px;
-                max-height: 120px;
+            .nominee-item {
+                padding: 18px;
+                border-radius: 15px;
             }
 
-            .file-upload-btn {
-                padding: 12px 15px;
+            .btn {
+                padding: 14px 24px;
                 font-size: 14px;
-                width: 100%;
-                justify-content: center;
+                border-radius: 15px;
             }
 
-            .auth-status {
-                top: 10px;
-                right: 10px;
-                font-size: 12px;
-                padding: 8px 12px;
-                max-width: 250px;
+            .progress-steps::before {
+                display: none;
             }
 
-            .logout-btn {
-                font-size: 10px;
-                padding: 4px 8px;
-                margin-left: 5px;
-            }
-
-            .auth-user-info {
-                font-size: 11px;
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Scroll to Top Button -->
-        <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-
-        <!-- Scroll Down Button -->
-        <button class="scroll-down" id="scrollDown" onclick="scrollDown()">
-            <i class="fas fa-chevron-down"></i>
-        </button>
-
-        <!-- Auth Status Indicator -->
-        <div id="authStatus" class="auth-status">
-            <div class="auth-user-info">
-                <i class="fas fa-user"></i> <span id="authStatusText">Checking authentication...</span>
-            </div>
-            <button class="logout-btn" id="logoutBtn" onclick="handleLogout()" style="display: none;">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
-        </div>
-
         <!-- Header -->
         <div class="header">
             <img src="https://i.ibb.co/VpC27tbt/Rewarder-logo.png" alt="Rewarder Logo" class="logo">
-            <h1 class="event-title">SSOHIS DINNER NIGHT & AWARD</h1>
-            <h2 class="event-slogan">DIPLOMACY AND DINE</h2>
-            <p class="event-description">Pay your nomination fee for prestigious awards and recognition</p>
-            <div class="host-info">
-                <i class="fas fa-microphone"></i> Chairman of Event: <strong>BELIEVER OF LASU</strong><br>
-                Powered by Rewarder
+            <div class="header-content">
+                <h1 class="event-title">SSOHIS DINNER NIGHT & AWARD</h1>
+                <h2 class="event-slogan">DIPLOMAT AND DINE</h2>
+                <p class="event-description">Submit your nomination for prestigious awards and recognition</p>
+                <div class="host-info">
+                    Hosted by: <strong>BELIEVER OF LASU</strong>
+                </div>
             </div>
         </div>
 
-        <!-- Auto-scrolling Banner Section -->
+        <!-- Banner Section -->
         <div class="banner-section">
             <div class="banner-carousel">
                 <div class="banner-item">
@@ -1273,18 +1126,6 @@
                 <div class="banner-item">
                     <img src="https://i.ibb.co/tpNVMDrZ/Fast-Withdrawal-s-20250806-044937-0000.png" alt="Event Banner 3" />
                 </div>
-                <div class="banner-item">
-                    <img src="https://i.ibb.co/5hrNmSgM/Fast-Withdrawal-s-20250806-044026-0000.png" alt="Event Banner 1" />
-                </div>
-                <div class="banner-item">
-                    <img src="https://i.ibb.co/9kQb2chQ/Fast-Withdrawal-s-20250806-042109-0000.png" alt="Event Banner 2" />
-                </div>
-                <div class="banner-item">
-                    <img src="https://i.ibb.co/tpNVMDrZ/Fast-Withdrawal-s-20250806-044937-0000.png" alt="Event Banner 3" />
-                </div>
-                <div class="banner-item">
-    <img src="https://i.ibb.co/NgmRgdY1/IMG-20250804-WA0101.jpg" alt="IMG-20250804-WA0101" />
-</div>
             </div>
         </div>
 
@@ -1292,55 +1133,25 @@
         <div class="progress-steps">
             <div class="step active" id="step1">
                 <div class="step-number">1</div>
-                <span>Account</span>
+                <div class="step-text">Register</div>
             </div>
             <div class="step" id="step2">
                 <div class="step-number">2</div>
-                <span>Select Categories</span>
+                <div class="step-text">Select Categories</div>
             </div>
             <div class="step" id="step3">
                 <div class="step-number">3</div>
-                <span>Add Details</span>
+                <div class="step-text">Add Details</div>
             </div>
             <div class="step" id="step4">
                 <div class="step-number">4</div>
-                <span>Submit</span>
+                <div class="step-text">Submit</div>
             </div>
         </div>
 
-        <!-- Registration/Login Section -->
+        <!-- Registration Section -->
         <div id="registrationSection" class="section">
-            <h2 id="authTitle"><i class="fas fa-user-plus"></i> Create Account</h2>
-            
-            <!-- Social Authentication Section -->
-            <div class="social-auth-section">
-                <h3 style="color: #00d4ff; margin-bottom: 20px; font-size: 1.3rem;">Quick Sign Up</h3>
-                <div class="social-auth-buttons">
-                    <button class="social-btn google" onclick="signInWithGoogle()">
-                        <i class="fab fa-google"></i>
-                        Continue with Google
-                    </button>
-                    <button class="social-btn apple" onclick="signInWithApple()">
-                        <i class="fab fa-apple"></i>
-                        Continue with Apple
-                    </button>
-                </div>
-                
-                <div class="social-auth-divider">
-                    <span>or use email</span>
-                </div>
-            </div>
-            
-            <!-- Auth Mode Toggle -->
-            <div class="auth-toggle">
-                <button type="button" class="btn active" id="signupBtn" onclick="setAuthMode('signup')">
-                    <i class="fas fa-user-plus"></i> Sign Up
-                </button>
-                <button type="button" class="btn btn-secondary" id="loginBtn" onclick="setAuthMode('login')">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-            </div>
-            
+            <h2><i class="fas fa-user-plus"></i> Nominee Registration</h2>
             <form id="registrationForm">
                 <div class="form-group">
                     <label for="userEmail">Email Address</label>
@@ -1348,20 +1159,16 @@
                 </div>
                 <div class="form-group">
                     <label for="userPassword">Password</label>
-                    <input type="password" id="userPassword" class="form-control" placeholder="Enter your password" required>
+                    <input type="password" id="userPassword" class="form-control" placeholder="Create a secure password" required>
                 </div>
-                <div class="form-group" id="confirmPasswordGroup">
+                <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
                 </div>
-                <button type="submit" class="btn" id="authSubmitBtn">
-                    <i class="fas fa-user-plus"></i> Create Account & Continue
+                <button type="submit" class="btn">
+                    <i class="fas fa-arrow-right"></i> Continue to Categories
                 </button>
             </form>
-            
-            <div class="auth-switch">
-                <p id="authSwitchText">Already have an account? <a href="#" onclick="setAuthMode('login')">Login here</a></p>
-            </div>
         </div>
 
         <!-- Category Selection Section -->
@@ -1370,19 +1177,16 @@
             
             <div class="alert alert-info">
                 <i class="fas fa-info-circle"></i> 
-                 Select Your Nominations from the existing Categories. Click again to unselect.
+                Choose the categories you want to be nominated for. Select which existing nominee you want to support/align with in each category.
             </div>
 
             <!-- Selection Controls -->
             <div class="selection-controls">
                 <div class="selection-mode-toggle">
-                    <button class="btn btn-success" onclick="toggleMultipleSelection()" id="multiSelectBtn">
-                        <i class="fas fa-check"></i> Multiple Selection Enabled
+                    <button class="btn btn-secondary" onclick="toggleMultipleSelection()" id="multiSelectBtn">
+                        <i class="fas fa-check-square"></i> Enable Multiple Selection
                     </button>
-                    <button class="btn btn-warning clear-selection-btn" onclick="clearAllSelections()" id="clearAllBtn" style="display: none;">
-                        <i class="fas fa-times-circle"></i> Clear All
-                    </button>
-                    <span id="selectionModeText">Multiple categories enabled</span>
+                    <span id="selectionModeText">Single category mode</span>
                 </div>
                 <div class="selection-counter" id="selectionCounter" style="display: none;">
                     Selected: <span id="selectedCount">0</span> categories
@@ -1436,20 +1240,19 @@
                 <h3><i class="fas fa-university"></i> Bank Transfer Details</h3>
                 <div class="payment-item">
                     <span>Bank Name:</span>
-                    <span>Opay</span>
+                    <span>First Bank of Nigeria</span>
                 </div>
                 <div class="payment-item">
                     <span>Account Name:</span>
-                    <span>IDRIS OLUWALOGBON BASORUN</span>
+                    <span>REWARDER HUB</span>
                 </div>
                 <div class="payment-item">
                     <span>Account Number:</span>
-                    <span>6110747164</span>
+                    <span>3052847362</span>
                 </div>
                 <div class="payment-item">
-                   <button class="btn" onclick="redirectToRewarder()">
-                            <i class="fas fa-external-link-alt"></i> Sign Up for Rewarder
-                        </button> <span>To Create and sell your event tickets  </span>
+                    <span>Transfer Amount:</span>
+                    <span>₦<span id="bankTransferAmount">1,250</span></span>
                 </div>
             </div>
 
@@ -1488,22 +1291,16 @@
                     <span>₦<span id="subtotalAmount">1,000</span></span>
                 </div>
                 <div class="payment-item">
-                    <span>Service Charge (₦150 × categories):</span>
-                    <span>₦<span id="serviceFeeAmount">150</span></span>
+                    <span>Service Charge:</span>
+                    <span>₦150</span>
                 </div>
                 <div class="payment-item">
-                    <span>Processing Fee (₦100 × categories):</span>
-                    <span>₦<span id="processingFeeAmount">100</span></span>
+                    <span>Processing Fee:</span>
+                    <span>₦100</span>
                 </div>
                 <div class="payment-item">
                     <span>Total Amount:</span>
                     <span>₦<span id="totalAmount">1,250</span></span>
-                </div>
-                 <div class="payment-item">
-                   <button class="btn" onclick="redirectToRewarder()">
-                            <i class="fas fa-external-link-alt"></i> Sign Up for Rewarder
-                        </button> 
-                        <span>To Get your Party Insurance ticket</span>
                 </div>
             </div>
 
@@ -1533,9 +1330,6 @@
                 <p class="success-message" id="successMessage">
                     Your nomination has been successfully submitted and saved to our database.
                 </p>
-                 <div class="success-comeback">
-                   only two awards can be won
-                </div>
                 <div class="success-comeback">
                     🎉 Come back again when you win the voting rounds! 🏆
                 </div>
@@ -1544,6 +1338,11 @@
                 </button>
             </div>
         </div>
+
+        <!-- Scroll Down Button -->
+        <button class="scroll-down" id="scrollDown" onclick="scrollDown()">
+            <i class="fas fa-chevron-down"></i>
+        </button>
 
         <!-- Powered By -->
         <div class="powered-by">
@@ -1557,6 +1356,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
 
     <script>
         // Firebase Configuration
@@ -1576,398 +1376,306 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
 
-        // Set up Google provider
-        const googleProvider = new firebase.auth.GoogleAuthProvider();
-        googleProvider.addScope('email');
-        googleProvider.addScope('profile');
-
-        // Set up Apple provider
-        const appleProvider = new firebase.auth.OAuthProvider('apple.com');
-        appleProvider.addScope('email');
-        appleProvider.addScope('name');
-
-        // Set Firebase Auth Persistence
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(() => {
-                console.log('🔐 Firebase auth persistence set to LOCAL');
-            })
-            .catch((error) => {
-                console.error('❌ Error setting auth persistence:', error);
-            });
-
-        // Auth State Listener
-        auth.onAuthStateChanged((user) => {
-            const authStatus = document.getElementById('authStatus');
-            const authStatusText = document.getElementById('authStatusText');
-            const logoutBtn = document.getElementById('logoutBtn');
-            
-            if (user) {
-                console.log('✅ User is authenticated:', user.email);
-                currentUser = user;
-                authStatus.className = 'auth-status authenticated';
-                
-                // Show user info and logout button
-                const userEmail = user.email || 'No email';
-                const displayName = user.displayName || userEmail.split('@')[0];
-                authStatusText.innerHTML = `<i class="fas fa-check-circle"></i> ${displayName}`;
-                logoutBtn.style.display = 'block';
-                
-                if (registrationSection.style.display !== 'none') {
-                    console.log('🔄 User already authenticated, moving to categories...');
-                    registrationSection.style.display = 'none';
-                    categorySection.style.display = 'block';
-                    updateProgressSteps(2);
-                    showAlert('✅ Welcome! You\'re already logged in.', 'success');
-                }
-            } else {
-                console.log('❌ User is not authenticated');
-                currentUser = null;
-                authStatus.className = 'auth-status unauthenticated';
-                authStatusText.innerHTML = `<i class="fas fa-times-circle"></i> Not logged in`;
-                logoutBtn.style.display = 'none';
-                
-                if (registrationSection.style.display === 'none') {
-                    console.log('🔄 User logged out, returning to auth...');
-                    categorySection.style.display = 'none';
-                    detailsSection.style.display = 'none';
-                    registrationSection.style.display = 'block';
-                    updateProgressSteps(1);
-                    showAlert('⚠️ Please log in to continue.', 'warning');
-                }
-            }
-        });
-
-        // Categories with nominees (no votes)
+        // Categories with nominees (Nulass Awards)
         const nominationCategories = {
+            'staylite_of_year': {
+                name: 'Staylite of the Year',
+                nominees: [
+                    { name: 'Bami' },
+                    { name: 'Rabiu' },
+                    { name: 'Hassan Yussuff' },
+                    { name: 'Desire' },
+                    { name: 'Ojikutu Abdullahi Abdulmal' }
+                ]
+            },
+            'nulassite_of_year': {
+                name: 'Nulassite of the Year',
+                nominees: [
+                    { name: 'Olasun Kanmi' },
+                    { name: 'Olotu Moses' },
+                    { name: 'Scarface' },
+                    { name: 'Ojikutu Peace' },
+                    { name: 'Avosegamu' },
+                    { name: 'Awonuga' },
+                    { name: 'Emperor' },
+                    { name: 'Hon. Muhammed Ishola' },
+                    { name: 'Sulamon Oyinlakan' },
+                    { name: 'Onwubadewa Ojikutu' },
+                    { name: 'Bami' },
+                    { name: 'Rotimi Cole' },
+                    { name: 'Peace Onwubadewa' }
+                ]
+            },
+            'executive_of_year': {
+                name: 'Executive of the Year',
+                nominees: [
+                    { name: 'Desire Anjorin' },
+                    { name: 'Ololunosebi' },
+                    { name: 'Anjorin Desire' }
+                ]
+            },
+            'parliamentarian_of_year': {
+                name: 'Parliamentarian of the Year',
+                nominees: [
+                    { name: 'Scarface' },
+                    { name: 'Hameed Bashorun' },
+                    { name: 'Ishola' },
+                    { name: 'Da Silva' },
+                    { name: 'Hon. Ayobami' },
+                    { name: 'Ololun' },
+                    { name: 'Ogunbiyi Yewande' },
+                    { name: 'Justice' },
+                    { name: 'Rashidat Sulamon' },
+                    { name: 'Olasunkanmi Owoyemi' },
+                    { name: 'Hussien Onwonlu' },
+                    { name: 'Hon. Yusuf Olatunji' }
+                ]
+            },
+            'most_supportive': {
+                name: 'Most Supportive',
+                nominees: [
+                    { name: 'Rafahhh (Welfare)' },
+                    { name: 'Owoyemi' },
+                    { name: 'Sulaimon Oyinlakasola' }
+                ]
+            },
+            'clique_of_year': {
+                name: 'Clique of the Year',
+                nominees: [
+                    { name: 'Oluhunosebi' },
+                    { name: 'Babatunde Rufai' },
+                    { name: 'Emperor' }
+                ]
+            },
+            'humanitarian_male': {
+                name: 'Humanitarian of the Year (Male)',
+                nominees: [
+                    { name: 'Emperor' },
+                    { name: 'Babatunde Rufai' },
+                    { name: 'Oluhunosebi' },
+                    { name: 'Ishola' },
+                    { name: 'Bami' },
+                    { name: 'BFA' },
+                    { name: 'Avosegamu Senator' }
+                ]
+            },
+            'humanitarian_female': {
+                name: 'Humanitarian of the Year (Female)',
+                nominees: [
+                    { name: 'Avoseganju Serafon' },
+                    { name: 'Aminat' },
+                    { name: 'Omowunmi Abibat' },
+                    { name: 'Alliuzanaiyan' }
+                ]
+            },
+            'most_active_external': {
+                name: 'Most Active External Campus',
+                nominees: [
+                    { name: 'Ikeya' },
+                    { name: 'Epe' },
+                    { name: 'Ojo' }
+                ]
+            },
+            'alumni_of_year': {
+                name: 'Alumni of the Year',
+                nominees: [
+                    { name: 'Senator Rahmon Saheed' },
+                    { name: 'Adenle Sabur' },
+                    { name: 'Temi Tope' }
+                ]
+            },
+            'couple_of_year': {
+                name: 'Couple of the Year',
+                nominees: [
+                    { name: 'Scar Face and Babe' }
+                ]
+            },
+            'program_of_year': {
+                name: 'Program of the Year',
+                nominees: [
+                    { name: 'Ibile Week' },
+                    { name: 'Epe Legislative Confer' },
+                    { name: 'ELC 4.0' }
+                ]
+            },
+            'most_reserved': {
+                name: 'Most Reserved Nulassite',
+                nominees: [
+                    { name: 'Oluhunosebi' },
+                    { name: 'Omidiji Esther' },
+                    { name: 'Ishola' },
+                    { name: 'Olasunkanmi' },
+                    { name: 'Omowunmi' }
+                ]
+            },
+            'most_popular': {
+                name: 'Most Popular Nulassite',
+                nominees: [
+                    { name: 'Scar Face' },
+                    { name: 'Oluhunosebi' },
+                    { name: 'Abass Mulikat' },
+                    { name: 'Desire' },
+                    { name: 'Emperor' },
+                    { name: 'Akachukwu Ezekiel' }
+                ]
+            },
+            'brand_of_year': {
+                name: 'Brand of the Year',
+                nominees: [
+                    { name: 'Ay Chops' },
+                    { name: 'Rewarder (Ismart DC)' },
+                    { name: 'Olatunwa Shawarma' },
+                    { name: 'Accessories with Aminah' },
+                    { name: 'Faithie Nails' }
+                ]
+            },
+            'entrepreneur_of_year': {
+                name: 'Entrepreneur of the Year',
+                nominees: [
+                    { name: 'Imary Cakes' },
+                    { name: 'Bashorun Idris (Rewarder - Ismart)' },
+                    { name: 'Sir Babatunde Senator Materials' }
+                ]
+            },
+            'most_talented': {
+                name: 'Most Talented Nulassite',
+                nominees: [
+                    { name: 'Phleomzy' },
+                    { name: 'Roferat' },
+                    { name: 'Olokunosebi' },
+                    { name: 'Calculus Boy' },
+                    { name: 'Akachukwu Ezekiel' },
+                    { name: 'Bami' },
+                    { name: 'Overyomi' }
+                ]
+            },
+            'content_creator': {
+                name: 'Content Creator of the Year',
+                nominees: [
+                    { name: 'Aanu Adeniyi' },
+                    { name: 'Oluwagbenga' },
+                    { name: 'Phleomzy' }
+                ]
+            },
+            'division_president': {
+                name: 'Division President of the Year',
+                nominees: [
+                    { name: 'Yussuff Ibraheem' },
+                    { name: 'Crownstar' },
+                    { name: 'Balogun Aminat' },
+                    { name: 'Lanre' },
+                    { name: 'Justice' },
+                    { name: 'Olowolayewo' },
+                    { name: 'Desire' },
+                    { name: 'BFA' }
+                ]
+            },
+            'division_speaker': {
+                name: 'Division Speaker of the Year',
+                nominees: [
+                    { name: 'Maryam Rabi' },
+                    { name: 'Zulaykan' },
+                    { name: 'Ogunbiyi Hafsah' },
+                    { name: 'Akorede' }
+                ]
+            },
+            'political_icon': {
+                name: 'Political Icon',
+                nominees: [
+                    { name: 'Paramole' },
+                    { name: 'Oluhunosebi' },
+                    { name: 'Anjorin Desire' },
+                    { name: 'Ogunbiyi Hafsah' },
+                    { name: 'Hon. Hassan Yusuf Olatunji' },
+                    { name: 'Emperor' },
+                    { name: 'Hon. Muhammed Ishola' }
+                ]
+            },
             'fresher_male': {
                 name: 'Fresher of the Year (Male)',
                 nominees: [
-                    { name: 'Nifemi' },
-                    { name: 'Stixx' },
-                    { name: 'Tr6kt' }
+                    { name: 'Khalifa' },
+                    { name: 'Oladimeji' },
+                    { name: 'Sharwama' },
+                    { name: 'Babatunde Rufai' },
+                    { name: 'Akachukwu Ezekiel' },
+                    { name: 'Matto' },
+                    { name: 'Ags Nukass' }
+                ]
+            },
+            'socialite_of_year': {
+                name: 'Socialite of the Year',
+                nominees: [
+                    { name: 'Bami' },
+                    { name: 'Calculus Boy' },
+                    { name: 'Oluhunosebi' },
+                    { name: 'Lasisi Ayomide' },
+                    { name: 'Sammy' }
                 ]
             },
             'fresher_female': {
                 name: 'Fresher of the Year (Female)',
                 nominees: [
-                    { name: 'Nimi' },
-                    { name: 'Kayo' },
-                    { name: 'Ademola Halimah' }
+                    { name: 'Reece Ojikutu' },
+                    { name: 'Nwuko Sharon' },
+                    { name: 'Oyindamola' },
+                    { name: 'Aifamog' }
                 ]
             },
-            'staylite_male': {
-                name: 'Staylite of the Year (Male)',
+            'sportsman_male': {
+                name: 'Sportsman of the Year (Male)',
                 nominees: [
-                    { name: 'Hamzat' },
-                    { name: 'Bami' },
-                    { name: 'Laz3r' }
+                    { name: 'Olabunkanmi Awoyemi' },
+                    { name: 'Hakeem' },
+                    { name: 'Balo' },
+                    { name: 'Jago' },
+                    { name: 'Oluhunosebi' },
+                    { name: 'Solo of Lasu' }
                 ]
             },
-            'staylite_female': {
-                name: 'Staylite of the Year (Female)',
+            'sportsman_female': {
+                name: 'Sportsman of the Year (Female)',
                 nominees: [
-                    { name: 'Aliyat Monisola' },
-                    { name: 'Awotunya Afolakemi Aduke' },
-                    { name: 'Mariano fashion hub' }
-                ]
-            },
-            'clique': {
-                name: 'Clique of the year',
-                nominees: [
-                    { name: '5G' },
-                    { name: 'THE BIG 4' },
-                    { name: 'HAFZ BABES' }
-                ]
-            },
-            'ceo_entrepreneur': {
-                name: 'CEO/Entrepreneur of the year',
-                nominees: [
-                    { name: 'Mariano Fashion Hub' },
-                    { name: 'AY CHOPS' },
-                    { name: 'Rewarder (Ismart)' }
-                ]
-            },
-            'political_icon': {
-                name: 'Political icon of the year',
-                nominees: [
-                    { name: 'King myde' },
-                    { name: 'Bami' },
-                    { name: 'Jasper' }
-                ]
-            },
-            'executive': {
-                name: 'Executive of the year',
-                nominees: [
-                    { name: 'Marvelous' },
-                    { name: 'Bami' },
-                    { name: 'Lee' }
-                ]
-            },
-            'socialite_male': {
-                name: 'Socialite of the year (Male)',
-                nominees: [
-                    { name: 'Bami' },
-                    { name: 'Believer of lasu' },
-                    { name: 'Hamzat' }
-                ]
-            },
-            'socialite_female': {
-                name: 'Socialite of the year (Female)',
-                nominees: [
-                    { name: 'Ninilola Bello' },
-                    { name: 'Kayo' },
-                    { name: 'Mariam' }
-                ]
-            },
-            'parliamentarian': {
-                name: 'Parliamentarian of the year',
-                nominees: [
-                    { name: 'Awotunya Afolakemi Aduke' },
-                    { name: 'Tabitha' },
-                    { name: 'jasper' }
-                ]
-            },
-            'sportswoman': {
-                name: 'Sportswoman of year',
-                nominees: [
-                    { name: 'Kayo' },
-                    { name: 'Anjola' },
-                    { name: 'Lydia' }
-                ]
-            },
-            'sportsman': {
-                name: 'Sportsman of year',
-                nominees: [
-                    { name: 'Olalekan' },
-                    { name: 'Junior' },
-                    { name: 'Mujeeb' }
-                ]
-            },
-            'department_award': {
-                name: 'Department Award',
-                nominees: [
-                    { name: '100 level' },
-                    { name: '300' }
-                    
-                ]
-            },
-            'brand': {
-                name: 'Brand of the year',
-                nominees: [
-                    { name: 'Rewarder (IsmartDc)' },
-                    { name: 'Mariano Fashion Hub' },
-                    { name: 'Scentsbysheffy' }
-                ]
-            },
-            'supportive_male': {
-                name: 'Most Supportive of the year (Male)',
-                nominees: [
-                    { name: 'Hazmat' },
-                    { name: 'Believer of Lasu' },
-                    { name: 'Josh' }
-                ]
-            },
-            'supportive_female': {
-                name: 'Most Supportive of the year (Female)',
-                nominees: [
-                    { name: 'Nafisat' },
-                    { name: 'Oluwatoyosi' },
-                    { name: 'Kayo' }
-                ]
-            },
-            'rookie': {
-                name: 'Rookie of the year (100 level)',
-                nominees: [
-                    { name: 'Ninilola Bello' },
-                    { name: 'Riyah' },
-                    { name: 'Victorious' }
+                    { name: 'Victoria (Vhee)' },
+                    { name: 'Kaybee' },
+                    { name: 'Ajuwaga Oluwa Tubisiba' },
+                    { name: 'Smiles' },
+                    { name: 'Rabiu Maryam' }
                 ]
             },
             'most_beautiful': {
-                name: 'Most beautiful',
+                name: 'Most Beautiful',
                 nominees: [
-                    { name: 'ADEMOLA HALIMAH' },
-                    { name: 'Kiara queen' },
-                    { name: 'Tomi' }
+                    { name: 'Nimat' },
+                    { name: 'Omowunmi' },
+                    { name: 'Oyindamola' },
+                    { name: 'Mbadwe Chiamaka' },
+                    { name: 'Khamat Desire' }
                 ]
             },
-            'most_handsome': {
-                name: 'Most handsome',
+            'friend_of_union': {
+                name: 'Friend of the Union',
                 nominees: [
-                    { name: 'Hamzat' },
-                    { name: 'Blarkio' },
-                    { name: 'R money' }
+                    { name: 'Babatunde Rufai' },
+                    { name: 'Oluhunosebi' },
+                    { name: 'Badmus Aminat' }
                 ]
             },
-            'alumni': {
-                name: 'Alumni of the year',
+            'staff_adviser': {
+                name: 'Staff Adviser of the Year',
                 nominees: [
-                    { name: 'ODOFIN OREOLU' },
-                    { name: 'Coker' },
-                    { name: 'Scholar Hex' }
+                    { name: 'Dr. Idawu Awoyemi' },
+                    { name: 'Abatan' }
                 ]
             },
-            'hoc': {
-                name: 'HOC of the year',
+            'most_active_division': {
+                name: 'Most Active Division',
                 nominees: [
-                    { name: 'Nimi' },
-                    { name: 'Bami' },
-                    { name: 'Mauyon' }
-                ]
-            },
-            'deputy_hoc': {
-                name: 'Deputy HOC of the year',
-                nominees: [
-                    { name: 'Macaulay' },
-                    { name: 'ANIFAT' },
-                    { name: 'Mauyon' }
-                ]
-            },
-            'face_ssohis': {
-                name: 'Face of SSOHIS',
-                nominees: [
-                    { name: 'Sylvia' },
-                    { name: 'Hamzat' },
-                    { name: 'Laz3r' }
-                ]
-            },
-            'finalist_male': {
-                name: 'Finalist of the year (Male)',
-                nominees: [
-                    { name: 'Lee' },
-                    { name: 'Justice' },
-                    { name: 'Ola Ezekiel' }
-                ]
-            },
-            'finalist_female': {
-                name: 'Finalist of the year (Female)',
-                nominees: [
-                    { name: 'Faith' },
-                    { name: 'BUBU GIFT.' },
-                    { name: 'Big Oyin' }
-                ]
-            },
-            'friend_department': {
-                name: 'Friend of the department',
-                nominees: [
-                    { name: 'Hikmah' },
-                    { name: 'Hayomiday' },
-                    { name: 'Lee' }
-                ]
-            },
-            'talent': {
-                name: 'Talent of the year',
-                nominees: [
-                    { name: 'Laz3r' },
-                    { name: 'YOCEE' },
-                    { name: 'DANNY' }
-                ]
-            },
-            'calm_reserved_male': {
-                name: 'Calm and reserved of the department (Male)',
-                nominees: [
-                    { name: 'Hamzat' },
-                    { name: 'TIMI' },
-                    { name: 'Fauzir' }
-                ]
-            },
-            'calm_reserved_female': {
-                name: 'Calm and reserved of the department (Female)',
-                nominees: [
-                    { name: 'Praise' },
-                    { name: 'Marvelous' },
-                    { name: 'Chidera Ikechukwu' }
-                ]
-            },
-            'academia_male': {
-                name: 'Academia of the year (Male)',
-                nominees: [
-                    { name: 'Stixx' },
-                    { name: 'Emmanuel' },
-                    { name: 'JOSH' }
-                ]
-            },
-            'academia_female': {
-                name: 'Academia of the year (Female)',
-                nominees: [
-                    { name: 'Nwosu Esther' },
-                    { name: 'Tabitha' },
-                    { name: 'Deborah titilayo' }
-                ]
-            },
-            'expensive_male': {
-                name: 'Most Expensive (Male)',
-                nominees: [
-                    { name: 'Dudu paid' },
-                    { name: 'Tr6kt' },
-                    { name: 'Haywhy zee' }
-                ]
-            },
-            'expensive_female': {
-                name: 'Most Expensive (Female)',
-                nominees: [
-                    { name: 'Nimi' },
-                    { name: 'Adesewa' },
-                    { name: 'Korede' }
-                ]
-            },
-            'diplomat_male': {
-                name: 'Diplomat of the year (Male)',
-                nominees: [
-                    { name: 'Timi' },
-                    { name: 'D.C Li Wu (ORE)' },
-                    { name: 'Stixx' }
-                ]
-            },
-            'diplomat_female': {
-                name: 'Diplomat of the year (Female)',
-                nominees: [
-                    { name: 'Nwosu Esther' },
-                    { name: 'Tabitha' },
-                    { name: 'Miss Resolute' },
-                    { name: 'Naomi' }
-                ]
-            },
-            'influential_male': {
-                name: 'Most influential person (Male)',
-                nominees: [
-                    { name: 'BAMI' },
-                    { name: 'Josh' },
-                    { name: 'Riyah' }
-                ]
-            },
-            'content_creator': {
-                name: 'Content Creator of the year',
-                nominees: [
-                    { name: 'Yocee' },
-                    { name: 'Danny boy' },
-                    { name: 'Drizzy comics' }
-                ]
-            },
-            'artiste': {
-                name: 'Artiste of the year',
-                nominees: [
-                    { name: 'Blarkio' },
-                    { name: 'DARANJR' },
-                    { name: 'Laz3r' },
-                     { name: 'Big Reeds' }
-                ]
-            },
-            'outstanding_female': {
-                name: 'Most outstanding (Female)',
-                nominees: [
-                    { name: 'Sylvia' },
-                    { name: 'Kayo' },
-                    { name: 'Praise' }.
-                    { name: 'Joy' }
-                ]
-            },
-            'humanitarian': {
-                name: 'Humanitarian of the year',
-                nominees: [
-                    { name: 'Josh' },
-                    { name: 'King myde' },
-                    { name: 'Lee' }
+                    { name: 'Ikorodu' },
+                    { name: 'Badagry' },
+                    { name: 'Ikeja Division' },
+                    { name: 'Epe' },
+                    { name: 'Lagos Division' }
                 ]
             }
         };
@@ -1975,8 +1683,8 @@
         // Global Variables
         let currentUser = null;
         let selectedNominations = {};
-        let multipleSelectionEnabled = true;
-        let isSignUpMode = true;
+        let multipleSelectionEnabled = false;
+        let nomineeData = {};
 
         // DOM Elements
         const registrationSection = document.getElementById('registrationSection');
@@ -1986,14 +1694,20 @@
 
         // Initialize Application
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 App initialized');
             setupEventListeners();
             renderCategories();
-            setAuthMode('signup');
             initScrollToTop();
         });
 
-        // Scroll Functions
+        function setupEventListeners() {
+            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
+            document.getElementById('proceedToDetails').addEventListener('click', showDetailsSection);
+            document.getElementById('proceedToPayment').addEventListener('click', handleSubmission);
+            document.getElementById('nomineeImage').addEventListener('change', handleImagePreview);
+            document.getElementById('paymentScreenshot').addEventListener('change', handleScreenshotPreview);
+        }
+
+        // Scroll to Top Functionality
         function initScrollToTop() {
             const scrollUpBtn = document.getElementById('scrollToTop');
             const scrollDownBtn = document.getElementById('scrollDown');
@@ -2002,12 +1716,14 @@
                 const scrollPosition = window.pageYOffset;
                 const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
                 
+                // Show scroll up button after scrolling 300px
                 if (scrollPosition > 300) {
                     scrollUpBtn.classList.add('show');
                 } else {
                     scrollUpBtn.classList.remove('show');
                 }
                 
+                // Hide scroll down button if at bottom
                 if (scrollPosition >= documentHeight - 100) {
                     scrollDownBtn.style.display = 'none';
                 } else {
@@ -2030,7 +1746,7 @@
             });
         }
 
-        // Success Modal Functions
+        // Show Success Modal
         function showSuccessModal(message, documentId, totalAmount) {
             const modal = document.getElementById('successModal');
             const messageElement = document.getElementById('successMessage');
@@ -2043,6 +1759,7 @@
             
             modal.style.display = 'block';
             
+            // Auto close after 10 seconds
             setTimeout(() => {
                 closeSuccessModal();
             }, 10000);
@@ -2051,126 +1768,6 @@
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
             location.reload();
-        }
-
-        function setupEventListeners() {
-            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
-            document.getElementById('proceedToDetails').addEventListener('click', showDetailsSection);
-            document.getElementById('proceedToPayment').addEventListener('click', handleSubmission);
-            document.getElementById('nomineeImage').addEventListener('change', handleImagePreview);
-            document.getElementById('paymentScreenshot').addEventListener('change', handleScreenshotPreview);
-        }
-
-        // Google Sign-In - FIXED
-        async function signInWithGoogle() {
-            try {
-                showLoading(true);
-                console.log('🔄 Attempting Google sign-in...');
-                
-                const result = await auth.signInWithPopup(googleProvider);
-                currentUser = result.user;
-                
-                console.log('✅ Google sign-in successful:', currentUser.email);
-                
-                // Manually move to categories section
-                registrationSection.style.display = 'none';
-                categorySection.style.display = 'block';
-                updateProgressSteps(2);
-                
-                showAlert('🎉 Google sign-in successful! Welcome to SSOHIS nomination.', 'success');
-                
-            } catch (error) {
-                console.error('❌ Google sign-in failed:', error);
-                
-                let errorMessage = 'Google sign-in failed: ';
-                if (error.code === 'auth/popup-closed-by-user') {
-                    errorMessage = 'Google sign-in was cancelled.';
-                } else if (error.code === 'auth/popup-blocked') {
-                    errorMessage = 'Please allow popups for Google sign-in.';
-                } else if (error.code === 'auth/account-exists-with-different-credential') {
-                    errorMessage = 'An account already exists with this email using a different sign-in method.';
-                } else {
-                    errorMessage += error.message;
-                }
-                
-                showAlert(errorMessage, 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // Apple Sign-In - FIXED
-        async function signInWithApple() {
-            try {
-                showLoading(true);
-                console.log('🔄 Attempting Apple sign-in...');
-                
-                const result = await auth.signInWithPopup(appleProvider);
-                currentUser = result.user;
-                
-                console.log('✅ Apple sign-in successful:', currentUser.email || 'No email provided');
-                
-                // Manually move to categories section
-                registrationSection.style.display = 'none';
-                categorySection.style.display = 'block';
-                updateProgressSteps(2);
-                
-                showAlert('🍎 Apple sign-in successful! Welcome to SSOHIS nomination.', 'success');
-                
-            } catch (error) {
-                console.error('❌ Apple sign-in failed:', error);
-                
-                let errorMessage = 'Apple sign-in failed: ';
-                if (error.code === 'auth/popup-closed-by-user') {
-                    errorMessage = 'Apple sign-in was cancelled.';
-                } else if (error.code === 'auth/popup-blocked') {
-                    errorMessage = 'Please allow popups for Apple sign-in.';
-                } else if (error.code === 'auth/account-exists-with-different-credential') {
-                    errorMessage = 'An account already exists with this email using a different sign-in method.';
-                } else {
-                    errorMessage += error.message;
-                }
-                
-                showAlert(errorMessage, 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // Set Authentication Mode
-        function setAuthMode(mode) {
-            isSignUpMode = (mode === 'signup');
-            
-            const signupBtn = document.getElementById('signupBtn');
-            const loginBtn = document.getElementById('loginBtn');
-            const authTitle = document.getElementById('authTitle');
-            const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
-            const authSubmitBtn = document.getElementById('authSubmitBtn');
-            const authSwitchText = document.getElementById('authSwitchText');
-
-            if (isSignUpMode) {
-                signupBtn.classList.remove('btn-secondary');
-                signupBtn.classList.add('active');
-                loginBtn.classList.remove('active');
-                loginBtn.classList.add('btn-secondary');
-                
-                authTitle.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
-                confirmPasswordGroup.style.display = 'block';
-                document.getElementById('confirmPassword').required = true;
-                authSubmitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account & Continue';
-                authSwitchText.innerHTML = 'Already have an account? <a href="#" onclick="setAuthMode(\'login\')">Login here</a>';
-            } else {
-                loginBtn.classList.remove('btn-secondary');
-                loginBtn.classList.add('active');
-                signupBtn.classList.remove('active');
-                signupBtn.classList.add('btn-secondary');
-                
-                authTitle.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                confirmPasswordGroup.style.display = 'none';
-                document.getElementById('confirmPassword').required = false;
-                authSubmitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login & Continue';
-                authSwitchText.innerHTML = 'Don\'t have an account? <a href="#" onclick="setAuthMode(\'signup\')">Sign up here</a>';
-            }
         }
 
         // Progress Step Management
@@ -2188,62 +1785,51 @@
             });
         }
 
-        // Email/Password Registration Handler
+        // Registration Handler
         async function handleRegistration(e) {
             e.preventDefault();
-            console.log(`🚀 Starting ${isSignUpMode ? 'sign up' : 'login'} process...`);
             
             const email = document.getElementById('userEmail').value;
             const password = document.getElementById('userPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (isSignUpMode) {
-                if (password !== confirmPassword) {
-                    showAlert('Passwords do not match. Please try again.', 'error');
-                    return;
-                }
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match. Please try again.', 'error');
+                return;
+            }
 
-                if (password.length < 6) {
-                    showAlert('Password must be at least 6 characters long.', 'error');
-                    return;
-                }
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters long.', 'error');
+                return;
             }
 
             try {
                 showLoading(true);
 
-                if (isSignUpMode) {
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    currentUser = userCredential.user;
-                    showAlert('🎉 Account created successfully! Please select your nomination categories.', 'success');
-                } else {
+                // Try to sign in first, if fails then create account
+                try {
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     currentUser = userCredential.user;
-                    showAlert('👋 Welcome back! Please select your nomination categories.', 'success');
+                    showAlert('Welcome back! Please select your nomination categories.', 'success');
+                } catch (signInError) {
+                    if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/wrong-password') {
+                        // Create new account
+                        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                        currentUser = userCredential.user;
+                        showAlert('Account created successfully! Please select your nomination categories.', 'success');
+                    } else {
+                        throw signInError;
+                    }
                 }
 
+                // Move to category selection
+                registrationSection.style.display = 'none';
+                categorySection.style.display = 'block';
+                updateProgressSteps(2);
+
             } catch (error) {
-                console.error(`❌ ${isSignUpMode ? 'Sign up' : 'Login'} failed:`, error);
-                
-                let errorMessage = 'Authentication failed: ';
-                
-                if (error.code === 'auth/email-already-in-use') {
-                    errorMessage = 'An account with this email already exists. Try logging in instead.';
-                    setTimeout(() => setAuthMode('login'), 2000);
-                } else if (error.code === 'auth/user-not-found') {
-                    errorMessage = 'No account found with this email. Please sign up first.';
-                    setTimeout(() => setAuthMode('signup'), 2000);
-                } else if (error.code === 'auth/wrong-password') {
-                    errorMessage = 'Incorrect password. Please try again.';
-                } else if (error.code === 'auth/invalid-email') {
-                    errorMessage = 'Invalid email address format.';
-                } else if (error.code === 'auth/weak-password') {
-                    errorMessage = 'Password is too weak. Use at least 6 characters.';
-                } else {
-                    errorMessage += error.message;
-                }
-                
-                showAlert(errorMessage, 'error');
+                showAlert('Registration failed: ' + error.message, 'error');
+                console.error('Registration error:', error);
             } finally {
                 showLoading(false);
             }
@@ -2278,6 +1864,11 @@
                 `;
 
                 // Add event listeners
+                const radioButtons = categoryCard.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', handleNomineeSelection);
+                });
+
                 const nomineeItems = categoryCard.querySelectorAll('.nominee-item');
                 nomineeItems.forEach(item => {
                     item.addEventListener('click', function(e) {
@@ -2286,10 +1877,12 @@
                             const categoryId = radio.name;
                             const nomineeIndex = parseInt(radio.value);
                             
-                            // Check if already selected - unselect
+                            // Check if this radio is already selected
                             if (radio.checked) {
+                                // Unselect it
                                 unselectNominee(categoryId, item);
                             } else {
+                                // Select it
                                 selectNominee(categoryId, nomineeIndex, item);
                             }
                         }
@@ -2297,72 +1890,125 @@
                 });
 
                 grid.appendChild(categoryCard);
-            });
-        }
+                });
+                }
 
-        // Select Nominee Function
-        function selectNominee(categoryId, nomineeIndex, nomineeItem) {
+                // Select Nominee Function
+                function selectNominee(categoryId, nomineeIndex, nomineeItem) {
+        const nominee = nominationCategories[categoryId].nominees[nomineeIndex];
+        const radio = nomineeItem.querySelector('input[type="radio"]');
+        
+        // If multiple selection is disabled, clear all other selections
+        if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
+            clearAllSelections(false); // Don't show alert
+        }
+        
+        // Add current selection
+        selectedNominations[categoryId] = {
+            nominee: nominee.name,
+            category: nominationCategories[categoryId].name,
+            nomineeIndex: nomineeIndex
+        };
+
+        // Update UI
+        radio.checked = true;
+        nomineeItem.classList.add('selected');
+        
+        // Clear other selections in same category
+        document.querySelectorAll(`[data-category="${categoryId}"]`).forEach(item => {
+            if (item !== nomineeItem) {
+                item.classList.remove('selected');
+                item.querySelector('input[type="radio"]').checked = false;
+            }
+        });
+
+        updateSelectionDisplay();
+        updatePaymentCalculation();
+        console.log(`Selected: ${categoryId} - ${nominee.name}`);
+    }
+
+    // Unselect Nominee Function (no notification)
+    function unselectNominee(categoryId, nomineeItem) {
+        const radio = nomineeItem.querySelector('input[type="radio"]');
+        
+        // Remove selection
+        delete selectedNominations[categoryId];
+        radio.checked = false;
+        nomineeItem.classList.remove('selected');
+
+        updateSelectionDisplay();
+        updatePaymentCalculation();
+        updateSelectedCategoriesSummary();
+        
+        console.log(`Unselected: ${categoryId}`);
+    }
+
+    // Clear All Selections
+    function clearAllSelections(showAlert = true) {
+        selectedNominations = {};
+        
+        // Clear all radio buttons and visual selections
+        document.querySelectorAll('.nominee-item').forEach(item => {
+            item.classList.remove('selected');
+            item.querySelector('input[type="radio"]').checked = false;
+        });
+
+        updateSelectionDisplay();
+        updatePaymentCalculation();
+        updateSelectedCategoriesSummary();
+        
+        if (showAlert) {
+            showAlert('All selections cleared', 'info');
+        }
+    }
+
+    // Handle Nominee Selection (keeping for radio button events)
+    function handleNomineeSelection(e) {
+            const categoryId = e.target.name;
+            const nomineeIndex = parseInt(e.target.value);
             const nominee = nominationCategories[categoryId].nominees[nomineeIndex];
-            const radio = nomineeItem.querySelector('input[type="radio"]');
+            const nomineeItem = e.target.closest('.nominee-item');
             
-            // If multiple selection disabled, clear others
-            if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
-                clearAllSelections(false);
+            // Check if this nominee is already selected (for deselection)
+            if (selectedNominations[categoryId] && selectedNominations[categoryId].nomineeIndex === nomineeIndex) {
+                // Deselect the nominee
+                delete selectedNominations[categoryId];
+                e.target.checked = false;
+                nomineeItem.classList.remove('selected');
+                
+                updateSelectionDisplay();
+                updatePaymentCalculation();
+                return;
             }
             
+            // If multiple selection is disabled and we already have a selection
+            if (!multipleSelectionEnabled && Object.keys(selectedNominations).length >= 1 && !selectedNominations[categoryId]) {
+                // Clear all previous selections
+                Object.keys(selectedNominations).forEach(prevCategoryId => {
+                    delete selectedNominations[prevCategoryId];
+                    document.querySelectorAll(`[data-category="${prevCategoryId}"]`).forEach(item => {
+                        item.classList.remove('selected');
+                        item.querySelector('input[type="radio"]').checked = false;
+                    });
+                });
+            }
+            
+            // Add current selection
             selectedNominations[categoryId] = {
                 nominee: nominee.name,
                 category: nominationCategories[categoryId].name,
                 nomineeIndex: nomineeIndex
             };
 
-            radio.checked = true;
-            nomineeItem.classList.add('selected');
+            // Update UI
+            updateSelectionDisplay();
+            updatePaymentCalculation();
             
-            // Clear other selections in same category
+            // Update visual selection for this category
             document.querySelectorAll(`[data-category="${categoryId}"]`).forEach(item => {
-                if (item !== nomineeItem) {
-                    item.classList.remove('selected');
-                    item.querySelector('input[type="radio"]').checked = false;
-                }
-            });
-
-            updateSelectionDisplay();
-            updatePaymentCalculation();
-            console.log(`Selected: ${categoryId} - ${nominee.name}`);
-        }
-
-        // Unselect Nominee Function (no notification)
-        function unselectNominee(categoryId, nomineeItem) {
-            const radio = nomineeItem.querySelector('input[type="radio"]');
-            
-            delete selectedNominations[categoryId];
-            radio.checked = false;
-            nomineeItem.classList.remove('selected');
-
-            updateSelectionDisplay();
-            updatePaymentCalculation();
-            updateSelectedCategoriesSummary();
-            
-            console.log(`Unselected: ${categoryId}`);
-        }
-
-        // Clear All Selections
-        function clearAllSelections(showAlert = true) {
-            selectedNominations = {};
-            
-            document.querySelectorAll('.nominee-item').forEach(item => {
                 item.classList.remove('selected');
-                item.querySelector('input[type="radio"]').checked = false;
             });
-
-            updateSelectionDisplay();
-            updatePaymentCalculation();
-            updateSelectedCategoriesSummary();
-            
-            if (showAlert) {
-                showAlert('All selections cleared', 'info');
-            }
+            nomineeItem.classList.add('selected');
         }
 
         // Toggle Multiple Selection
@@ -2372,7 +2018,7 @@
             const text = document.getElementById('selectionModeText');
             
             if (multipleSelectionEnabled) {
-                btn.innerHTML = '<i class="fas fa-check"></i> Multiple Selection Enabled';
+                btn.innerHTML = '<i class="fas fa-check"></i> Disable Multiple Selection';
                 btn.classList.remove('btn-secondary');
                 btn.classList.add('btn-success');
                 text.textContent = 'Multiple categories enabled';
@@ -2382,19 +2028,20 @@
                 btn.classList.add('btn-secondary');
                 text.textContent = 'Single category mode';
                 
+                // Keep only the first selection
                 const keys = Object.keys(selectedNominations);
                 if (keys.length > 1) {
                     const firstKey = keys[0];
                     const firstSelection = selectedNominations[firstKey];
-                    
-                    clearAllSelections(false);
-                    
                     selectedNominations = { [firstKey]: firstSelection };
-                    const firstItem = document.querySelector(`[data-category="${firstKey}"][data-nominee="${firstSelection.nomineeIndex}"]`);
-                    if (firstItem) {
-                        firstItem.classList.add('selected');
-                        firstItem.querySelector('input[type="radio"]').checked = true;
-                    }
+                    
+                    // Update UI
+                    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                        if (radio.name !== firstKey) {
+                            radio.checked = false;
+                            radio.closest('.nominee-item').classList.remove('selected');
+                        }
+                    });
                 }
             }
             
@@ -2408,7 +2055,6 @@
             const counter = document.getElementById('selectionCounter');
             const fixedCounter = document.getElementById('fixedCounter');
             const proceedBtn = document.getElementById('proceedToDetails');
-            const clearBtn = document.getElementById('clearAllBtn');
             
             document.getElementById('selectedCount').textContent = count;
             document.getElementById('fixedSelectedCount').textContent = count;
@@ -2417,28 +2063,25 @@
                 counter.style.display = 'block';
                 fixedCounter.style.display = 'block';
                 proceedBtn.style.display = 'block';
-                if (clearBtn) clearBtn.style.display = 'inline-flex';
             } else {
                 counter.style.display = 'none';
                 fixedCounter.style.display = 'none';
                 proceedBtn.style.display = 'none';
-                if (clearBtn) clearBtn.style.display = 'none';
             }
         }
 
         // Update Payment Calculation
         function updatePaymentCalculation() {
             const categoryCount = Object.keys(selectedNominations).length;
-            const baseAmount = categoryCount * 1000;
-            const serviceFee = categoryCount * 150;
-            const processingFee = categoryCount * 100;
-            const total = baseAmount + serviceFee + processingFee;
+            const subtotal = categoryCount * 1000;
+            const serviceFee = 150;
+            const processingFee = 100;
+            const total = subtotal + serviceFee + processingFee;
             
             document.getElementById('categoryCount').textContent = categoryCount;
-            document.getElementById('subtotalAmount').textContent = baseAmount.toLocaleString();
-            document.getElementById('serviceFeeAmount').textContent = serviceFee.toLocaleString();
-            document.getElementById('processingFeeAmount').textContent = processingFee.toLocaleString();
+            document.getElementById('subtotalAmount').textContent = subtotal.toLocaleString();
             document.getElementById('totalAmount').textContent = total.toLocaleString();
+            document.getElementById('bankTransferAmount').textContent = total.toLocaleString();
         }
 
         // Show Details Section
@@ -2471,7 +2114,7 @@
             const preview = document.getElementById('imagePreview');
             
             if (file) {
-                if (file.size > 5 * 1024 * 1024) {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
                     showAlert('Image size should be less than 5MB', 'error');
                     e.target.value = '';
                     return;
@@ -2479,9 +2122,7 @@
                 
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const base64Data = e.target.result;
-                    preview.innerHTML = `<img src="${base64Data}" alt="Profile Preview" class="image-preview">`;
-                    e.target.base64Data = base64Data;
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Profile Preview" class="image-preview">`;
                 };
                 reader.readAsDataURL(file);
             }
@@ -2493,7 +2134,7 @@
             const preview = document.getElementById('screenshotPreview');
             
             if (file) {
-                if (file.size > 5 * 1024 * 1024) {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
                     showAlert('Screenshot size should be less than 5MB', 'error');
                     e.target.value = '';
                     return;
@@ -2501,185 +2142,73 @@
                 
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const base64Data = e.target.result;
-                    preview.innerHTML = `<img src="${base64Data}" alt="Payment Screenshot" class="image-preview">`;
-                    e.target.base64Data = base64Data;
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Payment Screenshot" class="image-preview">`;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // Handle Submission - FIXED VERSION
+
+
+        // Handle Submission
         async function handleSubmission() {
             console.log('🚀 Starting nomination submission...');
-            
-            // Check authentication
-            if (!currentUser) {
-                showAlert('❌ Please log in first!', 'error');
-                console.error('❌ No current user found');
-                return;
-            }
-            
-            console.log('✅ User authenticated:', currentUser.email);
             
             // Get form data
             const name = document.getElementById('nomineeName').value.trim();
             const imageFile = document.getElementById('nomineeImage').files[0];
             const screenshotFile = document.getElementById('paymentScreenshot').files[0];
             
-            console.log('📋 Form validation:', { 
-                name: name, 
-                imageFile: imageFile ? imageFile.name : 'none', 
-                screenshotFile: screenshotFile ? screenshotFile.name : 'none',
-                selectedCount: Object.keys(selectedNominations).length
-            });
+            console.log('📋 Form data:', { name, imageFile: imageFile?.name, screenshotFile: screenshotFile?.name });
             
-            // Validation
-            if (!name) {
-                showAlert('Please enter your full name!', 'error');
-                return;
-            }
-            
-            if (!imageFile) {
-                showAlert('Please upload your profile image!', 'error');
-                return;
-            }
-            
-            if (!screenshotFile) {
-                showAlert('Please upload payment screenshot!', 'error');
-                return;
-            }
-            
-            if (Object.keys(selectedNominations).length === 0) {
-                showAlert('Please select at least one category!', 'error');
+            // Simple validation
+            if (!name || !imageFile || !screenshotFile) {
+                showAlert('Please fill all fields!', 'error');
                 return;
             }
 
-            // Show loading
+            // Show loading immediately
             showLoading(true);
-            console.log('⏳ Starting submission process...');
             
             try {
-                // Calculate payment
+                // Calculate payment details
                 const categoryCount = Object.keys(selectedNominations).length;
                 const baseAmount = categoryCount * 1000;
                 const serviceFee = categoryCount * 150;
                 const processingFee = categoryCount * 100;
                 const totalAmount = baseAmount + serviceFee + processingFee;
                 
-                console.log('💰 Payment calculation:', { categoryCount, baseAmount, serviceFee, processingFee, totalAmount });
-                
-                // Convert images to base64
-                let profileImageBase64 = '';
-                let paymentScreenshotBase64 = '';
-                
-                // Convert profile image
-                if (imageFile) {
-                    profileImageBase64 = await convertFileToBase64(imageFile);
-                    console.log('📸 Profile image converted to base64, size:', Math.round(profileImageBase64.length / 1024), 'KB');
-                }
-                
-                // Convert screenshot
-                if (screenshotFile) {
-                    paymentScreenshotBase64 = await convertFileToBase64(screenshotFile);
-                    console.log('📱 Screenshot converted to base64, size:', Math.round(paymentScreenshotBase64.length / 1024), 'KB');
-                }
-                
-                // Prepare data for Firebase
-                const nominationData = {
-                    // User Info
+                // Simple direct save - no complex upload process
+                const docData = {
                     nomineeName: name,
-                    email: currentUser.email,
-                    userId: currentUser.uid,
-                    userDisplayName: currentUser.displayName || name,
-                    authProvider: currentUser.providerData[0]?.providerId || 'password',
-                    
-                    // Nomination Details
+                    email: currentUser?.email || document.getElementById('userEmail').value,
                     selectedNominations: selectedNominations,
+                    profileImage: imageFile.name,
+                    paymentScreenshot: screenshotFile.name,
                     categoryCount: categoryCount,
-                    
-                    // Images (Base64)
-                    profileImage: {
-                        data: profileImageBase64,
-                        name: imageFile.name,
-                        size: imageFile.size,
-                        type: imageFile.type
-                    },
-                    paymentScreenshot: {
-                        data: paymentScreenshotBase64,
-                        name: screenshotFile.name,
-                        size: screenshotFile.size,
-                        type: screenshotFile.type
-                    },
-                    
-                    // Payment Info
                     paymentDetails: {
                         baseAmount: baseAmount,
                         serviceFee: serviceFee,
                         processingFee: processingFee,
-                        totalAmount: totalAmount,
-                        currency: 'NGN'
+                        totalAmount: totalAmount
                     },
-                    
-                    // Bank Details
-                    bankTransferDetails: {
-                        bankName: 'Opay',
-                        accountName: 'IDRIS OLUWALOGBON BASORUN',
-                        accountNumber: '6110747164',
-                        transferAmount: totalAmount
-                    },
-                    
-                    // Status
-                    submissionStatus: 'submitted',
-                    paymentStatus: 'pending_verification',
+                    submissionStatus: 'pending_verification',
                     paymentMethod: 'bank_transfer',
-                    
-                    // Timestamp
-                    submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    submittedDate: new Date().toISOString(),
-                    
-                    // Event Info
-                    eventName: 'SSOHIS DINNER NIGHT & AWARD',
-                    eventSlogan: 'DIPLOMAT AND DINE',
-                    eventHost: 'BELIEVER OF LASU'
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: 'submitted'
                 };
 
-                console.log('📝 Data prepared for Firebase:', {
-                    nomineeName: nominationData.nomineeName,
-                    email: nominationData.email,
-                    categoryCount: nominationData.categoryCount,
-                    totalAmount: nominationData.paymentDetails.totalAmount,
-                    hasProfileImage: !!nominationData.profileImage.data,
-                    hasPaymentScreenshot: !!nominationData.paymentScreenshot.data
-                });
-
-                // Save to Firebase - Try multiple collections for safety
-                console.log('💾 Attempting to save to Firebase...');
+                console.log('💾 Saving to ssohisnomination collection...');
                 
-                // Primary save to ssohisnomination (correct collection name)
-                let docRef;
-                try {
-                    docRef = await db.collection('ssohisnomination').add(nominationData);
-                    console.log('✅ PRIMARY: Saved to ssohisnomination with ID:', docRef.id);
-                } catch (primaryError) {
-                    console.error('❌ Primary save failed:', primaryError);
-                    
-                    // Fallback to app_reviews
-                    try {
-                        docRef = await db.collection('app_reviews').add(nominationData);
-                        console.log('✅ FALLBACK: Saved to app_reviews with ID:', docRef.id);
-                    } catch (fallbackError) {
-                        console.error('❌ Fallback save failed:', fallbackError);
-                        throw new Error(`Both saves failed. Primary: ${primaryError.message}, Fallback: ${fallbackError.message}`);
-                    }
-                }
+                // Save directly to Firebase
+                const docRef = await db.collection('ssohisnomination').add(docData);
+                
+                console.log('✅ Saved with document ID:', docRef.id);
                 
                 // Stop loading
                 showLoading(false);
                 
-                console.log('🎉 Submission successful! Document ID:', docRef.id);
-                
-                // Show success modal
+                // Show success modal instead of alert
                 showSuccessModal(
                     'Your nomination has been successfully submitted and saved to our database.',
                     docRef.id,
@@ -2690,75 +2219,46 @@
                 updateProgressSteps(4);
                 
             } catch (error) {
-                console.error('❌ Complete submission failed:', error);
+                console.error('❌ Submission failed:', error);
                 showLoading(false);
-                showAlert(`Submission failed: ${error.message}. Please try again or contact support.`, 'error');
+                showAlert('Error: ' + error.message, 'error');
             }
         }
 
-        // Helper function to convert file to base64
-        function convertFileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
 
-        // Logout Function
-        async function handleLogout() {
-            try {
-                console.log('🔄 Logging out user...');
-                showLoading(true);
-                
-                // Sign out from Firebase
-                await auth.signOut();
-                
-                // Clear local data
-                currentUser = null;
-                selectedNominations = {};
-                
-                // Clear form data
-                document.getElementById('userEmail').value = '';
-                document.getElementById('userPassword').value = '';
-                document.getElementById('confirmPassword').value = '';
-                document.getElementById('nomineeName').value = '';
-                document.getElementById('nomineeImage').value = '';
-                document.getElementById('paymentScreenshot').value = '';
-                
-                // Clear previews
-                document.getElementById('imagePreview').innerHTML = '';
-                document.getElementById('screenshotPreview').innerHTML = '';
-                
-                // Clear selections
-                document.querySelectorAll('.nominee-item').forEach(item => {
-                    item.classList.remove('selected');
-                    item.querySelector('input[type="radio"]').checked = false;
-                });
-                
-                // Reset UI
-                updateSelectionDisplay();
-                updatePaymentCalculation();
-                
-                console.log('✅ Logout successful');
-                showAlert('👋 You have been logged out successfully.', 'info');
-                
-                // Auth state listener will handle UI navigation
-                
-            } catch (error) {
-                console.error('❌ Logout failed:', error);
-                showAlert('Logout failed: ' + error.message, 'error');
-            } finally {
-                showLoading(false);
+
+
+
+        // Validate Nominee Form
+        function validateNomineeForm() {
+            const name = document.getElementById('nomineeName').value.trim();
+            const imageFile = document.getElementById('nomineeImage').files[0];
+            const screenshotFile = document.getElementById('paymentScreenshot').files[0];
+            
+            if (!name) {
+                showAlert('Please enter your full name.', 'error');
+                return false;
             }
+            
+            if (!imageFile) {
+                showAlert('Please upload your profile image or brand logo.', 'error');
+                return false;
+            }
+            
+            if (!screenshotFile) {
+                showAlert('Payment screenshot is required! Please upload your bank transfer confirmation.', 'error');
+                return false;
+            }
+            
+            if (Object.keys(selectedNominations).length === 0) {
+                showAlert('Please select at least one category.', 'error');
+                return false;
+            }
+            
+            return true;
         }
 
-        // Utility Functions
-        function redirectToRewarder() {
-            window.open('https://rewarder.com.ng', '_blank');
-        }
-
+        // Show Alert
         function showAlert(message, type) {
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert alert-${type}`;
@@ -2766,17 +2266,15 @@
             
             document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
             
-            scrollToTop();
-            
             setTimeout(() => {
                 alertDiv.remove();
-            }, 8000);
+            }, 6000);
         }
 
+        // Show Loading
         function showLoading(show) {
             loadingScreen.style.display = show ? 'block' : 'none';
         }
     </script>
 </body>
 </html>
-
